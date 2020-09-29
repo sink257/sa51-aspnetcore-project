@@ -18,13 +18,6 @@ namespace Team8CA.Controllers
             return View();
         }
 
-        void Controller()
-        {
-
-        }
-
-
-
         public IActionResult Verify(Account acc)
         {
             return View();
