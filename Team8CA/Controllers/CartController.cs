@@ -8,13 +8,9 @@ namespace Team8CA.Controllers
 {
     public class CartController : Controller
     {
-
-
-
-
         public IActionResult Index()
         {
-            return View();
+          return View();
         }
     }
 }
