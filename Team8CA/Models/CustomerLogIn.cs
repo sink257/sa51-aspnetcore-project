@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace Team8CA.Models
 {
-    public class CustomerLogIn
+    public class CustomerLogin
     {
-        public CustomerLogIn() { }
+        public CustomerLogin() { }
 
-        public CustomerLogIn(string Username, string Password)
+        public CustomerLogin(string Username, string Password)
         {
             this.Username = Username;
             this.Password = Password;
@@ -18,11 +18,6 @@ namespace Team8CA.Models
         public int CustomerID { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-
-
-
-
-
 
     }
 }
