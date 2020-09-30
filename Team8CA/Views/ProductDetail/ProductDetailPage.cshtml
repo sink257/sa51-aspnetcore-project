@@ -105,12 +105,13 @@
 
                 <div class="col-8 pt-4">
                     <h2>Microsoft Visio 2016 Professional (PC) - Microsoft Key - GLOBAL</h2>
-                    <h2 class="text-warning">
-                        ★ ★ ★ ★ ☆
-                    </h2>
+                    
+                    <h2 class="text-warning">★ ★ ★ ★ ☆</h2>
+                    <a href="#product-reviews" class="text-primary">See reviews</a>
+                    
                     <div class="price pt-3"><h1 class="text-danger">$99</h1></div>
                     <p class="pt-3"> Microsoft Visio 2016 is a Part of Microsoft’s Office family, Microsoft Visio is a diagramming and vector graphics application that creates professional flowcharts, diagrams and organisational charts.</p>
-                    <a href="#" class="text-primary">Learn more</a>
+                    <a href="#product-details" class="text-primary">Learn more</a>
 
                     <div class="number-input">
                         <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
@@ -126,26 +127,31 @@
                 
             </div>
             <div class="row">
-
-                <div class="row pt-5 container">
+                @*product details*@
+                <div class="row pt-5 container" id="product-details">
+                    <h4 class="container-fluid">Product Details</h4>
+                    <div class="user-review container">
+                        <hr>
+                        <p>Some details</p>
+                    </div>
+                </div>
+                @*product review*@
+                <div class="row pt-5 container" id="product-reviews">
                     <h4 class="container-fluid">Product Reviews</h4>
 
                     <div class="user-review container">
                         <hr>
-                        <h6>User001:</h6>
+                        <h6 class="text-info">User001:</h6>
+                        <span>
+                            <h4 class="text-warning">★ ★ ★ ★ ☆</h4>
+                        </span>
                         <p>Good product! Will buy again.</p>
-
                     </div>
 
-                    <div class="user-review container">
-                        <hr>
-                        <h6>User001:</h6>
-                        <p>Good product! Will buy again.</p>
 
-                    </div>
-                    
+
                 </div>
-                
+
             </div>
         </div>
 
