@@ -1,4 +1,173 @@
 ﻿@{
 }
+<style>
+    .add-to-cart {
+        width: 220px;
+        padding: 10px;
+        float: left;
+        margin-top: 10px;
+        margin-right: 20px;
+        display: block;
+    }
 
-<h1>Product Details</h1>
+    .side {
+        border-left-color: grey;
+        border-left: 2px;
+    }
+
+
+    .number-input {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 40px;
+    }
+
+    .number-input button {
+            -webkit-appearance: none;
+            background-color: transparent;
+            border: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin: 0;
+            position: relative;
+    }
+
+    .number-input button:before,
+    .number-input button:after {
+        display: inline-block;
+        position: absolute;
+        content: '';
+        height: 2px;
+        transform: translate(-50%, -50%);
+    }
+
+    .number-input button.plus:after {
+        transform: translate(-50%, -50%) rotate(90deg);
+    }
+
+    .number-input input[type=number] {
+        text-align: center;
+    }
+
+    .number-input.number-input {
+        border: 1px solid #ced4da;
+        width: 10rem;
+        border-radius: .25rem;
+    }
+
+    .number-input.number-input button {
+        width: 2.6rem;
+        height: .7rem;
+    }
+
+    .number-input.number-input button.minus {
+        padding-left: 10px;
+    }
+
+    .number-input.number-input button:before,
+    .number-input.number-input button:after {
+        width: .7rem;
+        background-color: #495057;
+    }
+
+    .number-input.number-input input[type=number] {
+        max-width: 4rem;
+        padding: .5rem;
+        border: 1px solid #ced4da;
+        border-width: 0 1px;
+        font-size: 1rem;
+        height: 2rem;
+        color: #495057;
+    }
+
+    .number-input input[type=number]::-webkit-inner-spin-button,
+    .number-input input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
+
+
+    .user-review {
+        display: block;
+    }
+
+</style>
+
+
+<div class="container">
+    <div class="row pt-4">
+        <div class="col-9">
+            <div class="row ">
+                <div class="col-4 p-4">
+                <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="container-fluid" />
+            </div>
+
+                <div class="col-8 pt-4">
+                    <h2>Microsoft Visio 2016 Professional (PC) - Microsoft Key - GLOBAL</h2>
+                    <h2 class="text-warning">
+                        ★ ★ ★ ★ ☆
+                    </h2>
+                    <div class="price pt-3"><h1 class="text-danger">$99</h1></div>
+                    <p class="pt-3"> Microsoft Visio 2016 is a Part of Microsoft’s Office family, Microsoft Visio is a diagramming and vector graphics application that creates professional flowcharts, diagrams and organisational charts.</p>
+                    <a href="#" class="text-primary">Learn more</a>
+
+                    <div class="number-input">
+                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                        <input class="quantity" min="0" name="quantity" value="1" type="number">
+                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                    </div>
+
+                    <div class="pt-3">
+                        <button type="button" class="btn btn-primary add-to-cart">Buy Now</button>
+                        <button type="button" class="btn btn-outline-primary add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row">
+
+                <div class="row pt-5 container">
+                    <h4 class="container-fluid">Product Reviews</h4>
+
+                    <div class="user-review container">
+                        <hr>
+                        <h6>User001:</h6>
+                        <p>Good product! Will buy again.</p>
+
+                    </div>
+
+                    <div class="user-review container">
+                        <hr>
+                        <h6>User001:</h6>
+                        <p>Good product! Will buy again.</p>
+
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+
+
+        <div class="col-3 p-4 side">
+            <h5 class="pl-4">Similar Items</h5>
+            <div class="p-4">
+                <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="container p-3 img-thumbnail" />
+                <a href="#">Microsoft Project</a>
+            </div>
+            <div class="p-4">
+                <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="container p-3 img-thumbnail" />
+                <a href="#">Microsoft Project</a>
+            </div>
+            <div class="p-4">
+                <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="container p-3 img-thumbnail" />
+                <a href="#">Microsoft Project</a>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
