@@ -92,6 +92,11 @@
         display: block;
     }
 
+    #leave-review {
+        width: 200px;
+        border-radius: .25rem;
+    }
+
 </style>
 
 
@@ -99,9 +104,10 @@
     <div class="row pt-4">
         <div class="col-9">
             <div class="row ">
-                <div class="col-4 p-4">
-                <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="container-fluid" />
-            </div>
+                <div class="col-4 p-4 text-center">
+                    <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="p-3 container img-thumbnail" />
+                    <h5 class="text-success p-3">In stock</h5>
+                </div>
 
                 <div class="col-8 pt-4">
                     <h2>Microsoft Visio 2016 Professional (PC) - Microsoft Key - GLOBAL</h2>
@@ -132,7 +138,16 @@
                     <h4 class="container-fluid">Product Details</h4>
                     <div class="user-review container">
                         <hr>
-                        <p>Some details</p>
+                        <p>
+                            <b>Visio Proffesional Features</b><br>
+                            Sub-Process Creation and Validation Rules - Visio Professional includes advanced features such as sub-process creation and validation rules.
+                            Extra Templates - Visio Professional ships with a large assortment of extra templates and shapes that meet industry standards including BPMN 2.0, UML 2.4, IEEE and Windows Workflow 4.0
+                            More Customizable Shapes - Visio Professional includes a few more customizable shapes and built-in tools that will allow the creation of professional diagrams in less time.
+                            Secure Diagrams - Visio Professional users can secure diagrams with Microsoft file protection technologies which offer persistent Information Rights Management (IRM) protection of email messages and attachments, and diagram files.
+                            Because Visio Professional 2016 supports Information Rights Management (IRM), you can control document rights at the individual user level.
+                            <br>
+                            <i>This content was copied from https://www.g2a.com/en-gb/microsoft-visio-2016-professional-pc-microsoft-key-global-i10000218431001. It is protected by copyright, all rights reserved. If you want to use it, you are obligated to leave the link to the original source.</i>
+                        </p>
                     </div>
                 </div>
                 @*product review*@
@@ -142,14 +157,21 @@
                     <div class="user-review container">
                         <hr>
                         <h6 class="text-info">User001:</h6>
-                        <span>
-                            <h4 class="text-warning">★ ★ ★ ★ ☆</h4>
-                        </span>
-                        <p>Good product! Will buy again.</p>
+                        <h4 class="text-warning">★ ★ ★ ★ ☆</h4>
+                        <p>Good product! Will buy again😁.</p>
                     </div>
 
+                    <div class="user-review container">
+                        <hr>
+                        <h6 class="text-info">User002:</h6>
+                        <h4 class="text-warning">★ ☆ ☆ ☆ ☆</h4>
+                        <p>Activation code does not work! Will never buy again🙃.</p>
+                    </div>
 
-
+                </div>
+                @*Leave a review*@
+                <div class="row pt-5 container" >
+                    <button class="btn-outline-success container" id="leave-review">Leave a Review</button>
                 </div>
 
             </div>
