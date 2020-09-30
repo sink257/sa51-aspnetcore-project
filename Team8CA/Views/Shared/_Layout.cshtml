@@ -22,13 +22,11 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">ViewCart</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="CustomerLogin" asp-action="Index">Login</a>
                         </li>
                     </ul>
                 </div>
+                @Html.Partial("_ShoppingCart")
             </div>
         </nav>
     </header>
