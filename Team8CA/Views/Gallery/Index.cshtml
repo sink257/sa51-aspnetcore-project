@@ -3,7 +3,6 @@
     string[] imgs = (string[])ViewData["images"];
 }
 
-
 <h1>Products</h1>
 
 <style>
@@ -61,27 +60,36 @@
 <table>
     @for (int i = 0; i < imgs.Length; i += 3)
     {
-        <tr>
-            @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
-            {
-                <td>
-                    @*images from database*@
-                    @{
-                        string url = ViewData["url_prefix"] +
-                        imgs[i + j] + ViewData["url_postfix"];
-                    }
+    <tr>
+        @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
+        {
+            <td>
+                @*images from database*@
+                @{ string url = ViewData["url_prefix"] +
+                 imgs[i + j] + ViewData["url_postfix"];
+                }
 
-                    <div class="container">
-                        <img src=@url width="350" height="235" />
-                        <div class="middle">
-                            <div class="text">View</div>
-                        </div>
-                        <div class="middle2">
-                            <div class="text">To cart</div>
-                        </div>
+                <div class="container">
+                    <img src=@url width="350" height="235" />
+                    <div class="middle">
+                        <div class="text">View</div>
                     </div>
-                </td>
-            }
+                    <div class="middle2">
+                        <div class="text">To cart</div>
+                    </div>
+                </div>
+
+            </td>
+          }
         </tr>
-    }
+     }
+</table>
+
+<table>
+    <tr>
+        <td><img src="/images/adguard.jpeg" width="350" height="235" /> </td>
+    </tr>
+
+
+
 </table>

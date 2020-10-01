@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PagedList;
+using Team8CA.Models;
 
 namespace Team8CA.Controllers
 {
@@ -24,8 +26,10 @@ namespace Team8CA.Controllers
             ViewData["url_prefix"] = "https://images.unsplash.com/";
             ViewData["url_postfix"] = "?w=350";
 
+
+
+
             return View();
         }
-
-    }
+     }
 }
