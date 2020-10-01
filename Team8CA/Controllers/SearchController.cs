@@ -24,13 +24,13 @@ namespace Team8CA.Controllers
 
         //    return View(product);
         //}
-        public ActionResult Search()
+        public IActionResult Search()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Search(string productName)
+        public IActionResult Search(string productName)
         {
             ViewBag.SearchKey = productName;
 
