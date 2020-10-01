@@ -1,0 +1,13 @@
+﻿body 
+{
+}
+
+.img
+{
+}
+
+.img:hover 
+{
+    background: #808080;
+    transform: translate(-50%);
+}
