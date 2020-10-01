@@ -9,20 +9,32 @@ namespace Team8CA.Controllers
 {
     public class SearchController : Controller
     {
-        [HttpPost]
-        public IActionResult Index(string keywords)
-        {
-            string[] products = { "product1", "product2", "product3", "product4" };
+        //[HttpPost]
+        //public IActionResult Index(string keywords)
+        //{
+        //    string[] products = { "product1", "product2", "product3", "product4" };
             
-            int x;
+        //    int x;
 
-            bool result = int.TryParse(keywords, out x);
+        //    bool result = int.TryParse(keywords, out x);
 
-            var product = (from p in products
-                           where p == keywords
-                           select p).ToList();
+        //    var product = (from p in products
+        //                   where p == keywords
+        //                   select p).ToList();
 
-            return View(product);
+        //    return View(product);
+        //}
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Search(string productName)
+        {
+            ViewBag.SearchKey = productName;
+
+            return View();
         }
     }
 }
