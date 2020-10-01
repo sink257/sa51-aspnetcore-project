@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Team8CA.DataAccess;
 
 namespace Team8CA
 {
@@ -23,10 +25,14 @@ namespace Team8CA
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.AddDbContext<AppDbContext>
+                (o => o.UseSqlServer(Configuration.
+                GetConnectionString("MyNewDatabase")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppDbContext db)
         {
             if (env.IsDevelopment())
             {
@@ -36,6 +42,9 @@ namespace Team8CA
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            db.Database.EnsureCreated();
+
             app.UseStaticFiles();
 
             app.UseRouting();
