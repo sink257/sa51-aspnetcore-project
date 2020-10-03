@@ -10,7 +10,7 @@ namespace Team8CA.DataAccess
     {
         public DBInitialiser (AppDbContext db)
         {
-            db.CustomerLogin.Add(new CustomerLogin("test", "test"));
+            db.CustomerLogin.Add(new CustomerLogin("test", "password1"));
         }
     }
 }
