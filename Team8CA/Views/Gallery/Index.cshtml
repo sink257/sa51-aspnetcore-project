@@ -11,6 +11,16 @@
         width: 100%;
     }
 
+    .productdesc {
+        width: 350px;
+        left: 4%;
+        background-color: white;
+        text-align:center;
+        padding-top: 3%;
+        padding-bottom: 3%;
+        position: relative;
+    }
+
     .middle {
         transition: .5s ease;
         opacity: 0;
@@ -87,9 +97,13 @@
         color: #000000;
     }
 
-    .li {
-        font-size: 18px;
+    div.polaroid {
+        width: 90%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        
     }
+
+
 </style>
 
 <div class="sidenav">
@@ -120,11 +134,14 @@
         <tr>
             @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
             {
-                <td>
+            <td>
+                <div class="polaroid">
                     @*images from database*@
                     @{ string url = ViewData["url_prefix"] +
-                            imgs[i + j] + ViewData["url_postfix"];
+                                 imgs[i + j] + ViewData["url_postfix"];
                     }
+
+
 
                     <div class="container">
                         <img src=@url width="350" height="235" />
@@ -135,6 +152,16 @@
                             <button type="button" class="btn btn-primary add-to-cart">Add to Cart</button>
                         </div>
                     </div>
+
+
+                    <div class="productdesc">
+                        <h5>Productname</h5>
+                        <h6>This is a .....</h6>
+                        <h5><b>$999</b></h5>
+                    </div>
+                </div>
+
+                    <br />
                 </td>
             }
         </tr>
