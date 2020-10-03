@@ -56,45 +56,25 @@
         </div>
     </div>
     <div class="card">
-
         <table>
-            <tr>
-                @*<td>
-                    <img src="image_name" alt="@name" style="width:100%">
-                    <h1>Product Name</h1>
-                    <p>order date</p>
-                    <p>order status</p>
-                    <p><button class="but">Order Again</button></p>
-                    <p><button class="but">More Details</button></p>
-                </td>
-                <td>
-                    <img src="image_name" alt="@name" style="width:100%">
-                    <h1>Product Name</h1>
-                    <p>order date</p>
-                    <p>order status</p>
-                    <p><button class="but">Order Again</button></p>
-                    <p><button class="but">More Details</button></p>
-                </td>
-                <td>
-                    <img src="image_name" alt="@name" style="width:100%">
-                    <h1>Product Name</h1>
-                    <p>order date</p>
-                    <p>order status</p>
-                    <p><button class="but">Order Again</button></p>
-                    <p><button class="but">More Details</button></p>
-                </td>
-                <td>
-                    <img src="image_name" alt="@name" style="width:100%">
-                    <h1>Product Name</h1>
-                    <p>order date</p>
-                    <p>order status</p>
-                    <p><button class="but">Order Again</button></p>
-                    <p><button class="but">More Details</button></p>
-                </td>*@
-            </tr>
+            @*Have to fix the number of rows*@
+            @{
+                @*foreach (in)*@
+                    <tr>
+                        @*<td>
+                        <img src="image_name" alt="@name" style="width:100%">
+                        <h1>Product Name</h1>
+                        <p>order date</p>
+                        <p>order status</p>
+                        <p><button class="but">Order Again</button></p>
+                        <p><button class="but">More Details</button></p>
+                    </td>*@
+                    </tr>
+
+             }
         </table>
     </div>
 
-
+@* If they haven't ordered any items, display you have not yet orderd (using if statement)*@
     <p>You have not yet ordered.<p>
 </body>
