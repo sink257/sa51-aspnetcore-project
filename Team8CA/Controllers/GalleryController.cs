@@ -10,11 +10,8 @@ namespace Team8CA.Controllers
 {
     public class GalleryController : Controller
     {
-        private const int pageSize = 3;
-        public IActionResult Index(int? page)
+        public IActionResult Index()
         {
-            int pageNumber = (page ?? 1);
-            IPagedList<GalleryProducts> model = GetGetList().ToPagedList(pageNumber, pageSize);
 
             string[] imgs = {
                 "photo-1593642632559-0c6d3fc62b89",
@@ -30,12 +27,9 @@ namespace Team8CA.Controllers
             ViewData["url_prefix"] = "https://images.unsplash.com/";
             ViewData["url_postfix"] = "?w=350";
 
-            return View(model);
+            return View();
         }
 
-        private static List<GalleryProducts> GetGetList()
-        {
-            return GalleryProducts.GetList;
-        }
+
     }
 }
