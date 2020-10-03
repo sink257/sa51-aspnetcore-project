@@ -1,8 +1,4 @@
-﻿@using PagedList
-@using PagedList.Mvc
-@using System.Web.Mvc
-@model PagedList.IPagedList<Team8CA.Models.GalleryProducts>
-@{
+﻿@{
     ViewData["Title"] = "Gallery Page";
     string[] imgs = (string[])ViewData["images"];
 }
@@ -68,9 +64,9 @@
         padding-left: 5%
     }
 
-    #pager p {
-        margin-left: 5%;
-     }  
+        #pager p {
+            margin-left: 5%;
+        }
 </style>
 
 <table>
@@ -82,7 +78,7 @@
                 <td>
                     @*images from database*@
                     @{ string url = ViewData["url_prefix"] +
-                       imgs[i + j] + ViewData["url_postfix"];
+                        imgs[i + j] + ViewData["url_postfix"];
                     }
 
                     <div class="container">
@@ -101,29 +97,3 @@
     }
 </table>
 
-<div id="pager">
-    <p> Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
-    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-</div>
-
-<table>
-    <tr>
-        <div class="container">
-            <td><img src="../images/creativecloud.jpg" width="250" height="235" /> </td>
-            <td><img src="../images/visio.png" width="350" height="235" /> </td>
-            <td><img src="../images/project.png" width="350" height="235" /> </td>
-    </tr>
-    <tr>
-        <td><img src="../images/avira.jpeg" width="350" height="235" /> </td>
-        <td><img src="../images/adguard.jpeg" width="350" height="235" /> </td>
-        <td><img src="../images/adguard.jpeg" width="350" height="235" /> </td>
-        <div class="middle">
-            <div class="text">View</div>
-        </div>
-        <div class="middle2">
-            <div class="text">To cart</div>
-        </div>
-        </div>
-    </tr>
-
-</table>
