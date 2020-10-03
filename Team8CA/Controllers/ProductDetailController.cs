@@ -8,7 +8,7 @@ namespace Team8CA.Controllers
 {
     public class ProductDetailController : Controller
     {
-        [Route("ViewProduct")]
+        [Route("ProductDetail")]
         public IActionResult ProductDetailPage()
         {
             return View();
