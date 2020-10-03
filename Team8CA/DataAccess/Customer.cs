@@ -17,10 +17,15 @@ namespace Team8CA.DataAccess
         [Required]
         public int CustomerID { get; set; }
 
-        [Column("CustomerName")]
+        [Column("Username")]
         [Required]
-        [StringLength(100)]
-        public string FirstName { get; set; }
+        [StringLength(20)]
+        public string Username { get; set; }
+
+        [Column("Password")]
+        [Required]
+        [StringLength(12)]
+        public string Password { get; set; }
 
         [ForeignKey("CustomerID")]
         public virtual List<Order> Orders { get; set; }
