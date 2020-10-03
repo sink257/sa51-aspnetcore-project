@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using PagedList;
+using Team8CA.Models;
 
 namespace Team8CA.Controllers
 {
@@ -10,6 +12,7 @@ namespace Team8CA.Controllers
     {
         public IActionResult Index()
         {
+
             string[] imgs = {
                 "photo-1593642632559-0c6d3fc62b89",
                 "photo-1497366754035-f200968a6e72",
@@ -26,6 +29,7 @@ namespace Team8CA.Controllers
 
             return View();
         }
+
 
     }
 }
