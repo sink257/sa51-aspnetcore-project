@@ -1,4 +1,8 @@
-﻿@{
+﻿@using PagedList
+@using PagedList.Mvc
+@using System.Web.Mvc
+@model PagedList.IPagedList<Team8CA.Models.GalleryProducts>
+@{
     ViewData["Title"] = "Gallery Page";
     string[] imgs = (string[])ViewData["images"];
 }
@@ -33,19 +37,23 @@
         text-align: center;
     }
 
+    .size {
+        width: 350px
+    }
+
     .container:hover .image {
         opacity: 0.3;
     }
 
-    .container:hover .middle {
+    .container:hover > .middle {
         opacity: 1;
     }
 
-    .container:hover .middle2 {
+    .container:hover > .middle2 {
         opacity: 1;
     }
 
-   /*.mouseout:not( :hover ) {
+    /*.mouseout:not( :hover ) {
         opacity: 1;
     }*/
 
@@ -55,41 +63,67 @@
         font-size: 16px;
         padding: 16px 32px;
     }
+
+    #pager {
+        padding-left: 5%
+    }
+
+    #pager p {
+        margin-left: 5%;
+     }  
 </style>
 
 <table>
     @for (int i = 0; i < imgs.Length; i += 3)
     {
-    <tr>
-        @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
-        {
-            <td>
-                @*images from database*@
-                @{ string url = ViewData["url_prefix"] +
-                 imgs[i + j] + ViewData["url_postfix"];
-                }
+        <tr>
+            @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
+            {
+                <td>
+                    @*images from database*@
+                    @{ string url = ViewData["url_prefix"] +
+                       imgs[i + j] + ViewData["url_postfix"];
+                    }
 
-                <div class="container">
-                    <img src=@url width="350" height="235" />
-                    <div class="middle">
-                        <div class="text">View</div>
+                    <div class="container">
+                        <img src=@url width="350" height="235" />
+                        <div class="middle">
+                            <div class="text">View</div>
+                        </div>
+                        <div class="middle2">
+                            <div class="text">To cart</div>
+                        </div>
                     </div>
-                    <div class="middle2">
-                        <div class="text">To cart</div>
-                    </div>
-                </div>
 
-            </td>
-          }
+                </td>
+            }
         </tr>
-     }
+    }
 </table>
+
+<div id="pager">
+    <p> Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount</p>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+</div>
 
 <table>
     <tr>
-        <td><img src="/images/adguard.jpeg" width="350" height="235" /> </td>
+        <div class="container">
+            <td><img src="../images/creativecloud.jpg" width="250" height="235" /> </td>
+            <td><img src="../images/visio.png" width="350" height="235" /> </td>
+            <td><img src="../images/project.png" width="350" height="235" /> </td>
     </tr>
-
-
+    <tr>
+        <td><img src="../images/avira.jpeg" width="350" height="235" /> </td>
+        <td><img src="../images/adguard.jpeg" width="350" height="235" /> </td>
+        <td><img src="../images/adguard.jpeg" width="350" height="235" /> </td>
+        <div class="middle">
+            <div class="text">View</div>
+        </div>
+        <div class="middle2">
+            <div class="text">To cart</div>
+        </div>
+        </div>
+    </tr>
 
 </table>
