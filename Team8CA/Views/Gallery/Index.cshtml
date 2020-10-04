@@ -9,7 +9,9 @@
 
     .container {
         position: relative;
-        width: 100%;
+        width:100%;
+        
+
     }
 
     .productdesc {
@@ -85,6 +87,8 @@
         overflow-x: hidden;
         padding-top: 0px;
         margin-left: -20%;
+        font-weight: 400;
+        line-height: 1.6;
     }
 
         .sidenav a {
@@ -104,9 +108,9 @@
     }
 
     .dropdown-btn {
-        padding: 6px 8px 6px 16px;
+        
         text-decoration: none;
-        font-size: 20px;
+        font-size: 18px;
         display: block;
         border: none;
         background: none;
@@ -117,7 +121,7 @@
 
         .dropdown-container {
         display: none;
-        padding-left: 25px;
+        padding-left: 30px;
     }
 
 </style>
@@ -153,10 +157,12 @@
     </div>
 </div>
 
-    <table>
-        @for (int i = 0; i < imgs.Length; i += 3)
-        {
-            <tr>
+   
+<div >
+        <table style="margin-right :10%">
+            @for (int i = 0; i < imgs.Length; i += 3)
+            {
+                <tr>
                 @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
                 {
                     <td>
@@ -188,9 +194,11 @@
                         <br />
                     </td>
                 }
-            </tr>
-        }
-    </table>
+                </tr>
+            }
+        </table>
+        
+</div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
