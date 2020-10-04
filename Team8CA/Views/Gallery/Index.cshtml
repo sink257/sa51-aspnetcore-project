@@ -23,7 +23,7 @@
     }
 
     .middle {
-        transition: .5s ease;
+        transition: .3s ease;
         opacity: 0;
         position: absolute;
         top: 50%;
@@ -34,7 +34,7 @@
     }
 
     .middle2 {
-        transition: .5s ease;
+        transition: .3s ease;
         opacity: 0;
         position: absolute;
         top: 50%;
@@ -92,21 +92,26 @@
         .sidenav a {
             text-decoration: none;
             font-size: 20px;
-            color: #818181;
+            color: #000000;
             display: block;
         }
 
             .sidenav a:hover {
-                color: #000000;
+                background-color: #acacac;
             }
 
-    div.polaroid {
-        width: 90%;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    .polaroid {
+        width: 95%;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
     }
 
+        .polaroid:hover {
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease-in-out;
+        }
+
+
     .dropdown-btn {
-        
         text-decoration: none;
         font-size: 18px;
         display: block;
@@ -177,8 +182,6 @@
                                     <a class="btn btn-primary add-to-cart" href="#">Add to Cart</a>
                                 </div>
                             </div>
-
-
 
                             <div class="productdesc">
                                 <h5>Productname</h5>
