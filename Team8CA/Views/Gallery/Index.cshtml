@@ -6,6 +6,7 @@
 <title>G8Software</title>
 
 <style>
+
     .container {
         position: relative;
         width: 100%;
@@ -75,7 +76,7 @@
         }
 
     .sidenav {
-        height: 80%;
+        height: 100%;
         position: absolute;
         z-index: 1;
         top: 0;
@@ -83,7 +84,7 @@
         background-color: #fff;
         overflow-x: hidden;
         padding-top: 0px;
-        margin-left: -300px
+        margin-left: -20%;
     }
 
         .sidenav a {
@@ -101,66 +102,112 @@
         width: 90%;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     }
+
+    .dropdown-btn {
+        padding: 6px 8px 6px 16px;
+        text-decoration: none;
+        font-size: 20px;
+        display: block;
+        border: none;
+        background: none;
+        text-align: left;
+        cursor: pointer;
+        outline: none;
+    }
+
+        .dropdown-container {
+        display: none;
+        padding-left: 25px;
+    }
+
 </style>
 
 <div class="sidenav">
     <h2>Categories</h2>
-    <a href="#security">Antivirus And Security</a>
-    <ul>
-        <li><a href="#security">Antivirus And Security</a></li>
-        <li><a href="#security">Antivirus And Security</a></li>
-        <li><a href="#security">Antivirus And Security</a></li>
-    </ul>
-    <a href="#business">Business And Office</a>
-    <ul>
-        <li><a href="#business">Business And Office</a></li>
-        <li><a href="#business">Business And Office</a></li>
-        <li><a href="#business">Business And Office</a></li>
-    </ul>
-    <a href="#design">Design and Illustration</a>
-    <ul>
-        <li><a href="#design">Design and Illustration</a></li>
-        <li><a href="#design">Design and Illustration</a></li>
-        <li><a href="#design">Design and Illustration</a></li>
-    </ul>
+    <a class="dropdown-btn" href="#security">
+        Antivirus And Security
+        <span class="fas fa-caret-down first"></span>
+    </a>
+    <div class="dropdown-container">
+        <a href="#security">Antivirus And Security</a>
+        <a href="#security">Antivirus And Security</a>
+        <a href="#security">Antivirus And Security</a>
+    </div>
+    <a class="dropdown-btn" href="#business">
+        Business And Office
+        <span class="fas fa-caret-down first"></span>
+    </a>
+    <div class="dropdown-container">
+        <a href="#business">Business And Office</a>
+        <a href="#business">Business And Office</a>
+        <a href="#business">Business And Office</a>
+    </div>
+    <a class="dropdown-btn" href="#design">
+        Design and Illustration
+        <span class="fas fa-caret-down first"></span>
+    </a>
+    <div class="dropdown-container">
+        <a href="#design">Design and Illustration</a>
+        <a href="#design">Design and Illustration</a>
+        <a href="#design">Design and Illustration</a>
+    </div>
 </div>
 
-<table>
-    @for (int i = 0; i < imgs.Length; i += 3)
-    {
-        <tr>
-            @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
-            {
-                <td>
-                    <div class="polaroid">
-                        @*images from database*@
-                        @{ string url = ViewData["url_prefix"] +
-                                      imgs[i + j] + ViewData["url_postfix"];
-                        }
+    <table>
+        @for (int i = 0; i < imgs.Length; i += 3)
+        {
+            <tr>
+                @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
+                {
+                    <td>
+                        <div class="polaroid">
+                            @*images from database*@
+                            @{ string url = ViewData["url_prefix"] +
+                                              imgs[i + j] + ViewData["url_postfix"];
+                            }
 
-
-
-                        <div class="container">
-                            <img src=@url width="350" height="235" />
-                            <div class="middle">
-                                <button type="button" class="btn btn-primary view">View</button>
+                            <div class="container">
+                                <img src=@url width="350" height="235" />
+                                <div class="middle">
+                                    <a class="btn btn-primary view" href="#">View</a>
+                                </div>
+                                <div class="middle2">
+                                    <a class="btn btn-primary add-to-cart" href="#">Add to Cart</a>
+                                </div>
                             </div>
-                            <div class="middle2">
-                                <button type="button" class="btn btn-primary add-to-cart">Add to Cart</button>
+
+
+
+                            <div class="productdesc">
+                                <h5>Productname</h5>
+                                <h6>This is a .....</h6>
+                                <h5><b>$999</b></h5>
                             </div>
                         </div>
 
+                        <br />
+                    </td>
+                }
+            </tr>
+        }
+    </table>
 
-                        <div class="productdesc">
-                            <h5>Productname</h5>
-                            <h6>This is a .....</h6>
-                            <h5><b>$999</b></h5>
-                        </div>
-                    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+        /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
 
-                    <br />
-                </td>
-            }
-        </tr>
-    }
-</table>
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+    </script>
