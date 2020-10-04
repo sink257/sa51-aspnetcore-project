@@ -34,19 +34,6 @@
         position: relative;
     }
 
-    .number-input button:before,
-    .number-input button:after {
-        display: inline-block;
-        position: absolute;
-        content: '';
-        height: 2px;
-        transform: translate(-50%, -50%);
-    }
-
-    .number-input button.plus:after {
-        transform: translate(-50%, -50%) rotate(90deg);
-    }
-
     .number-input input[type=number] {
         text-align: center;
     }
@@ -59,18 +46,13 @@
 
     .number-input.number-input button {
         width: 2.6rem;
-        height: .7rem;
+        height: 1.2rem;
     }
 
     .number-input.number-input button.minus {
         padding-left: 10px;
     }
 
-    .number-input.number-input button:before,
-    .number-input.number-input button:after {
-        width: .7rem;
-        background-color: #495057;
-    }
 
     .number-input.number-input input[type=number] {
         max-width: 4rem;
@@ -97,6 +79,12 @@
         border-radius: .25rem;
     }
 
+    .fas {
+        display: flex;
+        position: relative;
+        justify-content: center;
+    }
+
 </style>
 
 
@@ -120,9 +108,9 @@
                     <a href="#product-details" class="text-primary">Learn more</a>
 
                     <div class="number-input">
-                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ><i class="fas fa-minus"></i> </button>
                         <input class="quantity" min="0" name="quantity" value="1" type="number">
-                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="fas fa-plus"></i></button>
                     </div>
 
                     <div class="pt-3">
