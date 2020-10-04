@@ -9,9 +9,7 @@
 
     .container {
         position: relative;
-        width:100%;
-        
-
+        width: 100%;
     }
 
     .productdesc {
@@ -25,7 +23,7 @@
     }
 
     .middle {
-        transition: .5s ease;
+        transition: .3s ease;
         opacity: 0;
         position: absolute;
         top: 50%;
@@ -36,7 +34,7 @@
     }
 
     .middle2 {
-        transition: .5s ease;
+        transition: .3s ease;
         opacity: 0;
         position: absolute;
         top: 50%;
@@ -79,14 +77,14 @@
 
     .sidenav {
         height: 100%;
-        position: absolute;
-        z-index: 1;
+        position: fixed;
+        z-index: 0;
         top: 0;
-        left: 0px;
+        left: 0;
         background-color: #fff;
         overflow-x: hidden;
-        padding-top: 0px;
-        margin-left: -20%;
+        padding-top: 5%;
+        margin: -10%;
         font-weight: 400;
         line-height: 1.6;
     }
@@ -94,21 +92,26 @@
         .sidenav a {
             text-decoration: none;
             font-size: 20px;
-            color: #818181;
+            color: #000000;
             display: block;
         }
 
             .sidenav a:hover {
-                color: #000000;
+                background-color: #acacac;
             }
 
-    div.polaroid {
-        width: 90%;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    .polaroid {
+        width: 95%;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
     }
 
+        .polaroid:hover {
+            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.5);
+            transition: opacity 0.3s ease-in-out;
+        }
+
+
     .dropdown-btn {
-        
         text-decoration: none;
         font-size: 18px;
         display: block;
@@ -157,12 +160,10 @@
     </div>
 </div>
 
-   
-<div >
-        <table style="margin-right :10%">
-            @for (int i = 0; i < imgs.Length; i += 3)
-            {
-                <tr>
+    <table style="margin-left:10%">
+        @for (int i = 0; i < imgs.Length; i += 3)
+        {
+            <tr>
                 @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
                 {
                     <td>
@@ -182,8 +183,6 @@
                                 </div>
                             </div>
 
-
-
                             <div class="productdesc">
                                 <h5>Productname</h5>
                                 <h6>This is a .....</h6>
@@ -194,11 +193,9 @@
                         <br />
                     </td>
                 }
-                </tr>
-            }
-        </table>
-        
-</div>
+            </tr>
+        }
+    </table>
 
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
