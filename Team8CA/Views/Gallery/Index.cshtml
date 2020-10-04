@@ -65,7 +65,7 @@
             @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
             {
                 <td>
-                    @*images from database*@
+                    @*images from database - pull image URL where productID = db.productID*@
                     @{
                         string url = ViewData["url_prefix"] +
                         imgs[i + j] + ViewData["url_postfix"];
