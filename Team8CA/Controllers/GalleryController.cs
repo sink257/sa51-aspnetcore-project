@@ -30,6 +30,24 @@ namespace Team8CA.Controllers
             return View();
         }
 
+        public IActionResult AntivirusAndSecurity()
+        {
+            return View();
+        }
 
+
+
+        public IActionResult BusinessAndOffice()
+        {
+            return View();
+
+        }
+
+
+
+        public IActionResult DesignAndIllustration()
+        {
+            return View();
+        }
     }
 }

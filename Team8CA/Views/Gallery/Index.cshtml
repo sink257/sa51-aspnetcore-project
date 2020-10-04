@@ -3,13 +3,23 @@
     string[] imgs = (string[])ViewData["images"];
 }
 
-
-<h1>Products</h1>
+<title>G8Software</title>
 
 <style>
+
     .container {
         position: relative;
         width: 100%;
+    }
+
+    .productdesc {
+        width: 350px;
+        left: 4%;
+        background-color: white;
+        text-align: center;
+        padding-top: 3%;
+        padding-bottom: 3%;
+        position: relative;
     }
 
     .middle {
@@ -34,54 +44,172 @@
         text-align: center;
     }
 
-    .container:hover .image {
+    .size {
+        width: 350px
+    }
+
+    .container:hover > .image {
         opacity: 0.3;
     }
 
-    .container:hover >.middle {
+    .container:hover > .middle {
         opacity: 1;
     }
 
-    .container:hover >.middle2 {
+    .container:hover > .middle2 {
         opacity: 1;
     }
-
-   /*.mouseout:not( :hover ) {
-        opacity: 1;
-    }*/
 
     .text {
         background-color: #4dc2dc;
         color: white;
-        font-size: 16px;
-        padding: 16px 32px;
+        font-size: 14px;
+        padding: 14px 30px;
     }
+
+    #pager {
+        padding-left: 5%
+    }
+
+        #pager p {
+            margin-left: 5%;
+        }
+
+    .sidenav {
+        height: 100%;
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0px;
+        background-color: #fff;
+        overflow-x: hidden;
+        padding-top: 0px;
+        margin-left: -20%;
+        font-weight: 400;
+        line-height: 1.6;
+    }
+
+        .sidenav a {
+            text-decoration: none;
+            font-size: 20px;
+            color: #818181;
+            display: block;
+        }
+
+            .sidenav a:hover {
+                color: #000000;
+            }
+
+    div.polaroid {
+        width: 90%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
+
+    .dropdown-btn {
+        
+        text-decoration: none;
+        font-size: 18px;
+        display: block;
+        border: none;
+        background: none;
+        text-align: left;
+        cursor: pointer;
+        outline: none;
+    }
+
+        .dropdown-container {
+        display: none;
+        padding-left: 30px;
+    }
+
 </style>
 
-<table>
-    @for (int i = 0; i < imgs.Length; i += 3)
-    {
-        <tr>
-            @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
-            {
-                <td>
-                    @*images from database - pull image URL where productID = db.productID*@
-                    @{
-                        string url = ViewData["url_prefix"] +
-                        imgs[i + j] + ViewData["url_postfix"];
-                    }
+<div class="sidenav">
+    <h2>Categories</h2>
+    <a class="dropdown-btn" href="#security">
+        Antivirus And Security
+        <span class="fas fa-caret-down first"></span>
+    </a>
+    <div class="dropdown-container">
+        <a href="#security">Antivirus And Security</a>
+        <a href="#security">Antivirus And Security</a>
+        <a href="#security">Antivirus And Security</a>
+    </div>
+    <a class="dropdown-btn" href="#business">
+        Business And Office
+        <span class="fas fa-caret-down first"></span>
+    </a>
+    <div class="dropdown-container">
+        <a href="#business">Business And Office</a>
+        <a href="#business">Business And Office</a>
+        <a href="#business">Business And Office</a>
+    </div>
+    <a class="dropdown-btn" href="#design">
+        Design and Illustration
+        <span class="fas fa-caret-down first"></span>
+    </a>
+    <div class="dropdown-container">
+        <a href="#design">Design and Illustration</a>
+        <a href="#design">Design and Illustration</a>
+        <a href="#design">Design and Illustration</a>
+    </div>
+</div>
 
-                    <div class="container">
-                        <img src=@url width="350" height="235" />
-                        <div class="middle">
-                            <div class="text">View</div>
+    <table>
+        @for (int i = 0; i < imgs.Length; i += 3)
+        {
+            <tr>
+                @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
+                {
+                    <td>
+                        <div class="polaroid">
+                            @*images from database*@
+                            @{ string url = ViewData["url_prefix"] +
+                                              imgs[i + j] + ViewData["url_postfix"];
+                            }
+
+                            <div class="container">
+                                <img src=@url width="350" height="235" />
+                                <div class="middle">
+                                    <a class="btn btn-primary view" href="#">View</a>
+                                </div>
+                                <div class="middle2">
+                                    <a class="btn btn-primary add-to-cart" href="#">Add to Cart</a>
+                                </div>
+                            </div>
+
+
+
+                            <div class="productdesc">
+                                <h5>Productname</h5>
+                                <h6>This is a .....</h6>
+                                <h5><b>$999</b></h5>
+                            </div>
                         </div>
-                        <div class="middle2">
-                            <div class="text">To cart</div>
-                        </div>
-                    </div>
-                </td>
-            }
-        </tr>
-    }
-</table>
+
+                        <br />
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script>
+        /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+        var dropdown = document.getElementsByClassName("dropdown-btn");
+        var i;
+
+        for (i = 0; i < dropdown.length; i++) {
+            dropdown[i].addEventListener("click", function () {
+                this.classList.toggle("active");
+                var dropdownContent = this.nextElementSibling;
+                if (dropdownContent.style.display === "block") {
+                    dropdownContent.style.display = "none";
+                } else {
+                    dropdownContent.style.display = "block";
+                }
+            });
+        }
+    </script>
