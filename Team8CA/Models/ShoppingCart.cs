@@ -12,13 +12,14 @@ namespace Team8CA.Models
     {
         //orderID, user id, product ID, count of the items, price (not addded to database)
         public ShoppingCart()
-        {
-            Quantity = 1;
-        }
+        {}
 
-        public int OrderId { get; set; }
+        [Key]
+        public int Id { get; set; }
+
 
         public int CustomerID { get; set; }
+
 
         public DateTime OrderCreationTime { get; set; }
 
