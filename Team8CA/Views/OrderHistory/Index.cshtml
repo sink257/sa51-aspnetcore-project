@@ -4,13 +4,38 @@
 }
 
 <style>
+    #customers {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
 </style>
-<head>
-    <title>Order History</title>
-</head>
+
 <body>
-    <table>
+    <table id="customers">
         <thead>
             <tr>
                 <th>OrderId</th>
@@ -21,16 +46,16 @@
             </tr>
         </thead>
         @*   @{ foreach ()
-            {
-        <tr>
-            <td>Id</td>
-            <td>Quantity</td>
-            <td>Value</td>
-            <td>CheckoutTime</td>
-            <td><a href=@("path to recentOrder")></a></td>
-        </tr>  
-        }
-       } *@
+             {
+         <tr>
+             <td>Id</td>
+             <td>Quantity</td>
+             <td>Value</td>
+             <td>CheckoutTime</td>
+             <td><a href=@("path to recentOrder")></a></td>
+         </tr>
+         }
+        } *@
     </table>
     </div>
 
