@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Team8CA.DataAccess;
+using System.Data.Entity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Team8CA.Models
+namespace Team8CA.DataAccess
 {
-    [Table("CustomerLogin")]
-    public class CustomerLogin
+    [Table("Customers")]
+    public class Customer
     {
         [Column("CustomerID")]
         [Key]
@@ -27,15 +27,7 @@ namespace Team8CA.Models
         [StringLength(12)]
         public string Password { get; set; }
 
-        public CustomerLogin() { }
-
-        public CustomerLogin(string Username, string Password)
-        {
-            this.Username = Username;
-            this.Password = Password;
-            //remember to hash the password in LoginUtility
-            //this.Password = LoginUtility.Password;
-        }
-
+        [ForeignKey("CustomerID")]
+        public virtual List<Order> Orders { get; set; }
     }
 }

@@ -6,17 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Team8CA.Controllers
 {
-    public class CartController : Controller
+    public class OrderHistory : Controller
     {
         public IActionResult Index()
         {
-          return View();
-        }
-
-        public IActionResult Checkout()
-        {
             return View();
         }
-
     }
 }

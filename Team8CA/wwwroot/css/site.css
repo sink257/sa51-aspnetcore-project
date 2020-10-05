@@ -18,6 +18,11 @@ a {
   border-color: #1861ac;
 }
 
+.btn-primary:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
   color: #fff;
   background-color: #1b6ec2;
@@ -69,3 +74,5 @@ body {
   white-space: nowrap;
   line-height: 60px; /* Vertically center the text there */
 }
+
+
