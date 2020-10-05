@@ -17,6 +17,7 @@
     input:not(:checked) ~ label:hover,
     input:not(:checked) ~ label:hover ~ label {
         color: #fd4;
+        cursor: pointer;
     }
 
     input:checked ~ label {
@@ -28,7 +29,21 @@
 <script>
 
     function display(pts) {
-        document.getElementById("rating-points").innerHTML = pts + " out of 5";
+        var message = "";
+        switch (pts)
+        {
+            case "1": message = "Poor";
+                break;
+            case "2": message = "Satisfactory";
+                break;
+            case "3": message = "Average";
+                break;
+            case "4": message = "Good!";
+                break;
+            case "5": message = "Excellent!";
+                break;
+        }
+        document.getElementById("rating-points").innerHTML = message;
     }
 </script>
 
@@ -56,7 +71,7 @@
             </div>
         </div>
 
-        <form class="col-8 align-self-md-center">
+        <form class="col-8 align-self-md-center" >
 
             <div class="container pt-4">
 
