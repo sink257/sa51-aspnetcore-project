@@ -6,24 +6,24 @@
 <title>G8Software</title>
 
 <style>
-
     .container {
         position: relative;
         width: 100%;
+        
     }
 
     .productdesc {
-        width: 350px;
-        left: 4%;
+        max-width:350px;
+        width: 100%;
         background-color: white;
-        text-align: center;
+        text-align:center;
         padding-top: 3%;
         padding-bottom: 3%;
         position: relative;
     }
 
     .middle {
-        transition: .3s ease;
+        transition: .5s ease;
         opacity: 0;
         position: absolute;
         top: 50%;
@@ -34,7 +34,7 @@
     }
 
     .middle2 {
-        transition: .3s ease;
+        transition: .5s ease;
         opacity: 0;
         position: absolute;
         top: 50%;
@@ -48,15 +48,15 @@
         width: 350px
     }
 
-    .container:hover > .image {
+    .container:hover >.image {
         opacity: 0.3;
     }
 
-    .container:hover > .middle {
+    .container:hover >.middle {
         opacity: 1;
     }
 
-    .container:hover > .middle2 {
+    .container:hover >.middle2 {
         opacity: 1;
     }
 
@@ -71,148 +71,122 @@
         padding-left: 5%
     }
 
-        #pager p {
-            margin-left: 5%;
-        }
+    #pager p {
+        margin-left: 5%;
+    }
 
     .sidenav {
-        height: 100%;
+        height: 80%;
+        width:20%;
+        max-width: 250px;
         position: absolute;
-        z-index: 1;
+        z-index: 0;
         top: 0;
         left: 0px;
         background-color: #fff;
-        overflow-x: hidden;
+        overflow-x: auto;
         padding-top: 0px;
-        margin-left: -20%;
-        font-weight: 400;
-        line-height: 1.6;
+        margin-top:0;
+        margin-left: -10%
     }
 
-        .sidenav a {
-            text-decoration: none;
-            font-size: 20px;
-            color: #000000;
-            display: block;
-        }
-
-            .sidenav a:hover {
-                background-color: #acacac;
-            }
-
-    .polaroid {
-        width: 95%;
-        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
-    }
-
-        .polaroid:hover {
-            box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.5);
-            transition: opacity 0.3s ease-in-out;
-        }
-
-
-    .dropdown-btn {
+    .sidenav a {
         text-decoration: none;
-        font-size: 18px;
+        font-size: 20px;
+        color: #818181;
         display: block;
-        border: none;
-        background: none;
-        text-align: left;
-        cursor: pointer;
-        outline: none;
     }
 
-        .dropdown-container {
-        display: none;
-        padding-left: 30px;
+    .sidenav a:hover {
+        color: #000000;
+    }
+
+    div.polaroid {
+        width: 90%;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        
+    }
+
+    .table {
+        margin-left: 10%;
+        width:100%;
+        overflow-x: auto;
+     
+    }
+
+    .responsive {
+        width:100%;
+        max-width:350px;
+        height:100%;
+        max-height:235px;
+        
+
     }
 
 </style>
 
 <div class="sidenav">
     <h2>Categories</h2>
-    <a class="dropdown-btn" href="#security">
-        Antivirus And Security
-        <span class="fas fa-caret-down first"></span>
-    </a>
-    <div class="dropdown-container">
-        <a href="#security">Antivirus And Security</a>
-        <a href="#security">Antivirus And Security</a>
-        <a href="#security">Antivirus And Security</a>
-    </div>
-    <a class="dropdown-btn" href="#business">
-        Business And Office
-        <span class="fas fa-caret-down first"></span>
-    </a>
-    <div class="dropdown-container">
-        <a href="#business">Business And Office</a>
-        <a href="#business">Business And Office</a>
-        <a href="#business">Business And Office</a>
-    </div>
-    <a class="dropdown-btn" href="#design">
-        Design and Illustration
-        <span class="fas fa-caret-down first"></span>
-    </a>
-    <div class="dropdown-container">
-        <a href="#design">Design and Illustration</a>
-        <a href="#design">Design and Illustration</a>
-        <a href="#design">Design and Illustration</a>
-    </div>
+    <a href="#security">Antivirus And Security</a>
+    <ul>
+        <li><a href="#security">Antivirus And Security</a></li>
+        <li><a href="#security">Antivirus And Security</a></li>
+        <li><a href="#security">Antivirus And Security</a></li>
+    </ul>
+    <a href="#business">Business And Office</a>
+    <ul>
+        <li><a href="#business">Business And Office</a></li>
+        <li><a href="#business">Business And Office</a></li>
+        <li><a href="#business">Business And Office</a></li>
+    </ul>
+    <a href="#design">Design and Illustration</a>
+    <ul>
+        <li><a href="#design">Design and Illustration</a></li>
+        <li><a href="#design">Design and Illustration</a></li>
+        <li><a href="#design">Design and Illustration</a></li>
+    </ul>
 </div>
 
-    <table>
-        @for (int i = 0; i < imgs.Length; i += 3)
-        {
-            <tr>
-                @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
-                {
-                    <td>
-                        <div class="polaroid">
-                            @*images from database*@
-                            @{ string url = ViewData["url_prefix"] +
-                                              imgs[i + j] + ViewData["url_postfix"];
-                            }
+<div class="table">
+    
+    <table> 
+    @for (int i = 0; i < imgs.Length; i += 3)
+    {
+        <tr>
+            @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
+            {
+            <td>
+                <div class="polaroid">
+                    @*images from database*@
+                    @{ string url = ViewData["url_prefix"] +
+                                 imgs[i + j] + ViewData["url_postfix"];
+                    }
 
-                            <div class="container">
-                                <img src=@url width="350" height="235" />
-                                <div class="middle">
-                                    <a class="btn btn-primary view" href="#">View</a>
-                                </div>
-                                <div class="middle2">
-                                    <a class="btn btn-primary add-to-cart" href="#">Add to Cart</a>
-                                </div>
-                            </div>
 
-                            <div class="productdesc">
-                                <h5>Productname</h5>
-                                <h6>This is a .....</h6>
-                                <h5><b>$999</b></h5>
-                            </div>
+
+                    <div class="container">
+                        <img src=@url class="responsive" />
+                        <div class="middle">
+                            <button type="button" class="btn btn-primary view">View</button>
                         </div>
+                        <div class="middle2">
+                            <button type="button" class="btn btn-primary add-to-cart">Add to Cart</button>
+                        </div>
+                    </div>
+                        
 
-                        <br />
-                    </td>
-                }
-            </tr>
-        }
-    </table>
+                    <div class="productdesc">
+                        <h5>Productname</h5>
+                        <h6>This is a .....</h6>
+                        <h5><b>$999</b></h5>
+                    </div>
+                </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script>
-        /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-        var dropdown = document.getElementsByClassName("dropdown-btn");
-        var i;
+                    <br />
+                </td>
+            }
+        </tr>
+    }
+</table>
+</div>
 
-        for (i = 0; i < dropdown.length; i++) {
-            dropdown[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var dropdownContent = this.nextElementSibling;
-                if (dropdownContent.style.display === "block") {
-                    dropdownContent.style.display = "none";
-                } else {
-                    dropdownContent.style.display = "block";
-                }
-            });
-        }
-    </script>
