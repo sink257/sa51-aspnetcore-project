@@ -27,8 +27,9 @@ namespace Team8CA
             services.AddControllersWithViews();
 
             services.AddDbContext<AppDbContext>
-                (o => o.UseSqlServer(Configuration.
-                GetConnectionString("Team8CA_DB")));
+                (opt => opt.UseSqlServer(Configuration.GetConnectionString("DBConn")));
+
+            services.AddScoped<Team8CA.Models.CustomerLogin>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +44,7 @@ namespace Team8CA
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            //db.Database.EnsureDeleted();
+            db.Database.EnsureDeleted();
             db.Database.EnsureCreated();
 
             app.UseStaticFiles();
