@@ -13,7 +13,7 @@ namespace Team8CA.Models
         //orderID, user id, product ID, count of the items, price (not addded to database)
         public ShoppingCart()
         {
-            Quantity = 0;
+            Quantity = 1;
         }
 
         public int OrderId { get; set; }
@@ -26,11 +26,18 @@ namespace Team8CA.Models
 
         public bool IsCheckOut { get; set; }
 
+        [Range(1, 1000, ErrorMessage = "Please enter a value between 1 and 1000")]
         public int Quantity { get; set; }
 
         public double Price { get; set; }
 
         public double SubTotal { get; set; }
+
+
+
+
+
+
 
     }
 }

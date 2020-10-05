@@ -6,17 +6,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Team8CA.Controllers
 {
-    public class CartController : Controller
+    public class ProductDetailController : Controller
     {
-        public IActionResult Index()
-        {
-          return View();
-        }
-
-        public IActionResult Checkout()
+        [Route("ProductDetail")]
+        public IActionResult ProductDetailPage()
         {
             return View();
         }
-
     }
 }

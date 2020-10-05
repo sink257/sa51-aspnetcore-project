@@ -1,0 +1,77 @@
+﻿
+@{
+    ViewData["Title"] = "OrderHistory";
+}
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .topnav {
+        float: left;
+        width: 100%;
+        padding: 10px;
+    }
+
+        .topnav .search-container {
+            float: right;
+        }
+
+    .card {
+        max-width: 200px;
+        margin: auto;
+        display: table;
+        font-family: arial;
+    }
+
+    .but {
+        border: none;
+        display: inline-block;
+        padding: 8px;
+        color: white;
+        background-color: #000;
+        text-align: center;
+        width: 100%;
+        font-size: 18px;
+    }
+
+    button:hover, a:hover {
+        opacity: 0.7;
+    }
+</style>
+<head>
+    <title>Order History</title>
+</head>
+<body>
+
+    <div class="topnav">
+        <p style="font-size: 15px;color: green; "> Home >> Your Order  </p>
+        <div class="search-container">
+            <form action="//">
+                <input type="text" placeholder="Search.." name="search">
+                <button type="submit">Submit</button>
+                <!-- <button type="submit"><i class="fa fa-search"></i></button> -->
+            </form>
+        </div>
+    </div>
+    <div class="card">
+
+        <table>
+            <tr>
+                <td>
+                    @*<img src="image_name" alt="@name" style="width:100%">*@
+                    <img src="image_name" style="width:100%">
+                    <h1>Product Name</h1>
+                    <p>order date</p>
+                    <p>order status</p>
+                    <p><button class="but">Order Again</button></p>
+                    <p><button class="but">More Details</button></p>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    @*<p>You have not yet ordered.<p>*@
+</body>

@@ -1,0 +1,189 @@
+﻿@{
+}
+<style>
+    .add-to-cart {
+        width: 220px;
+        padding: 10px;
+        float: left;
+        margin-top: 10px;
+        margin-right: 20px;
+        display: block;
+    }
+
+    .side {
+        border-left-color: grey;
+        border-left: 2px;
+    }
+
+
+    .number-input {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        margin-top: 40px;
+    }
+
+    .number-input button {
+        -webkit-appearance: none;
+        background-color: transparent;
+        border: none;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin: 0;
+        position: relative;
+    }
+
+    .number-input input[type=number] {
+        text-align: center;
+    }
+
+    .number-input.number-input {
+        border: 1px solid #ced4da;
+        width: 10rem;
+        border-radius: .25rem;
+    }
+
+    .number-input.number-input button {
+        width: 2.6rem;
+        height: 1.2rem;
+    }
+
+    .number-input.number-input button.minus {
+        padding-left: 10px;
+    }
+
+
+    .number-input.number-input input[type=number] {
+        max-width: 4rem;
+        padding: .5rem;
+        border: 1px solid #ced4da;
+        border-width: 0 1px;
+        font-size: 1rem;
+        height: 2rem;
+        color: #495057;
+    }
+
+    .number-input input[type=number]::-webkit-inner-spin-button,
+    .number-input input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
+
+
+    .user-review {
+        display: block;
+    }
+
+    #leave-review {
+        width: 200px;
+        border-radius: .25rem;
+    }
+
+    .fas {
+        display: flex;
+        position: relative;
+        justify-content: center;
+    }
+
+</style>
+
+
+<div class="container">
+    <div class="row pt-4">
+        <div class="col-9">
+            <div class="row ">
+                <div class="col-4 p-4 text-center">
+                    <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="p-3 container img-thumbnail" />
+                    <h5 class="text-success p-3">In stock</h5>
+                </div>
+
+                <div class="col-8 pt-4">
+                    <h2>Microsoft Visio 2016 Professional (PC) - Microsoft Key - GLOBAL</h2>
+                    
+                    <h2 class="text-warning">★ ★ ★ ★ ☆</h2>
+                    <a href="#product-reviews" class="text-primary">See reviews</a>
+                    
+                    <div class="price pt-3"><h1 class="text-danger">$99</h1></div>
+                    <p class="pt-3"> Microsoft Visio 2016 is a Part of Microsoft’s Office family, Microsoft Visio is a diagramming and vector graphics application that creates professional flowcharts, diagrams and organisational charts.</p>
+                    <a href="#product-details" class="text-primary">Learn more</a>
+
+                    <div class="number-input">
+                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" ><i class="fas fa-minus"></i> </button>
+                        <input class="quantity" min="0" name="quantity" value="1" type="number">
+                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="fas fa-plus"></i></button>
+                    </div>
+
+                    <div class="pt-3">
+                        <button type="button" class="btn btn-primary add-to-cart">Buy Now</button>
+                        <button type="button" class="btn btn-outline-primary add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row">
+                @*product details*@
+                <div class="row pt-5 container" id="product-details">
+                    <h4 class="container-fluid">Product Details</h4>
+                    <div class="user-review container">
+                        <hr>
+                        <p>
+                            <b>Visio Proffesional Features</b><br>
+                            Sub-Process Creation and Validation Rules - Visio Professional includes advanced features such as sub-process creation and validation rules.
+                            Extra Templates - Visio Professional ships with a large assortment of extra templates and shapes that meet industry standards including BPMN 2.0, UML 2.4, IEEE and Windows Workflow 4.0
+                            More Customizable Shapes - Visio Professional includes a few more customizable shapes and built-in tools that will allow the creation of professional diagrams in less time.
+                            Secure Diagrams - Visio Professional users can secure diagrams with Microsoft file protection technologies which offer persistent Information Rights Management (IRM) protection of email messages and attachments, and diagram files.
+                            Because Visio Professional 2016 supports Information Rights Management (IRM), you can control document rights at the individual user level.
+                            <br>
+                            <i>This content was copied from https://www.g2a.com/en-gb/microsoft-visio-2016-professional-pc-microsoft-key-global-i10000218431001. It is protected by copyright, all rights reserved. If you want to use it, you are obligated to leave the link to the original source.</i>
+                        </p>
+                    </div>
+                </div>
+                @*product review*@
+                <div class="row pt-5 container" id="product-reviews">
+                    <h4 class="container-fluid">Product Reviews</h4>
+
+                    <div class="user-review container">
+                        <hr>
+                        <h6 class="text-info">User001:</h6>
+                        <h4 class="text-warning">★ ★ ★ ★ ☆</h4>
+                        <p>Good product! Will buy again😁.</p>
+                    </div>
+
+                    <div class="user-review container">
+                        <hr>
+                        <h6 class="text-info">User002:</h6>
+                        <h4 class="text-warning">★ ☆ ☆ ☆ ☆</h4>
+                        <p>Activation code does not work! Will never buy again🙃.</p>
+                    </div>
+
+                </div>
+                @*Leave a review -need to be logged in && bought this product*@
+                <div class="row pt-5 container" >
+                    <button class="btn btn-outline-success container" id="leave-review">Leave a Review</button>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="col-3 p-4 side text-center">
+            <h5>Similar Items</h5>
+            <div class="p-4">
+                <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="container p-3 img-thumbnail" />
+                <a href="#">Microsoft Project</a>
+            </div>
+            <div class="p-4">
+                <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="container p-3 img-thumbnail" />
+                <a href="#">Microsoft Project</a>
+            </div>
+            <div class="p-4">
+                <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="container p-3 img-thumbnail" />
+                <a href="#">Microsoft Project</a>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
