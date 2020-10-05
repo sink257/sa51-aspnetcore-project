@@ -28,9 +28,9 @@
                             <a class="btn btn-outline-info btn-sm">Continue Shopping</a>
                         </div>
                     </div>
-                    @*@foreach (ShoppingCart CartItems in  )*@
-                    @*{*@
                     <div class="card-body">
+                        @*@foreach (ShoppingCart CartItems in  )*@
+                        @*{*@
                         <div class="row">
                             <div class="d-none d-lg-block col-lg-1 text-center py-2">
                                 <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="rounded" width="100%" />
@@ -89,7 +89,7 @@
 
                             <div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6 ">
 
-                                <a class="btn btn-success form-control">Proceed to checkout</a>
+                                <a asp-area="" asp-controller="Cart" asp-action="Checkout" class="btn btn-success form-control">Proceed to checkout</a>
                             </div>
                         </div>
                     </div>
