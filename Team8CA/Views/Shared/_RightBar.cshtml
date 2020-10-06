@@ -1,0 +1,21 @@
+﻿<ul class="nav navbar-nav navbar-right">
+    @if (ViewData["sessionId"] == null)
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Shopping Cart (0)</a>
+        </li>
+        <li class="nav-item">
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <span class="nav-link text-dark"><u>Hi, Sean</u></span>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Shopping Cart (@ViewData["ItemCount"])</a>
+        </li>
+        <li class="nav-item">
+        </li>
+    }
+</ul>
