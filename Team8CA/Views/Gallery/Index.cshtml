@@ -151,6 +151,7 @@
     }
 
     =======*@
+
 <div class="container">
 
     <div class="sidenav">
@@ -183,6 +184,7 @@
             <a href="#design">Design and Illustration</a>
         </div>
     </div>
+ </div>
 
     <div class="table">
 
@@ -195,8 +197,7 @@
                         <td>
                             <div class="polaroid">
                                 @*images from database*@
-                                @{ string url = ViewData["url_prefix"] +
-                                                 imgs[i + j] + ViewData["url_postfix"];
+                                @{ string url = imgs[i + j]; 
                                 }
 
                                 <div class="container">
