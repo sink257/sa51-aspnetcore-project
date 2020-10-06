@@ -18,7 +18,7 @@ namespace Team8CA.Controllers
             string[] imgs = {
                 "/images/adguardpic.jpg",
                 "/images/avira.jpg",
-                "/images/creativecloud.jpg",
+                "/images/creative_cloud.jpg",
                 "/images/creativesuite.jpg",
                 "/images/illustrator.jpg",
                 "/images/malwarebytes.png",
