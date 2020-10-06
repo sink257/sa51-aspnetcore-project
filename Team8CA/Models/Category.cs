@@ -9,7 +9,7 @@ namespace Team8CA.Models
     {
         public int Id { get; set; }
 
-        public string ProductsID { get; set; }
+        public string ProductId { get; set; }
 
         public string ProductName { get; set; }
 

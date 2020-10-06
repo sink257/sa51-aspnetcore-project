@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PagedList;
 using Team8CA.Models;
+//using Team8CA.Services;
 
 namespace Team8CA.Controllers
 {
@@ -43,11 +45,32 @@ namespace Team8CA.Controllers
 
         }
 
-
-
         public IActionResult DesignAndIllustration()
         {
             return View();
         }
+
+        //public IActionResult AddToCart([FromServices] CartRelatedService srv, int prdId)
+        //{
+        //    var customerId = HttpContext.Session.GetInt32("customerId") ?? 0;
+        //    //if (customerId == 0)
+        //    //{
+        //    //    AddToCartForSession(srv, prdId, 1);
+        //    //}
+        //    //else
+        //    //{
+        //        ViewData["ItemCount"] = srv.AddProductsToCart(customerId, prdId, 1);
+        //    //}
+        //    return PartialView("_CartIcon");
+        //}
+
+
+
+
+
+
+
+
+
     }
 }

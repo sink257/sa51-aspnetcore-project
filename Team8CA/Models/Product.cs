@@ -5,10 +5,11 @@ using System.Threading.Tasks;
 
 namespace Team8CA.Models
 {
-    public class Products
+    public class Product
     {
+
+        public int Id { get; set; }
         public string ProductName { get; set; }
-        public string ProductID{ get; set; }
         public string ProductPic { get; set; }
         public double ProductPrice { get; set; }
         public bool ProductAvailability { get; set; }

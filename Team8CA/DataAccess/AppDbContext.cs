@@ -26,6 +26,11 @@ namespace Team8CA.DataAccess
         public DbSet<Product> Products { get; set; }
         //implementation of Model methods
         public DbSet<Customer> Customers { get; set; }
-        //public DbSet<ShoppingCart> ShoppingCart { get; set; }        
+
+        public DbSet<ShoppingCart> ShoppingCart { get; set; }
+
+        //public DbSet<ShoppingCartItems> ShoppingCartItems { get; set; }
+
+
     }
 }
