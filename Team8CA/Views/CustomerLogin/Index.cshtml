@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Login Page";
+}
+
+@section Scripts
+{
+    <script src="~/js/login/index.js"></script>
+}
+
+<style>
+    #err_msg {
+        color: red;
+        font-weight: bold;
+        padding: 10px;
+    }
+</style>
+
+<p></p>
+
+<form id="form" action="/Login/Authenticate" method="POST">
+    <table align="center">
+        <tr>
+            <td>
+                Username:
+            </td>
+            <td>
+                <input id="username" name="username"
+                       class="form-control" value="@ViewData["username"]" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Password:
+            </td>
+            <td>
+                <input id="password" name="password"
+                       type="password" class="form-control" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="right">
+                <input id="submitBtn" type="submit" class="btn btn-success" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center">
+                <div id="err_msg">@ViewData["errMsg"]</div>
+            </td>
+        </tr>
+    </table>
+</form>

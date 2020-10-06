@@ -8,19 +8,18 @@
 
 //namespace Team8CA.DataAccess
 //{
-//    public class Order
+//    [Table("Products")]
+//    public class Product
 //    {
-//        [Column("OrderID")]
+//        [Column("ProductID")]
 //        [Key]
 //        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 //        [Required]
-//        public int OrderID { get; set; }
+//        public int ProductID { get; set; }
 
-//        [Column("OrderDate")]
+//        [Column("ProductName")]
 //        [Required]
-//        public DateTime OrderDate { get; set; }
-
-//        [Required]
-//        public int CustomerID { get; set; }
+//        [StringLength(100)]
+//        public string ProductName { get; set; }
 //    }
 //}
