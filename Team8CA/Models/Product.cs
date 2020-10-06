@@ -11,11 +11,11 @@ namespace Team8CA.Models
      [Table("Products")]
     public class Products
     {
-        //Primary keu
+        //Primary key
         [Column("ProductID")]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string ProductName { get; set; }

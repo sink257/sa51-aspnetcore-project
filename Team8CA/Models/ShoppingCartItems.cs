@@ -18,6 +18,11 @@ namespace Team8CA.Models
         public virtual Products Products { get; set; }
         public virtual ShoppingCart ShoppingCart { get; set; }
 
+        public ShoppingCartItems()
+        {
+
+        }
+
         public ShoppingCartItems(int ShoppingCartId, int productId)
         {
             ShoppingcartId = ShoppingCartId;

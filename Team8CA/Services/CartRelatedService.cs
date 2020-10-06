@@ -55,13 +55,13 @@ namespace Team8CA.Services
 
         public void AddCartItem(int prdId, int quantity, ShoppingCart cart)
         {
-            Product product = _db.Products.First(x => x.Id == prdId);
-            ShoppingCartItems cartItem = _db.ShoppingCartItems.FirstOrDefault(x => x.Id == cart.Id && x.ProductId == prdId);
+            Products product = _db.Products.First(x => x.Id == prdId);
+            ShoppingCartItems cartItem = _db.ShoppingCartItem.FirstOrDefault(x => x.Id == cart.Id && x.ProductId == prdId);
 
             if (cartItem == null)
             {
                 cartItem = new ShoppingCartItems(cart.Id, prdId);
-                _db.ShoppingCartItems.Add(cartItem);
+                _db.ShoppingCartItem.Add(cartItem);
             }
             else
             {
@@ -82,7 +82,7 @@ namespace Team8CA.Services
             var cart = _db.ShoppingCart.Where(cart => cart.CustomerId == customerId && !cart.IsCheckOut).FirstOrDefault();
             if (cart != null)
             {
-                cart.ShoppingCartItems = _db.ShoppingCartItems.Where(x => x.Id == cart.Id).ToList<ShoppingCartItems>();
+                cart.ShoppingCartItems = _db.ShoppingCartItem.Where(x => x.Id == cart.Id).ToList<ShoppingCartItems>();
             }
             return cart ?? new ShoppingCart();
         }
