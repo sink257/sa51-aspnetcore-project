@@ -12,10 +12,10 @@ namespace Team8CA.Controllers
 {
     public class CustomerLoginController : Controller
     {
-        private readonly CustomerLogin customers;
+        private readonly Customer customers;
         protected AppDbContext db;
 
-        public CustomerLoginController(CustomerLogin customers, AppDbContext db)
+        public CustomerLoginController(Customer customers, AppDbContext db)
         {
             this.customers = customers;
             this.db = db;
@@ -26,8 +26,8 @@ namespace Team8CA.Controllers
         }
         public IActionResult Authenticate(string username, string password)
         {
-            CustomerLogin customers;
-            customers = (CustomerLogin)db.CustomerLogin.Where(x => x.Username == username && x.Password == password);
+            Customer customers;
+            customers = (Customer)db.Customers.Where(x => x.Username == username && x.Password == password);
             return View("Index");
         }
     }

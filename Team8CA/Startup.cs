@@ -29,7 +29,7 @@ namespace Team8CA
             services.AddDbContext<AppDbContext>
                 (opt => opt.UseSqlServer(Configuration.GetConnectionString("DBConn")));
 
-            services.AddScoped<Team8CA.Models.CustomerLogin>();
+            services.AddScoped<Team8CA.Models.Customer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
