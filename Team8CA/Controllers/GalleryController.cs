@@ -30,6 +30,11 @@ namespace Team8CA.Controllers
             return View();
         }
 
+        public GalleryController(int ID, string ProductName, double ProductPrice, bool ProductAvailability, string ProductDescription)
+        { 
+            
+        }
+
         public IActionResult AntivirusAndSecurity()
         {
             return View();

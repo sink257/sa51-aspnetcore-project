@@ -9,13 +9,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Team8CA.Models
 {
     [Table("Products")]
-    public class GalleryProducts
+    public class Products
     {
         //Primary keu
         [Column("ProductID")]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public string ID { get; set; }
+        public int ID { get; set; }
 
         [Required]
         public string ProductName { get; set; }
