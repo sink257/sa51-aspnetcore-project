@@ -7,8 +7,8 @@ namespace Team8CA.Models
 {
     public class Products
     {
-        public string ProductName { get; set; }
-        public string ProductID{ get; set; }
+        public string ProductID { get; set; }
+        public string ProductName { get; set; }        
         public string ProductPic { get; set; }
         public double ProductPrice { get; set; }
         public bool ProductAvailability { get; set; }
