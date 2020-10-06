@@ -9,7 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Team8CA.DataAccess
 {
     [Table("Products")]
-    public class Product
+    public class Product : DbContext
     {
         [Column("ProductID")]
         [Key]
