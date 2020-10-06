@@ -79,7 +79,7 @@
                     
                     @for (int i = 5; i > 0; i--)
                     {
-                        <input type="radio" name="rating" id="@("rate-" + i)" value="@i" onclick="display(this.value)">
+                        <input type="radio" name="rating" id="@("rate-" + i)" value=@i onclick="display(this.value)" asp-for="StarRating" class="form-control">
                         <label for="@("rate-" + i)" class="fas fa-star"></label>
                     }
                 </div>
@@ -92,9 +92,9 @@
             <div id="review-comment" class="pt-2">
                 
                     <div class="pb-3">
-                        <textarea id="review-text" name="review" placeholder="Write a review..." style="height:160px; width: 100%"></textarea>
+                        <textarea asp-for="ReviewDetails" class="form-control" id="review-text" name="review" placeholder="Write a review..." style="height:160px; width: 100%"></textarea>
                     </div>
-                    <input type="submit" value="Submit" class="btn btn-success float-right">
+                    <button type="submit" value="Submit" class="btn btn-success float-right">Submit</button>
                 
             </div>
 
