@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Team8CA.Models
 {
-     [Table("Products")]
+    [Table("Products")]
     public class Products
     {
         //Primary key

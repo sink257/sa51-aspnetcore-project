@@ -31,6 +31,7 @@ namespace Team8CA
 
             services.AddScoped<Team8CA.Models.Customer>();
             //services.AddScoped<Team8CA.Models.Products>();
+            services.AddScoped<Team8CA.Models.Session>();
 
         }
 
