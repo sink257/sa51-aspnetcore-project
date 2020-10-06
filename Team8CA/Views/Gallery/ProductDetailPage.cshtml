@@ -1,4 +1,11 @@
-﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+﻿@{ 
+    var product = (Products)ViewData["product"];
+}
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model Team8CA.Models.Products
+
+
+
 
 <style>
     .add-to-cart {
@@ -116,7 +123,6 @@
         font-weight: 900;
         color: #f8ce0b;
     }
-
 </style>
 
 <script>
@@ -125,12 +131,12 @@
 
     document.addEventListener('DOMContentLoaded', getRating);
 
-    function getRating() {           
-            const starPercentage = (rating / 5) * 100;
-            const starPercentageRounded = `${Math.round(starPercentage)}%`;
+    function getRating() {
+        const starPercentage = (rating / 5) * 100;
+        const starPercentageRounded = `${Math.round(starPercentage)}%`;
 
-            document.querySelector(`.stars-inner`).style.width = starPercentageRounded;
-            document.querySelector(`.number-rating`).innerHTML = rating;
+        document.querySelector(`.stars-inner`).style.width = starPercentageRounded;
+        document.querySelector(`.number-rating`).innerHTML = rating;
     }
 </script>
 
@@ -140,12 +146,12 @@
         <div class="col-9">
             <div class="row ">
                 <div class="col-4 p-4 text-center">
-                    <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="p-3 container img-thumbnail" />
+                    <img src=@product.ProductPic class="p-3 container img-thumbnail" />
                     <h5 class="text-success p-3">In stock</h5>
                 </div>
 
                 <div class="col-8 pt-4">
-                    <h2>Microsoft Visio 2016 Professional (PC) - Microsoft Key - GLOBAL</h2>
+                    <h2>@product.ProductName</h2>
 
                     <div class="stars-outer">
                         <div class="stars-inner"></div>
@@ -157,8 +163,8 @@
                         <a href="#product-reviews" class="text-primary">See reviews</a>
                     </div>
 
-                    <div class="price pt-3"><h1 class="text-danger">$99</h1></div>
-                    <p class="pt-3"> Microsoft Visio 2016 is a Part of Microsoft’s Office family, Microsoft Visio is a diagramming and vector graphics application that creates professional flowcharts, diagrams and organisational charts.</p>
+                    <div class="price pt-3"><h1 class="text-danger">S$@product.ProductPrice</h1></div>
+                    <p class="pt-3">@product.ProductDescription</p>
                     <a href="#product-details" class="text-primary">Learn more</a>
 
                     <div class="number-input">
