@@ -45,7 +45,7 @@ namespace Team8CA
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            db.Database.EnsureDeleted();
+            //db.Database.EnsureDeleted();
             db.Database.EnsureCreated();
 
             app.UseStaticFiles();
