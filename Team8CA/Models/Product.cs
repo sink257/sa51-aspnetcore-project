@@ -20,7 +20,7 @@ namespace Team8CA.Models
         [Required]
         public string ProductName { get; set; }
 
-        [Required]
+        
         public string ProductPic { get; set; }
 
         [Required]
@@ -36,7 +36,17 @@ namespace Team8CA.Models
         public string ProductCategory { get; set; }
 
         public virtual Category Category { get; set; }
-      
+
+        public Products() { }
+
+        public Products(string ProductName, double ProductPrice, bool ProductAvailability, string ProductDescription, string ProductCategory)
+        {
+            this.ProductName = ProductName;
+            this.ProductPrice = ProductPrice;
+            this.ProductAvailability = ProductAvailability;
+            this.ProductDescription = ProductDescription;
+            this.ProductCategory = ProductCategory;
+        }
     }
 
 }
