@@ -25,11 +25,11 @@ namespace Team8CA.Models
 
         public bool IsCheckOut { get; set; } //if checkout or not
 
-        //public virtual ICollection<ShoppingCartItems> ShoppingCartItems { get; set; }
+        public virtual ICollection<ShoppingCartItems> ShoppingCartItems { get; set; }
 
         public ShoppingCart()
         {
-            //ShoppingCartItems = new List<ShoppingCartItems>();
+            ShoppingCartItems = new List<ShoppingCartItems>();
         }
 
         public ShoppingCart(int customerId)
@@ -37,7 +37,7 @@ namespace Team8CA.Models
             CustomerId = customerId;
             OrderCreationTime = DateTime.Now;
             IsCheckOut = false;
-            //ShoppingCartItems = new List<ShoppingCartItems>();
+            ShoppingCartItems = new List<ShoppingCartItems>();
         }
 
         [NotMapped]
@@ -48,7 +48,5 @@ namespace Team8CA.Models
 
         [NotMapped]
         public double SubTotal { get; set; }
-
-
     }
 }
