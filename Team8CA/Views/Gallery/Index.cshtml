@@ -42,7 +42,7 @@
         transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
         text-align: center;
-        font-size:1vw;
+        font-size: 1vw;
     }
 
     .size {
@@ -142,83 +142,73 @@
 
 
 @*section Scripts
-{
-    <script>
-        var updateCart = function (url) {
-            $("#cartIcon").load(url);
-        };
-    </script>*@
-}
+    {
+        <script>
+            var updateCart = function (url) {
+                $("#cartIcon").load(url);
+            };
+        </script>
+    }
 
-=======
-<div class="container" >
+    =======*@
+<div class="container">
 
-<div class="sidenav">
-    <h2>Categories</h2>
-    <a class="dropdown-btn" href="#security">
-        Antivirus And Security
-        <span class="fas fa-caret-down first"></span>
-    </a>
-    <div class="dropdown-container">
-        <a href="#security">Antivirus And Security</a>
-        <a href="#security">Antivirus And Security</a>
-        <a href="#security">Antivirus And Security</a>
+    <div class="sidenav">
+        <h2>Categories</h2>
+        <a class="dropdown-btn" href="#security">
+            Antivirus And Security
+            <span class="fas fa-caret-down first"></span>
+        </a>
+        <div class="dropdown-container">
+            <a href="#security">Antivirus And Security</a>
+            <a href="#security">Antivirus And Security</a>
+            <a href="#security">Antivirus And Security</a>
+        </div>
+        <a class="dropdown-btn" href="#business">
+            Business And Office
+            <span class="fas fa-caret-down first"></span>
+        </a>
+        <div class="dropdown-container">
+            <a href="#business">Business And Office</a>
+            <a href="#business">Business And Office</a>
+            <a href="#business">Business And Office</a>
+        </div>
+        <a class="dropdown-btn" href="#design">
+            Design and Illustration
+            <span class="fas fa-caret-down first"></span>
+        </a>
+        <div class="dropdown-container">
+            <a href="#design">Design and Illustration</a>
+            <a href="#design">Design and Illustration</a>
+            <a href="#design">Design and Illustration</a>
+        </div>
     </div>
-    <a class="dropdown-btn" href="#business">
-        Business And Office
-        <span class="fas fa-caret-down first"></span>
-    </a>
-    <div class="dropdown-container">
-        <a href="#business">Business And Office</a>
-        <a href="#business">Business And Office</a>
-        <a href="#business">Business And Office</a>
-    </div>
-    <a class="dropdown-btn" href="#design">
-        Design and Illustration
-        <span class="fas fa-caret-down first"></span>
-    </a>
-    <div class="dropdown-container">
-        <a href="#design">Design and Illustration</a>
-        <a href="#design">Design and Illustration</a>
-        <a href="#design">Design and Illustration</a>
-    </div>
-</div>
 
-<div class="table">
+    <div class="table">
 
-    <table>
-        @for (int i = 0; i < imgs.Length; i += 3)
-        {
-            <tr>
-                @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
-                {
-                    <td>
-                        <div class="polaroid">
-                            @*images from database*@
-                            @{ string url = ViewData["url_prefix"] +
-                                            imgs[i + j] + ViewData["url_postfix"];
-                            }
+        <table>
+            @for (int i = 0; i < imgs.Length; i += 3)
+            {
+                <tr>
+                    @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
+                    {
+                        <td>
+                            <div class="polaroid">
+                                @*images from database*@
+                                @{ string url = ViewData["url_prefix"] +
+                                                 imgs[i + j] + ViewData["url_postfix"];
+                                }
 
-                            <div class="container">
-                                <img src=@url class="responsive" />
-                                <div class="middle">
-                                    <button type="button" class="btn btn-primary view">View</button>
+                                <div class="container">
+                                    <img src=@url class="responsive" />
+                                    <div class="middle">
+                                        <button type="button" class="btn btn-primary view">View</button>
+                                    </div>
+                                    <div class="middle2">
+                                        <button type="button" class="btn btn-primary add-to-cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + i + "'"))">Add to Cart</button>
+                                    </div>
                                 </div>
-                                <div class="middle2">
-                                    <button type="button" class="btn btn-primary add-to-cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + i + "'"))">Add to Cart</button>
-                                </div>
-                            </div>
 
-
-=======
-                            <br />
-                        </td>
-                    }
-                </tr>
-            }
-        </table>
-    </div>
-    </div>
 
 
                             <div class="productdesc">
@@ -226,9 +216,10 @@
                                 <h6>This is a .....</h6>
                                 <h5><b>$999</b></h5>
                             </div>
+
                         </div>
 
-                        <br />
+                      <br />
                     </td>
                 }
             </tr>
