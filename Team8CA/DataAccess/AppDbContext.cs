@@ -11,6 +11,7 @@ namespace Team8CA.DataAccess
     public class AppDbContext : DbContext
     {
         protected IConfiguration configuration;
+        
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -25,7 +26,9 @@ namespace Team8CA.DataAccess
         //public DbSet<Order> Orders { get; set; }
         //public DbSet<Product> Products { get; set; }
         //implementation of Model methods
-        public DbSet<CustomerLogin> CustomerLogin { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         //public DbSet<ShoppingCart> ShoppingCart { get; set; }        
+        public DbSet<Review> Reviews { get; set; }
+
     }
 }
