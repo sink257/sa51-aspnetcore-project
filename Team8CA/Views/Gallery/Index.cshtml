@@ -196,7 +196,7 @@
                             <div class="polaroid">
                                 @*images from database*@
                                 @{ string url = ViewData["url_prefix"] +
-                                                  imgs[i + j] + ViewData["url_postfix"];
+                                                 imgs[i + j] + ViewData["url_postfix"];
                                 }
 
                                 <div class="container">
@@ -208,25 +208,24 @@
                                         <button type="button" class="btn btn-primary add-to-cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + i + "'"))">Add to Cart</button>
                                     </div>
                                 </div>
-                                <div class="productdesc">
-                                    <h5>Productname</h5>
-                                    <h6>This is a .....</h6>
-                                    <h5><b>$999</b></h5>
-                                </div>
 
+
+
+                            <div class="productdesc">
+                                <h5>Productname</h5>
+                                <h6>This is a .....</h6>
+                                <h5><b>$999</b></h5>
                             </div>
-                            <br/>
-                        </td>
-                    }
-                </tr>
-            }
-        </table>
-    </div>
+
+                        </div>
+
+                      <br />
+                    </td>
+                }
+            </tr>
+        }
+    </table>
 </div>
-
-
-
-
 
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="https://kit.fontawesome.com/a076d05399.js"></script>
