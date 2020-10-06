@@ -1,5 +1,6 @@
 ﻿
 @{
+   
     ViewData["Title"] = "OrderHistory";
 }
 
@@ -10,6 +11,7 @@
         width: 80%;
         margin-left: auto;
         margin-right: auto;
+        table-layout: auto;
     }
 
         #customers td, #customers th {
@@ -28,7 +30,7 @@
         #customers th {
             padding-top: 12px;
             padding-bottom: 12px;
-            text-align: left;
+            text-align: center;
             background-color: #4CAF50;
             color: white;
         }
@@ -41,7 +43,7 @@
                 <th>OrderId</th>
                 <th>Quantity</th>
                 <th>Cost</th>
-                <th>date</th>
+                <th>Ordered Date</th>
                 <th></th>
             </tr>
         </thead>
@@ -52,12 +54,11 @@
              <td>Quantity</td>
              <td>Value</td>
              <td>CheckoutTime</td>
-             <td><a href=@("path to recentOrder")></a></td>
+             <td><a href=@("path to recentOrder")>More Details</a></td>
          </tr>
          }
         } *@
     </table>
-    </div>
 
 @* If they haven't ordered any items, display you have not yet orderd (using if statement)*@
     <p>You have not yet ordered.<p>
