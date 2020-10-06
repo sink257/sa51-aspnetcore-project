@@ -30,6 +30,7 @@ namespace Team8CA
                 (opt => opt.UseSqlServer(Configuration.GetConnectionString("DBConn")));
 
             services.AddScoped<Team8CA.Models.Customer>();
+            //services.AddScoped<Team8CA.Models.Products>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

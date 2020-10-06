@@ -10,6 +10,7 @@ using Team8CA.Models;
 
 namespace Team8CA.Controllers
 {
+    
     public class CustomerLoginController : Controller
     {
         private readonly Customer customers;
@@ -20,6 +21,8 @@ namespace Team8CA.Controllers
             this.customers = customers;
             this.db = db;
         }
+
+        [Route("Login")]
         public IActionResult Index()
         {
             return View();
