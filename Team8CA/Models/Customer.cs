@@ -11,11 +11,11 @@ namespace Team8CA.Models
     [Table("CustomerLogin")]
     public class Customer
     {
-        [Column("CustomerID")]
+        [Column("CustomerId")]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
-        public int CustomerID { get; set; }
+        public int CustomerId { get; set; }
 
         [Column("Username")]
         [Required]

@@ -13,43 +13,41 @@ namespace Team8CA.Models
     {
 
         [Key]
-        public int Id { get; set; }
+        public int Id { get; set; } //this is the cartID
 
-        [Required]
-        public int CustomerID { get; set; } //to get customerID
+        public int CustomerId { get; set; } //to get customerID
 
         [Required]
         public DateTime OrderCreationTime { get; set; }
 
         public DateTime OrderTime {get;set;}
 
-        public bool IsCheckOut { get; set; }
 
-        public virtual Products products { get; set; } //to get pricing and productID
+        public bool IsCheckOut { get; set; } //if checkout or not
 
-        public int Quantity { get; set; }
-
-        
-        public int Total { get; set; }
-
-
-        public double SubTotal { get; set; }
-
-        public virtual ICollection<PurchasedItems> CartItems { get; set; }
+        //public virtual ICollection<ShoppingCartItems> ShoppingCartItems { get; set; }
 
         public ShoppingCart()
         {
-            CartItems = new List<PurchasedItems>();
+            //ShoppingCartItems = new List<ShoppingCartItems>();
         }
 
         public ShoppingCart(int customerId)
         {
-            CustomerID = customerId;
+            CustomerId = customerId;
             OrderCreationTime = DateTime.Now;
             IsCheckOut = false;
-            CartItems = new List<PurchasedItems>();
+            //ShoppingCartItems = new List<ShoppingCartItems>();
         }
 
+        [NotMapped]
+        public int NoOfProductTypes { get; set; }
+
+        [NotMapped]
+        public double Total { get; set; }
+
+        [NotMapped]
+        public double SubTotal { get; set; }
 
 
     }

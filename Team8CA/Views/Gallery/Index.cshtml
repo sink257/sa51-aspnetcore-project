@@ -78,7 +78,6 @@
         height: 80%;
         width: 20%;
         max-width: 250px;
-        min-width:160px;
         position: absolute;
         z-index: 0;
         top: 0;
@@ -87,6 +86,7 @@
         overflow-x: auto;
         padding-top: 0px;
         margin-top: 0;
+        margin-left: -10%;
         font-size: 18px;
         line-height: 2;
     }
@@ -125,7 +125,7 @@
     }
 
     .table {
-        margin-left: 20%;
+        margin-left: 10%;
         width: 100%;
         overflow-x: auto;
     }
@@ -137,6 +137,15 @@
         max-height: 235px;
     }
 </style>
+
+@section Scripts
+{
+    <script>
+        var updateCart = function (url) {
+            $("#cartIcon").load(url);
+        };
+    </script>
+}
 
 <div class="sidenav">
     <h2>Categories</h2>
@@ -169,62 +178,62 @@
     </div>
 </div>
 
-    <div class="table">
+<div class="table">
 
-        <table>
-            @for (int i = 0; i < imgs.Length; i += 3)
-            {
-                <tr>
-                    @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
-                    {
-                        <td>
-                            <div class="polaroid">
-                                @*images from database*@
-                                @{ string url = ViewData["url_prefix"] +
-                                               imgs[i + j] + ViewData["url_postfix"];
-                                }
+    <table>
+        @for (int i = 0; i < imgs.Length; i += 3)
+        {
+            <tr>
+                @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
+                {
+                    <td>
+                        <div class="polaroid">
+                            @*images from database*@
+                            @{ string url = ViewData["url_prefix"] +
+                                            imgs[i + j] + ViewData["url_postfix"];
+                            }
 
-                                <div class="container">
-                                    <img src=@url class="responsive" />
-                                    <div class="middle">
-                                        <button type="button" class="btn btn-primary view">View</button>
-                                    </div>
-                                    <div class="middle2">
-                                        <button type="button" class="btn btn-primary add-to-cart">Add to Cart</button>
-                                    </div>
+                            <div class="container">
+                                <img src=@url class="responsive" />
+                                <div class="middle">
+                                    <button type="button" class="btn btn-primary view">View</button>
                                 </div>
-
-
-                                <div class="productdesc">
-                                    <h5>Productname</h5>
-                                    <h6>This is a .....</h6>
-                                    <h5><b>$999</b></h5>
+                                <div class="middle2">
+                                    <button type="button" class="btn btn-primary add-to-cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + i + "'"))">Add to Cart</button>
                                 </div>
                             </div>
 
-                            <br />
-                        </td>
-                    }
-                </tr>
-            }
-        </table>
-    </div>
 
-    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script>
-        /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-        var dropdown = document.getElementsByClassName("dropdown-btn");
-        var i;
-        for (i = 0; i < dropdown.length; i++) {
-            dropdown[i].addEventListener("click", function () {
-                this.classList.toggle("active");
-                var dropdownContent = this.nextElementSibling;
-                if (dropdownContent.style.display === "block") {
-                    dropdownContent.style.display = "none";
-                } else {
-                    dropdownContent.style.display = "block";
+                            <div class="productdesc">
+                                <h5>Productname</h5>
+                                <h6>This is a .....</h6>
+                                <h5><b>$999</b></h5>
+                            </div>
+                        </div>
+
+                        <br />
+                    </td>
                 }
-            });
+            </tr>
         }
-    </script>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script>
+    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+    for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+        });
+    }
+</script>
