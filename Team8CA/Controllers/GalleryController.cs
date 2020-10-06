@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using PagedList;
 using Team8CA.DataAccess;
 using Team8CA.Models;
-using Team8CA.Services;
+//using Team8CA.Services;
 //using Team8CA.Services;
 
 namespace Team8CA.Controllers
@@ -16,7 +16,6 @@ namespace Team8CA.Controllers
     {
         public IActionResult Index()
         {
-
             string[] imgs = {
                 "/images/adguardpic.jpg",
                 "/images/avira.jpg",
@@ -46,7 +45,6 @@ namespace Team8CA.Controllers
         }
 
 
-
         public IActionResult BusinessAndOffice()
         {
             return View();
@@ -58,19 +56,19 @@ namespace Team8CA.Controllers
             return View();
         }
 
-        public IActionResult AddToCart([FromServices] CartRelatedService srv, int prdId)
-        {
-            var customerId = HttpContext.Session.GetInt32("customerId") ?? 0;
+      //  public IActionResult AddToCart([FromServices] CartRelatedService srv, int prdId)
+       // {
+        //    var customerId = HttpContext.Session.GetInt32("customerId") ?? 0;
             //if (customerId == 0)
             //{
             //    AddToCartForSession(srv, prdId, 1);
             //}
             //else
             //{
-            ViewData["ItemCount"] = srv.AddProductsToCart(customerId, prdId, 1);
+       //     ViewData["ItemCount"] = srv.AddProductsToCart(customerId, prdId, 1);
             //}
-            return PartialView("_CartIcon");
-        }
+         //   return PartialView("_CartIcon");
+      //  }
 
         protected AppDbContext db;
         public GalleryController(AppDbContext db)
