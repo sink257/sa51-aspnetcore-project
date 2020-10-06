@@ -46,9 +46,6 @@ namespace Team8CA
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            db.Database.EnsureDeleted();
-            db.Database.EnsureCreated();
-
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -61,6 +58,10 @@ namespace Team8CA
                     name: "default",
                     pattern: "{controller=Gallery}/{action=Index}/{id?}");
             });
+
+            db.Database.EnsureDeleted();
+            db.Database.EnsureCreated();
+            new DBInitialiser(db);
         }
     }
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PagedList;
+using Team8CA.DataAccess;
 using Team8CA.Models;
 using Team8CA.Services;
 //using Team8CA.Services;
@@ -38,6 +39,7 @@ namespace Team8CA.Controllers
             
         //}
 
+
         public IActionResult AntivirusAndSecurity()
         {
             return View();
@@ -70,13 +72,26 @@ namespace Team8CA.Controllers
             return PartialView("_CartIcon");
         }
 
+        protected AppDbContext db;
+        public GalleryController(AppDbContext db)
+        {
+            this.db = db;
+        }
+        public List<Products> GetProducts(string query)
+        {
+            List<Products> products = db.Products.ToList();
+            {
+                if (query == "" || query == null)
+                {
+                    return db.Products.ToList();
+                }
 
-
-
-
-
-
-
+                return db.Products.Where(p =>
+                        p.ProductName.ToLower().Contains(query.ToLower()) ||
+                        p.ProductDescription.ToLower().Contains(query.ToLower()))
+                    .ToList();
+            }
+        }
 
     }
 }
