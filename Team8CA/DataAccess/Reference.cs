@@ -30,4 +30,33 @@
 //        [ForeignKey("CustomerID")]
 //        public virtual List<Order> Orders { get; set; }
 //    }
+//    public class Order
+//    {
+//        [Column("OrderID")]
+//        [Key]
+//        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+//        [Required]
+//        public int OrderID { get; set; }
+
+//        [Column("OrderDate")]
+//        [Required]
+//        public DateTime OrderDate { get; set; }
+
+//        [Required]
+//        public int CustomerID { get; set; }
+//    }
+//    [Table("Products")]
+//    public class Product
+//    {
+//        [Column("ProductID")]
+//        [Key]
+//        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+//        [Required]
+//        public int ProductID { get; set; }
+
+//        [Column("ProductName")]
+//        [Required]
+//        [StringLength(100)]
+//        public string ProductName { get; set; }
+//    }
 //}
