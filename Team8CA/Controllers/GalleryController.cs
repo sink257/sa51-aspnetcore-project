@@ -22,7 +22,7 @@ namespace Team8CA.Controllers
                 "/images/creativesuite.jpg",
                 "/images/illustrator.jpg",
                 "/images/malwarebytes.png",
-                "/images/photoshop.jpg",
+                "/images/photoshop1.jpg",
                 "/images/project.jpg",
                 "/images/visio.jpg",
             };
