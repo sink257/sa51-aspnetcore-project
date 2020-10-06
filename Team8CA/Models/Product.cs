@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Data.Entity;
+using Team8CA.DataAccess;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Team8CA.Models
 {
-    [Table("Products")]
+     [Table("Products")]
     public class Products
     {
         //Primary keu
@@ -35,6 +35,8 @@ namespace Team8CA.Models
         [Required]
         public string ProductCategory { get; set; }
 
+        public virtual Category Category { get; set; }
       
     }
+
 }

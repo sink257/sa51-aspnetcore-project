@@ -9,27 +9,27 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Team8CA.Models
 {
     [Table("CustomerLogin")]
-    public class CustomerLogin
+    public class Customer
     {
-        [Column("CustomerID")]
+        [Column("CustomerId")]
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
-        public int CustomerID { get; set; }
+        public int CustomerId { get; set; }
 
         [Column("Username")]
         [Required]
-        [StringLength(20)]
+        [StringLength(32)]
         public string Username { get; set; }
 
         [Column("Password")]
         [Required]
-        [StringLength(12)]
+        [StringLength(32)]
         public string Password { get; set; }
 
-        public CustomerLogin() { }
+        public Customer() { }
 
-        public CustomerLogin(string Username, string Password)
+        public Customer(string Username, string Password)
         {
             this.Username = Username;
             this.Password = Password;

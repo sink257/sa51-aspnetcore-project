@@ -5,38 +5,49 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace Team8CA.Models
 {
     public class ShoppingCart
     {
-        //orderID, user id, product ID, count of the items, price (not addded to database)
-        public ShoppingCart()
-        {
-            Quantity = 1;
-        }
 
-        public int OrderId { get; set; }
+        [Key]
+        public int Id { get; set; } //this is the cartID
 
-        public int CustomerID { get; set; }
+        public int CustomerId { get; set; } //to get customerID
 
+        [Required]
         public DateTime OrderCreationTime { get; set; }
 
         public DateTime OrderTime {get;set;}
 
-        public bool IsCheckOut { get; set; }
 
-        [Range(1, 1000, ErrorMessage = "Please enter a value between 1 and 1000")]
-        public int Quantity { get; set; }
+        public bool IsCheckOut { get; set; } //if checkout or not
 
-        public double Price { get; set; }
+        //public virtual ICollection<ShoppingCartItems> ShoppingCartItems { get; set; }
 
+        public ShoppingCart()
+        {
+            //ShoppingCartItems = new List<ShoppingCartItems>();
+        }
+
+        public ShoppingCart(int customerId)
+        {
+            CustomerId = customerId;
+            OrderCreationTime = DateTime.Now;
+            IsCheckOut = false;
+            //ShoppingCartItems = new List<ShoppingCartItems>();
+        }
+
+        [NotMapped]
+        public int NoOfProductTypes { get; set; }
+
+        [NotMapped]
+        public double Total { get; set; }
+
+        [NotMapped]
         public double SubTotal { get; set; }
-
-
-
-
-
 
 
     }
