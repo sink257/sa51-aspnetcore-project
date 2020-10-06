@@ -14,7 +14,7 @@
                         Order Summary
                     </div>
                     <div class="col-6 text-right">
-                        <a class="btn btn-outline-info btn-sm">Back to Cart</a>
+                        <a asp-area="" asp-controller="Cart" asp-action="Index" class="btn btn-outline-info btn-sm">Back to cart</a>
                     </div>
                 </div>
                 <div class="card-body">
@@ -23,7 +23,7 @@
                             <div class="col-12 col-lg-6 pb-4">
                                 <div class="row">
                                     <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                        <span class="text-info">Shipping Details:</span>
+                                        <span class="text-info">Billing Address:</span>
                                     </h4>
                                 </div>
                                 <div class="row my-1">
@@ -80,6 +80,8 @@
                                     <span class="text-info">Order Summary:</span>
                                 </h4>
                                 <ul class="list-group mb-3">
+                                    @*@foreach (ShoppingCart CartItems in  )*@
+                                    @*{*@
                                     <li class="list-group-item d-flex justify-content-between">
                                         <div>
                                             <h6 class="my-0">MICROSOFT OFFICE</h6>
@@ -88,6 +90,7 @@
                                         </div>
                                         <span class="text-muted">$ 1,000.00</span>
                                     </li>
+                                    @*}*@
                                     <li class="list-group-item d-flex justify-content-between bg-light">
                                         <small class="text-info">Total ($)</small>
                                         <strong class="text-info">$1,000.00</strong>
@@ -100,7 +103,7 @@
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-12 col-md-8 pt-2">
-                            <p style="color:maroon; font-size:14px;">Estimate Arrival Date: @DateTime.Now.AddDays(7).ToShortDateString() - @DateTime.Now.AddDays(14).ToShortDateString()</p>
+                            @*<p style="color:maroon; font-size:14px;">Estimate Arrival Date: @DateTime.Now.AddDays(0).ToShortDateString() - @DateTime.Now.AddDays(3).ToShortDateString()</p>*@
                         </div>
                         <div class="col-12 col-md-4">
 
