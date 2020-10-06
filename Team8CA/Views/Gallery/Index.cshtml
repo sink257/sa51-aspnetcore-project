@@ -30,6 +30,7 @@
         transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
         text-align: center;
+        font-size: 1vw;
     }
 
     .middle2 {
@@ -41,6 +42,7 @@
         transform: translate(-50%, -50%);
         -ms-transform: translate(-50%, -50%);
         text-align: center;
+        font-size:1vw;
     }
 
     .size {
@@ -138,14 +140,18 @@
     }
 </style>
 
-@section Scripts
+
+@*section Scripts
 {
     <script>
         var updateCart = function (url) {
             $("#cartIcon").load(url);
         };
-    </script>
+    </script>*@
 }
+
+=======
+<div class="container" >
 
 <div class="sidenav">
     <h2>Categories</h2>
@@ -202,6 +208,17 @@
                                     <button type="button" class="btn btn-primary add-to-cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + i + "'"))">Add to Cart</button>
                                 </div>
                             </div>
+
+
+=======
+                            <br />
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
+    </div>
+    </div>
 
 
                             <div class="productdesc">
