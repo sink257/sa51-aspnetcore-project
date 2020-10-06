@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Team8CA.Models
 {
-    public class GalleryProducts
+    public class Products
     {
         public string ProductName { get; set; }
         public string ProductID{ get; set; }
@@ -13,7 +13,7 @@ namespace Team8CA.Models
         public double ProductPrice { get; set; }
         public bool ProductAvailability { get; set; }
         public string ProductDescription { get; set; }
-        public string ProductCategory { get; set; }
+        public virtual Category Category { get; set; }
 
       
     }
