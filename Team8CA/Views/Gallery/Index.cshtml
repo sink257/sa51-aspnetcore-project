@@ -153,95 +153,95 @@
     =======*@
 <div class="container">
 
-    <div class="sidenav">
-        <h2>Categories</h2>
-        <a class="dropdown-btn" href="#security">
-            Antivirus And Security
-            <span class="fas fa-caret-down first"></span>
-        </a>
-        <div class="dropdown-container">
-            <a href="#security">Antivirus And Security</a>
-            <a href="#security">Antivirus And Security</a>
-            <a href="#security">Antivirus And Security</a>
-        </div>
-        <a class="dropdown-btn" href="#business">
-            Business And Office
-            <span class="fas fa-caret-down first"></span>
-        </a>
-        <div class="dropdown-container">
-            <a href="#business">Business And Office</a>
-            <a href="#business">Business And Office</a>
-            <a href="#business">Business And Office</a>
-        </div>
-        <a class="dropdown-btn" href="#design">
-            Design and Illustration
-            <span class="fas fa-caret-down first"></span>
-        </a>
-        <div class="dropdown-container">
-            <a href="#design">Design and Illustration</a>
-            <a href="#design">Design and Illustration</a>
-            <a href="#design">Design and Illustration</a>
-        </div>
-    </div>
+        <div class="sidenav">
+            <h2>Categories</h2>
+            <a class="dropdown-btn" href="/gallery/antivirusandsecurity">
+                Antivirus And Security
+            </a>
+            @*<div class="dropdown-container" >
+                <a href="#security">Antivirus And Security</a>
+                <a href="#security">Antivirus And Security</a>
+                <a href="#security">Antivirus And Security</a>
+            </div>*@
+            <a class="dropdown-btn" href="/gallery/Businessandoffice">
+                Business And Office
+                @*<span class="fas fa-caret-down first"></span>*@
+            </a>
+            @*<div class="dropdown-container">
+                <a href="#business">Business And Office</a>
+                <a href="#business">Business And Office</a>
+                <a href="#business">Business And Office</a>
+            </div>*@
+            <a class="dropdown-btn" href="/gallery/DesignandIllustration">
+                Design and Illustration
+                @*<span class="fas fa-caret-down first"></span>*@
+            </a>
+            @*<div class="dropdown-container">
+                <a href="#design">Design and Illustration</a>
+                <a href="#design">Design and Illustration</a>
+                <a href="#design">Design and Illustration</a>
+            </div>*@
 
-    <div class="table">
+        </div>
 
-        <table>
-            @for (int i = 0; i < imgs.Length; i += 3)
-            {
-                <tr>
-                    @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
-                    {
-                        <td>
-                            <div class="polaroid">
-                                @*images from database*@
-                                @{ string url = ViewData["url_prefix"] +
-                                                 imgs[i + j] + ViewData["url_postfix"];
-                                }
+        <div class="table">
 
-                                <div class="container">
-                                    <img src=@url class="responsive" />
-                                    <div class="middle">
-                                        <button type="button" class="btn btn-primary view">View</button>
+            <table>
+                @for (int i = 0; i < imgs.Length; i += 3)
+                {
+                    <tr>
+                        @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
+                        {
+                            <td>
+                                <div class="polaroid">
+                                    @*images from database*@
+                                    @{ string url = ViewData["url_prefix"] +
+                                                      imgs[i + j] + ViewData["url_postfix"];
+                                    }
+
+                                    <div class="container">
+                                        <img src=@url class="responsive" />
+                                        <div class="middle">
+                                            <button type="button" class="btn btn-primary view">View</button>
+                                        </div>
+                                        <div class="middle2">
+                                            <button type="button" class="btn btn-primary add-to-cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + i + "'"))">Add to Cart</button>
+                                        </div>
                                     </div>
-                                    <div class="middle2">
-                                        <button type="button" class="btn btn-primary add-to-cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + i + "'"))">Add to Cart</button>
+
+
+
+                                    <div class="productdesc">
+                                        <h5>Productname</h5>
+                                        <h6>This is a .....</h6>
+                                        <h5><b>$999</b></h5>
                                     </div>
+
                                 </div>
 
-
-
-                            <div class="productdesc">
-                                <h5>Productname</h5>
-                                <h6>This is a .....</h6>
-                                <h5><b>$999</b></h5>
-                            </div>
-
-                        </div>
-
-                      <br />
-                    </td>
+                                <br />
+                            </td>
+                        }
+                    </tr>
                 }
-            </tr>
-        }
-    </table>
-</div>
+            </table>
+        </div>
 
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-<script>
-    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-    var dropdown = document.getElementsByClassName("dropdown-btn");
-    var i;
-    for (i = 0; i < dropdown.length; i++) {
-        dropdown[i].addEventListener("click", function () {
-            this.classList.toggle("active");
-            var dropdownContent = this.nextElementSibling;
-            if (dropdownContent.style.display === "block") {
-                dropdownContent.style.display = "none";
-            } else {
-                dropdownContent.style.display = "block";
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+        <script>
+            /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+            var dropdown = document.getElementsByClassName("dropdown-btn");
+            var i;
+            for (i = 0; i < dropdown.length; i++) {
+                dropdown[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var dropdownContent = this.nextElementSibling;
+                    if (dropdownContent.style.display === "block") {
+                        dropdownContent.style.display = "none";
+                    } else {
+                        dropdownContent.style.display = "block";
+                    }
+                });
             }
-        });
-    }
-</script>
+        </script>
