@@ -34,6 +34,12 @@ namespace Team8CA.Controllers
 
         public IActionResult AntivirusAndSecurity()
         {
+
+            List<Products> product = db.Products.Where(p => (p.ProductCategory == "AntivirusandSecurity")).ToList();
+
+
+            ViewData["product"] = product;
+
             return View();
         }
 
@@ -41,12 +47,18 @@ namespace Team8CA.Controllers
 
         public IActionResult BusinessAndOffice()
         {
+            List<Products> product = db.Products.Where(p => (p.ProductCategory == "BusinessAndOffice")).ToList();
+
+
             return View();
 
         }
 
         public IActionResult DesignAndIllustration()
         {
+            List<Products> product = db.Products.Where(p => (p.ProductCategory == "DesignAndIllustration")).ToList();
+
+
             return View();
         }
 
