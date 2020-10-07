@@ -213,7 +213,7 @@
                                 <div class="container">
                                     <img src=@imgPath class="responsive productImage" />
                                     <div class="middle">
-                                        <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@(id+1)">View</a>
+                                        <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@(product[id].Id)">View</a>
                                     </div>
                                     <div class="middle2">
                                         <button type="button" class="btn btn-primary add-to-cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + id + "'"))">Add to Cart</button>
