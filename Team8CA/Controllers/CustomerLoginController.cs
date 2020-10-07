@@ -32,7 +32,7 @@ namespace Team8CA.Controllers
         public IActionResult Authenticate(string username, string password)
         {
             Customer customers;
-            customers = (Customer)db.Customers.Where(x => x.Username == username && x.Password == password);
+            customers = db.Customers.Where(x => x.Username == username && x.Password == password).FirstOrDefault();
 
             if (customers == null)
             {
