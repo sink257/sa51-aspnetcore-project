@@ -22,9 +22,12 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Gallery" asp-action="Index">Products</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="OrderHistory" asp-action="Index">My Purchases</a>
-                        </li>
+                        @if (ViewData["sessionId"] != null)
+                        { 
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="OrderHistory" asp-action="Index">My Purchases</a>
+                            </li>
+                        }
                     </ul>
                 </div>
                 @Html.Partial("_RightBar")
