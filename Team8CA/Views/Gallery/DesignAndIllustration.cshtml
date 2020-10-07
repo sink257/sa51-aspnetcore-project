@@ -183,7 +183,7 @@
             <a href="#business">Business And Office</a>
             <a href="#business">Business And Office</a>
         </div>*@
-        <a class="dropdown-btn" href="/gallery/desginandillustration">
+        <a class="dropdown-btn" href="/gallery/designandillustration">
         Design and Illustration
         @*<span class="fas fa-caret-down first"></span>*@
         </a>
@@ -196,7 +196,7 @@
 
 
 <div class="gallery-table">
-    <h1>DesignAndIllustration</h1>
+    <h1>Design And Illustration</h1>
     <table>
         @for (int i = 0; i < product.Count; i += 3)
         {
@@ -214,7 +214,7 @@
                             <div class="container">
                                 <img src=@imgPath class="responsive" />
                                 <div class="middle">
-                                    <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@(id+1)">View</a>
+                                    <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@(product[id].Id)">View</a>
                                 </div>
                                 <div class="middle2">
                                     <button type="button" class="btn btn-primary add-to-cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + id + "'"))">Add to Cart</button>
