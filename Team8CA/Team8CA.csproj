@@ -5,8 +5,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Views\ProductDetail\**" />
+    <Content Remove="Views\ProductDetail\**" />
+    <EmbeddedResource Remove="Views\ProductDetail\**" />
+    <None Remove="Views\ProductDetail\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Database\" />
-    <Folder Include="Views\ProductDetail\" />
   </ItemGroup>
 
   <ItemGroup>

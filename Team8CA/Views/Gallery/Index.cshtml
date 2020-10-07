@@ -52,8 +52,9 @@
         width: 350px
     }
 
-    .container:hover > .image {
-        opacity: 0.3;
+    .container:hover > .productImage {
+        opacity: 0.4;
+        transition: 0.3s ease-in;
     }
 
     .container:hover > .middle {
@@ -210,7 +211,7 @@
                                 }
 
                                 <div class="container">
-                                    <img src=@imgPath class="responsive" />
+                                    <img src=@imgPath class="responsive productImage" />
                                     <div class="middle">
                                         <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@(id+1)">View</a>
                                     </div>

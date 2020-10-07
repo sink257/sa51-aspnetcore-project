@@ -89,7 +89,11 @@ namespace Team8CA.Controllers
         public IActionResult ProductDetailPage(int id)
         {
             Products product = db.Products.First(p => p.Id == id);
+            List<Products> similarProducts = db.Products.Where(p => 
+                                               (p.ProductCategory == product.ProductCategory) && (p!=product))
+                                                .ToList();
             ViewData["product"] = product;
+            ViewData["similarProducts"] = similarProducts;
             return View("ProductDetailPage");
         }
 
