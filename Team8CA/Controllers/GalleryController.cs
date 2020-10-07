@@ -18,10 +18,11 @@ namespace Team8CA.Controllers
         protected AppDbContext db;
         public IActionResult Index()
         {
-
             List<Products> product = db.Products.ToList();
 
             ViewData["product"] = product;
+
+            ViewData["sessionId"] = Request.Cookies["sessionId"];
 
             return View();
         }
@@ -30,7 +31,6 @@ namespace Team8CA.Controllers
         //{ 
 
         //}
-
 
         public IActionResult AntivirusAndSecurity()
         {
@@ -44,14 +44,12 @@ namespace Team8CA.Controllers
         }
 
 
-
         public IActionResult BusinessAndOffice()
         {
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "BusinessAndOffice")).ToList();
 
 
             return View();
-
         }
 
         public IActionResult DesignAndIllustration()
@@ -60,20 +58,6 @@ namespace Team8CA.Controllers
 
 
             return View();
-        }
-
-        public IActionResult AddToCart([FromServices] CartRelatedService srv, int prdId)
-        {
-            var customerId = HttpContext.Session.GetInt32("customerId") ?? 0;
-            //if (customerId == 0)
-            //{
-            //    AddToCartForSession(srv, prdId, 1);
-            //}
-            //else
-            //{
-            ViewData["ItemCount"] = srv.AddProductsToCart(customerId, prdId, 1);
-            //}
-            return PartialView("_CartIcon");
         }
 
         public GalleryController(AppDbContext db)
@@ -96,7 +80,6 @@ namespace Team8CA.Controllers
             }
         }
 
-
         //Link to productDetailPage
         public IActionResult ProductDetailPage(int id)
         {
@@ -104,7 +87,5 @@ namespace Team8CA.Controllers
             ViewData["product"] = product;
             return View("ProductDetailPage");
         }
-
-
     }
 }
