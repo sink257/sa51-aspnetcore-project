@@ -40,6 +40,8 @@ namespace Team8CA.Controllers
 
             ViewData["product"] = product;
 
+            ViewData["sessionId"] = Request.Cookies["sessionId"];
+
             return View();
         }
 
@@ -47,6 +49,10 @@ namespace Team8CA.Controllers
         public IActionResult BusinessAndOffice()
         {
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "BusinessAndOffice")).ToList();
+
+            ViewData["product"] = product;
+
+            ViewData["sessionId"] = Request.Cookies["sessionId"];
 
 
             return View();
@@ -56,6 +62,9 @@ namespace Team8CA.Controllers
         {
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "DesignAndIllustration")).ToList();
 
+            ViewData["product"] = product;
+
+            ViewData["sessionId"] = Request.Cookies["sessionId"];
 
             return View();
         }
