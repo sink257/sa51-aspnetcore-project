@@ -30,7 +30,8 @@ namespace Team8CA
                 (opt => opt.UseSqlServer(Configuration.GetConnectionString("DBConn")));
 
             services.AddScoped<Team8CA.Models.Customer>();
-            //services.AddScoped<Team8CA.Models.Products>();
+            services.AddScoped<Team8CA.Models.Products>();
+            services.AddScoped<Team8CA.Models.Session>();
 
         }
 
@@ -59,7 +60,7 @@ namespace Team8CA
                     pattern: "{controller=Gallery}/{action=Index}/{id?}");
             });
 
-            db.Database.EnsureDeleted();
+            //db.Database.EnsureDeleted();
             db.Database.EnsureCreated();
             new DBInitialiser(db);
         }

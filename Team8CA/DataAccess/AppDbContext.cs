@@ -31,6 +31,7 @@ namespace Team8CA.DataAccess
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Products> Product { get; set; }
         public DbSet<ShoppingCartItems> ShoppingCartItem { get; set; }
+        public DbSet<Session> Sessions { get; set; }
 
     }
 }

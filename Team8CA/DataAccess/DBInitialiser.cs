@@ -11,6 +11,7 @@ namespace Team8CA.DataAccess
         public DBInitialiser (AppDbContext db)
         {
             db.Customers.Add(new Customer("admin", "password1"));
+            db.Customers.Add(new Customer("sankalp", "sankalp"));
 
             db.Products.Add(new Products("Adobe Creative Cloud", "/images/creative_cloud.jpg", 150.00, true, "Creative Cloud is a collection of 20+ desktop and mobile apps and services for photography, design, video, web, UX and more. Now you can take your ideas to new places with Photoshop on the iPad, draw and paint with Fresco, and design for 3D and AR.", "BusinessAndOffice"));
             db.Products.Add(new Products("Microsoft Visio 2016 Professional ", "/images/visio.jpg", 130.00, true, "Microsoft Visio Professional 2016 is a powerful diagramming platform with a rich set of built-in stencils. It helps you simplify complex information through simple, easy-to-understand diagrams.", "BusinessAndOffice"));
