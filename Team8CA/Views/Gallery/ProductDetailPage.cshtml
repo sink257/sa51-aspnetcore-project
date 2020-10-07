@@ -1,11 +1,13 @@
-﻿@{
-    var product = (Products)ViewData["product"];
+﻿@{ 
+    Products product = (Products)ViewData["product"];
+    List<Products> similarProducts = (List<Products>)ViewData["similarProducts"];
+    double starRating = 4.6; //average rating calculated from db
 }
 @addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
 @model Team8CA.Models.Products
 
 
-<title>@product.ProductName</title>
+
 
 <style>
     .add-to-cart {
@@ -123,11 +125,42 @@
         font-weight: 900;
         color: #f8ce0b;
     }
+
+    .middle {
+        transition: .3s ease;
+        opacity: 0;
+        display: inline-block;
+        transform:translateY(-200%);
+        text-align: center;
+        font-size: 1vw;
+    }
+
+    .hover-product:hover > .productImage {
+        opacity: 0.4;
+        transition: 0.3s ease-in;
+    }
+
+    .hover-product:hover > .middle {
+        opacity: 1;
+    }
+
+    .hover-product:hover > .img-thumbnail {
+        opacity: 0.3;
+    }
+
+    .hover-product {
+        position: relative;  
+    }
+    .similarProduct {
+        transform: translateY(-50%);
+    }
+
+
 </style>
 
 <script>
     //to be replaced
-    const rating = 4.6; //average rating calculated from db
+    const rating = @starRating; 
 
     document.addEventListener('DOMContentLoaded', getRating);
 
@@ -145,8 +178,8 @@
     <div class="row pt-4">
         <div class="col-9">
             <div class="row ">
-                <div class="col-4 p-4 text-center">
-                    <img src=@product.ProductPic class="p-3 container img-thumbnail" />
+                <div class="col-4 p-3 text-center">
+                    <img src=@product.ProductPic class="p-1 container img-thumbnail" />
                     <h5 class="text-success p-3">In stock</h5>
                 </div>
 
@@ -163,7 +196,7 @@
                         <a href="#product-reviews" class="text-primary">See reviews</a>
                     </div>
 
-                    <div class="price pt-3"><h1 class="text-danger">S$@product.ProductPrice</h1></div>
+                    <div class="price pt-3"><h1 class="text-danger">$@product.ProductPrice</h1></div>
                     <p class="pt-3">@product.ProductDescription</p>
                     <a href="#product-details" class="text-primary">Learn more</a>
 
@@ -187,7 +220,14 @@
                     <div class="user-review container">
                         <hr>
                         <p>
-                            @Html.Raw(product.LongProductDesc)
+                            <b>Visio Proffesional Features</b><br>
+                            Sub-Process Creation and Validation Rules - Visio Professional includes advanced features such as sub-process creation and validation rules.
+                            Extra Templates - Visio Professional ships with a large assortment of extra templates and shapes that meet industry standards including BPMN 2.0, UML 2.4, IEEE and Windows Workflow 4.0
+                            More Customizable Shapes - Visio Professional includes a few more customizable shapes and built-in tools that will allow the creation of professional diagrams in less time.
+                            Secure Diagrams - Visio Professional users can secure diagrams with Microsoft file protection technologies which offer persistent Information Rights Management (IRM) protection of email messages and attachments, and diagram files.
+                            Because Visio Professional 2016 supports Information Rights Management (IRM), you can control document rights at the individual user level.
+                            <br>
+                            <i>This content was copied from https://www.g2a.com/en-gb/microsoft-visio-2016-professional-pc-microsoft-key-global-i10000218431001. It is protected by copyright, all rights reserved. If you want to use it, you are obligated to leave the link to the original source.</i>
                         </p>
                     </div>
                 </div>
@@ -220,19 +260,23 @@
 
         @*similar items from the same category*@
         <div class="col-3 p-4 side text-center">
-            <h5>Similar Items</h5>
-            <div class="p-4">
-                <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="container p-3 img-thumbnail" />
-                <a href="#">Microsoft Project</a>
-            </div>
-            <div class="p-4">
-                <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="container p-3 img-thumbnail" />
-                <a href="#">Microsoft Project</a>
-            </div>
-            <div class="p-4">
-                <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="container p-3 img-thumbnail" />
-                <a href="#">Microsoft Project</a>
-            </div>
+            <h5>Related Products</h5>
+           @foreach (Products p in similarProducts)
+            {
+                <div class="hover-product p-4 container">
+                    <img src=@p.ProductPic class="container p-3 img-thumbnail" />
+                    <div class="middle ">
+                        <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@p.Id">View</a>
+                    </div>
+                    <div class="middle" style="top: 35%">
+                        <button type="button" class="btn btn-primary cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + p.Id + "'"))"><i class="fa fa-cart-plus"></i></button>
+                    </div>
+                    <div class="similarProduct">
+                        <h6>@p.ProductName</h6>
+                        <h6 class="text-danger"><b>$@p.ProductPrice</b></h6>
+                    </div>
+                </div>
+            }
         </div>
 
 

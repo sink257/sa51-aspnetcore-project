@@ -52,8 +52,9 @@
         width: 350px
     }
 
-    .container:hover > .image {
-        opacity: 0.3;
+    .container:hover > .productImage {
+        opacity: 0.4;
+        transition: 0.3s ease-in;
     }
 
     .container:hover > .middle {
@@ -162,35 +163,35 @@
 
     <div class="sidenav">
         <h2>Categories</h2>
-        <a class="dropdown-btn" href="#security">
+        <a class="dropdown-btn" href="/gallery/antivirusandsecurity">
             Antivirus And Security
-            <span class="fas fa-caret-down first"></span>
+            @*<span class="fas fa-caret-down first"></span>*@
         </a>
-        <div class="dropdown-container">
+        @*<div class="dropdown-container">
             <a href="#security">Antivirus And Security</a>
             <a href="#security">Antivirus And Security</a>
             <a href="#security">Antivirus And Security</a>
-        </div>
-        <a class="dropdown-btn" href="#business">
+        </div>*@
+        <a class="dropdown-btn" href="/gallery/businessandoffice">
             Business And Office
-            <span class="fas fa-caret-down first"></span>
+            @*<span class="fas fa-caret-down first"></span>*@
         </a>
-        <div class="dropdown-container">
+        @*<div class="dropdown-container">
             <a href="#business">Business And Office</a>
             <a href="#business">Business And Office</a>
             <a href="#business">Business And Office</a>
-        </div>
-        <a class="dropdown-btn" href="#design">
+        </div>*@
+        <a class="dropdown-btn" href="/gallery/desginandillustration">
             Design and Illustration
-            <span class="fas fa-caret-down first"></span>
+            @*<span class="fas fa-caret-down first"></span>*@
         </a>
-        <div class="dropdown-container">
+        @*<div class="dropdown-container">
             <a href="#design">Design and Illustration</a>
             <a href="#design">Design and Illustration</a>
             <a href="#design">Design and Illustration</a>
-        </div>
+        </div>*@
 
-    </div>
+</div>
 
 
     <div class="gallery-table">
@@ -210,16 +211,14 @@
                                 }
 
                                 <div class="container">
-                                    <img src=@imgPath class="responsive" />
+                                    <img src=@imgPath class="responsive productImage" />
                                     <div class="middle">
-                                        <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@(id+1)">View</a>
+                                        <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@(product[id].Id)">View</a>
                                     </div>
                                     <div class="middle2">
                                         <button type="button" class="btn btn-primary add-to-cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + id + "'"))">Add to Cart</button>
                                     </div>
                                 </div>
-
-
 
                                 <div class="productdesc">
                                     <h5 style="height: 50px">@product[id].ProductName</h5>

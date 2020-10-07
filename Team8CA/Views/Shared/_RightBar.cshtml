@@ -2,10 +2,7 @@
     @if (ViewData["sessionId"] == null)
     {
         <li class="nav-item">
-            <span class="nav-link text-dark">Hi, Sean!</span> @*need to edit this to text*@
-        </li>
-        <li class="nav-item">
-            <a class="nav-link text-dark @ViewData["Is_Login"]" asp-controller="Login" asp-action="Index">Login</a>
+            <a class="nav-link text-dark" asp-controller="Login" asp-action="Index">Login</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Shopping Cart (@ViewData["NoOfProductTypes"])</a>
@@ -13,7 +10,9 @@
     }
     else
     {
-
+        <li class="nav-item">
+            <span class="nav-link text-dark">Hi @ViewData["username"]!</span> @*need to edit this to text*@
+        </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-controller="Logout" asp-action="Index">Logout</a>
         </li>
