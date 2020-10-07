@@ -14,22 +14,14 @@ namespace Team8CA.Controllers
 {
     public class GalleryController : Controller
     {
+
+        protected AppDbContext db;
         public IActionResult Index()
         {
 
-            string[] imgs = {
-                "/images/adguardpic.jpg",
-                "/images/avira.jpg",
-                "/images/creative_cloud.jpg",
-                "/images/creativesuite.jpg",
-                "/images/illustrator.jpg",
-                "/images/malwarebytes.png",
-                "/images/photoshop1.jpg",
-                "/images/project.jpg",
-                "/images/visio.jpg",
-            };
+            List<Products> product = db.Products.ToList();
 
-            ViewData["images"] = imgs;
+            ViewData["product"] = product;
 
             return View();
         }
@@ -72,7 +64,6 @@ namespace Team8CA.Controllers
             return PartialView("_CartIcon");
         }
 
-        protected AppDbContext db;
         public GalleryController(AppDbContext db)
         {
             this.db = db;
@@ -92,6 +83,16 @@ namespace Team8CA.Controllers
                     .ToList();
             }
         }
+
+
+        //Link to productDetailPage
+        public IActionResult ProductDetailPage(int id)
+        {
+            Products product = db.Products.First(p => p.Id == id);
+            ViewData["product"] = product;
+            return View("ProductDetailPage");
+        }
+
 
     }
 }
