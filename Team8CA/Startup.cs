@@ -60,7 +60,7 @@ namespace Team8CA
                     pattern: "{controller=Gallery}/{action=Index}/{id?}");
             });
 
-            db.Database.EnsureDeleted();
+            //db.Database.EnsureDeleted();
             db.Database.EnsureCreated();
             new DBInitialiser(db);
         }
