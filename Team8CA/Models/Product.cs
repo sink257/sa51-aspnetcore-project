@@ -39,9 +39,10 @@ namespace Team8CA.Models
 
         public Products() { }
 
-        public Products(string ProductName, double ProductPrice, bool ProductAvailability, string ProductDescription, string ProductCategory)
+        public Products(string ProductName, string ProductPic, double ProductPrice, bool ProductAvailability, string ProductDescription, string ProductCategory)
         {
             this.ProductName = ProductName;
+            this.ProductPic = ProductPic;
             this.ProductPrice = ProductPrice;
             this.ProductAvailability = ProductAvailability;
             this.ProductDescription = ProductDescription;
