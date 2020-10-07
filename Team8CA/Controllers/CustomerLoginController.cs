@@ -14,11 +14,13 @@ namespace Team8CA.Controllers
     public class CustomerLoginController : Controller
     {
         private readonly Customer customers;
+        private readonly Session sessions;
         protected AppDbContext db;
 
-        public CustomerLoginController(Customer customers, AppDbContext db)
+        public CustomerLoginController(Customer customers, Session sessions, AppDbContext db)
         {
             this.customers = customers;
+            this.sessions = sessions;
             this.db = db;
         }
 
@@ -30,8 +32,28 @@ namespace Team8CA.Controllers
         public IActionResult Authenticate(string username, string password)
         {
             Customer customers;
-            customers = (Customer)db.Customers.Where(x => x.Username == username && x.Password == password);
-            return View("Index");
+            customers = db.Customers.Where(x => x.Username == username && x.Password == password).FirstOrDefault();
+
+            if (customers == null)
+            {
+                ViewData["username"] = username;
+                ViewData["errMsg"] = "haha loser can't login";
+                return View("Index");
+            }
+            else
+            {
+                Session session = new Session()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Username = customers.Username,
+                    Timestamp = DateTimeOffset.Now.ToUnixTimeSeconds()
+                };
+                db.Sessions.Add(session);
+                db.SaveChanges();
+
+                Response.Cookies.Append("sessionId", session.Id);
+                return RedirectToAction("Index", "Gallery");
+            }
         }
     }
 }
