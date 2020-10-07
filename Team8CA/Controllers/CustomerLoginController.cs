@@ -37,7 +37,7 @@ namespace Team8CA.Controllers
             if (customers == null)
             {
                 ViewData["username"] = username;
-                ViewData["errMsg"] = "No such user or incorrect password.";
+                ViewData["errMsg"] = "haha loser can't login";
                 return View("Index");
             }
             else
@@ -48,10 +48,11 @@ namespace Team8CA.Controllers
                     Username = customers.Username,
                     Timestamp = DateTimeOffset.Now.ToUnixTimeSeconds()
                 };
-                //sessions.map[session.Id] = session;
+                db.Sessions.Add(session);
+                db.SaveChanges();
 
                 Response.Cookies.Append("sessionId", session.Id);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Gallery");
             }
         }
     }
