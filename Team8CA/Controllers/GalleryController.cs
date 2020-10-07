@@ -7,28 +7,21 @@ using Microsoft.AspNetCore.Mvc;
 using PagedList;
 using Team8CA.DataAccess;
 using Team8CA.Models;
-//using Team8CA.Services;
+using Team8CA.Services;
 //using Team8CA.Services;
 
 namespace Team8CA.Controllers
 {
     public class GalleryController : Controller
     {
+
+        protected AppDbContext db;
         public IActionResult Index()
         {
-            string[] imgs = {
-                "/images/adguardpic.jpg",
-                "/images/avira.jpg",
-                "/images/creative_cloud.jpg",
-                "/images/creativesuite.jpg",
-                "/images/illustrator.jpg",
-                "/images/malwarebytes.png",
-                "/images/photoshop1.jpg",
-                "/images/project.jpg",
-                "/images/visio.jpg",
-            };
 
-            ViewData["images"] = imgs;
+            List<Products> product = db.Products.ToList();
+
+            ViewData["product"] = product;
 
             return View();
         }
@@ -45,6 +38,7 @@ namespace Team8CA.Controllers
         }
 
 
+
         public IActionResult BusinessAndOffice()
         {
             return View();
@@ -56,21 +50,20 @@ namespace Team8CA.Controllers
             return View();
         }
 
-      //  public IActionResult AddToCart([FromServices] CartRelatedService srv, int prdId)
-       // {
-        //    var customerId = HttpContext.Session.GetInt32("customerId") ?? 0;
+        public IActionResult AddToCart([FromServices] CartRelatedService srv, int prdId)
+        {
+            var customerId = HttpContext.Session.GetInt32("customerId") ?? 0;
             //if (customerId == 0)
             //{
             //    AddToCartForSession(srv, prdId, 1);
             //}
             //else
             //{
-       //     ViewData["ItemCount"] = srv.AddProductsToCart(customerId, prdId, 1);
+            ViewData["ItemCount"] = srv.AddProductsToCart(customerId, prdId, 1);
             //}
-         //   return PartialView("_CartIcon");
-      //  }
+            return PartialView("_CartIcon");
+        }
 
-        protected AppDbContext db;
         public GalleryController(AppDbContext db)
         {
             this.db = db;
@@ -90,6 +83,16 @@ namespace Team8CA.Controllers
                     .ToList();
             }
         }
+
+
+        //Link to productDetailPage
+        public IActionResult ProductDetailPage(int id)
+        {
+            Products product = db.Products.First(p => p.Id == id);
+            ViewData["product"] = product;
+            return View("ProductDetailPage");
+        }
+
 
     }
 }
