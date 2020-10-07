@@ -24,8 +24,6 @@ namespace Team8CA.Controllers
 
             ViewData["sessionId"] = Request.Cookies["sessionId"];
 
-
-
             return View();
         }
 
