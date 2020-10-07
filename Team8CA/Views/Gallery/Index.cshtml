@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Products
+@{
     ViewData["Title"] = "Gallery Page";
     string[] imgs = (string[])ViewData["images"];
 }
@@ -158,83 +159,83 @@
 
 <div class="row">
 
-        <div class="sidenav">
-            <h2>Categories</h2>
-            <a class="dropdown-btn" href="#security">
-                Antivirus And Security
-                <span class="fas fa-caret-down first"></span>
-            </a>
-            <div class="dropdown-container">
+
+    <div class="sidenav">
+        <h2>Categories</h2>
+        <a class="dropdown-btn" href="/gallery/antivirusandsecurity">
+            Antivirus And Security
+        </a>
+        @*<div class="dropdown-container" >
                 <a href="#security">Antivirus And Security</a>
                 <a href="#security">Antivirus And Security</a>
                 <a href="#security">Antivirus And Security</a>
-            </div>
-            <a class="dropdown-btn" href="#business">
-                Business And Office
-                <span class="fas fa-caret-down first"></span>
-            </a>
-            <div class="dropdown-container">
+            </div>*@
+        <a class="dropdown-btn" href="/gallery/Businessandoffice">
+            Business And Office
+            @*<span class="fas fa-caret-down first"></span>*@
+        </a>
+        @*<div class="dropdown-container">
                 <a href="#business">Business And Office</a>
                 <a href="#business">Business And Office</a>
                 <a href="#business">Business And Office</a>
-            </div>
-            <a class="dropdown-btn" href="#design">
-                Design and Illustration
-                <span class="fas fa-caret-down first"></span>
-            </a>
-            <div class="dropdown-container">
+            </div>*@
+        <a class="dropdown-btn" href="/gallery/DesignandIllustration">
+            Design and Illustration
+            @*<span class="fas fa-caret-down first"></span>*@
+        </a>
+        @*<div class="dropdown-container">
                 <a href="#design">Design and Illustration</a>
                 <a href="#design">Design and Illustration</a>
                 <a href="#design">Design and Illustration</a>
-            </div>
+            </div>*@
 
-        </div>
-
-
-        <div class="gallery-table">
-
-            <table>
-                @for (int i = 0; i < imgs.Length; i += 3)
-                {
-                    <tr>
-                        @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
-                        {
-                            <td>
-                                <div class="polaroid">
-                                    @*images from database*@
-                                    @{ string url = ViewData["url_prefix"] +
-                                                       imgs[i + j] + ViewData["url_postfix"];
-                                    }
-
-                                    <div class="container">
-                                        <img src=@url class="responsive" />
-                                        <div class="middle">
-                                            <button type="button" class="btn btn-primary view ">View</button>
-                                        </div>
-                                        <div class="middle2">
-                                            <button type="button" class="btn btn-primary add-to-cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + i + "'"))">Add to Cart</button>
-                                        </div>
-                                    </div>
+    </div>
 
 
+    <div class="gallery-table">
 
-                                    <div class="productdesc">
-                                        <h5>Productname</h5>
-                                        <h6>This is a .....</h6>
-                                        <h5><b>$999</b></h5>
-                                    </div>
+        <table>
+            @for (int i = 0; i < imgs.Length; i += 3)
+            {
+                <tr>
+                    @for (int j = 0; j < 3 && i + j < imgs.Length; j++)
+                    {
+                        <td>
+                            <div class="polaroid">
+                                @{ string url = imgs[i + j]; 
+                                }
+                            </div>
 
+                            <div class="container">
+                                <img src=@url class="responsive" />
+                                <div class="middle">
+                                    <button type="button" class="btn btn-primary view ">View</button>
                                 </div>
+                                <div class="middle2">
+                                    <button type="button" class="btn btn-primary add-to-cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + i + "'"))">Add to Cart</button>
+                                </div>
+                            </div>
 
-                                <br />
-                            </td>
-                        }
-                    </tr>
-                }
-            </table>
+
+                                @* @foreach (var product in Products)
+            {
+            <div class="productdesc">
+                <h5>@HTML.DisplayFor(product => Product.ProductID)</h5>
+                <h6>@HTML.DisplayFor(product => Product.ProductDescription)</h6>
+                <h5><b>@HTML.DisplayFor(product => Product.ProductPrice)</b></h5>
+            </div>
+            }
         </div>
+                                *@
+                                <br />
+                        </td>
+                    }
+                </tr>
+            }
+        </table>
     </div>
 </div>
+
 
 
             <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
