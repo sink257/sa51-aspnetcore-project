@@ -19,7 +19,6 @@ namespace Team8CA.Models
 
         [Required]
         public string ProductName { get; set; }
-
         
         public string ProductPic { get; set; }
 
