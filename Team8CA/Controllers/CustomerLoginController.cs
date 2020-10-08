@@ -31,7 +31,7 @@ namespace Team8CA.Controllers
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View();
         }
-        public IActionResult Authenticate(string username, string password)
+        public IActionResult Authenticate(string username, string password, string firstname)
         {
             Customer customers;
             customers = db.Customers.Where(x => x.Username == username && x.Password == password).FirstOrDefault();
@@ -46,15 +46,19 @@ namespace Team8CA.Controllers
             {
                 Session session = new Session()
                 {
-                    Id = Guid.NewGuid().ToString(),
+                    SessionID = Guid.NewGuid().ToString(),
                     Username = customers.Username,
-                    Timestamp = DateTimeOffset.Now.ToUnixTimeSeconds()
+                    FirstName = customers.FirstName,
+                    Timestamp = DateTimeOffset.Now.ToUnixTimeSeconds(),
+                    CustomerID = customers.CustomerID
                 };
                 db.Sessions.Add(session);
                 db.SaveChanges();
 
                 Response.Cookies.Append("username", session.Username);
-                Response.Cookies.Append("sessionId", session.Id);
+                Response.Cookies.Append("firstname", session.FirstName);                
+                Response.Cookies.Append("customerId", session.CustomerID);
+                Response.Cookies.Append("sessionId", session.SessionID);
                 return RedirectToAction("Index", "Gallery");
             }
         }

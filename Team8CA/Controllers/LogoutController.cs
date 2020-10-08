@@ -23,7 +23,7 @@ namespace Team8CA.Controllers
             string sessionId = HttpContext.Request.Cookies["sessionId"];
             db.Sessions.Remove(new Session()
             {
-                Id = sessionId
+                SessionID = sessionId
             }
             );
 
