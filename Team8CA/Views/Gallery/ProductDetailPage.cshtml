@@ -96,14 +96,14 @@
                             <h5 class="d-inline-block" style="color:#ccc"><i class="fa fa-star"></i></h5>
                         }
                     </div>
-                    <div style="transform:translateY(-100%)">
+                    <div style="position: absolute;transform:translateY(-100%)">
 
                        @for (int i = 0; i < r.StarRating; i++)
                         {
                             <h5 class="d-inline-block" style="color:#f8ce0b"><i class="fa fa-star"></i></h5>
                         }
                     </div>
-                        <p>@r.ReviewDetails</p>
+                        <p class="pt-2">@r.ReviewDetails</p>
                         </div>
                     }
                 }
