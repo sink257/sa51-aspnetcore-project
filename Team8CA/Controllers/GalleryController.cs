@@ -99,8 +99,9 @@ namespace Team8CA.Controllers
                                                 .ToList();
             
             var reviews = db.Reviews.Where(r => r.ProductID == id).ToList();
-
+            double averageRating = reviews.Average(r=>r.StarRating);
             ViewData["reviews"] = reviews;
+            ViewData["averageRating"] = averageRating;
             ViewData["product"] = product;
             ViewData["similarProducts"] = similarProducts;
             return View("ProductDetailPage");

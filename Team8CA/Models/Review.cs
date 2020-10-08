@@ -12,11 +12,13 @@ namespace Team8CA.Models
     public class Review
     {
 
-        public Review(int productID, int starRating, string reviewDetails)
+        public Review(int productID, string customerName, int starRating, string reviewDetails)
         {
             this.ProductID = productID;
+            this.CustomerName = customerName;
             this.StarRating = starRating;
             this.ReviewDetails = reviewDetails;
+            this.ReviewDate = DateTime.Now;
         }
         // Primary Key
         [Column("ReviewID")]
@@ -28,6 +30,7 @@ namespace Team8CA.Models
         public int ProductID { get; set; }
 
 
+        public string CustomerName { get; set; }
         public int CustomerId { get; set; }
 
         [Column("ReviewDate")]

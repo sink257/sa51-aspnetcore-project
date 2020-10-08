@@ -1,7 +1,7 @@
 ﻿@{ 
     Products product = (Products)ViewData["product"];
-    List<Review> test = (List<Review>) ViewData["reviews"];
-
+    List<Review> reviews = (List<Review>) ViewData["reviews"];
+    double averageRating = (double)ViewData["averageRating"];
     List<Products> similarProducts = (List<Products>)ViewData["similarProducts"];
     double starRating = 4.6; //average rating calculated from db
 }
@@ -14,16 +14,17 @@
 
 <script>
     //to be replaced
-    const rating = @starRating; 
-
+    const rating = @averageRating; 
+    const ratingCount = @reviews.Count;
     document.addEventListener('DOMContentLoaded', getRating);
 
     function getRating() {
         const starPercentage = (rating / 5) * 100;
         const starPercentageRounded = `${Math.round(starPercentage)}%`;
-
+        const starRatingRounded = (Math.round(rating * 10) / 10).toFixed(1);
         document.querySelector(`.stars-inner`).style.width = starPercentageRounded;
-        document.querySelector(`.number-rating`).innerHTML = rating;
+        document.querySelector(`.number-rating`).innerHTML = starRatingRounded;
+        document.getElementById("count-rating").innerHTML = "See reviews (" + ratingCount + ")";
     }
 </script>
 
@@ -46,8 +47,9 @@
 
                     @*display average rating*@
                     <h4 class="number-rating text-warning d-inline pl-4"></h4>
+
                     <div class="d-block">
-                        <a href="#product-reviews" class="text-primary">See reviews</a>
+                        <a href="#product-reviews" class="text-primary" id="count-rating">See reviews</a>
                     </div>
 
                     <div class="price pt-3"><h1 class="text-danger">$@product.ProductPrice</h1></div>
@@ -82,14 +84,26 @@
             <div class="row pt-5 container" id="product-reviews">
                 <h4 class="container-fluid">Product Reviews</h4>
 
-                @if (test.Count()>0)
+                @if (reviews.Count()>0)
                 {
-                    foreach (Review r in test)
+                    foreach (Review r in reviews)
                    {    <div class="user-review container">
                             <hr>
-                            <h6 class="text-info">User001:</h6>
-                            <h4 class="text-warning">★ ★ ★ ★ ☆</h4>
-                            <p>@r.ReviewDetails</p>
+                            <h6 class="text-info">@r.CustomerName</h6>
+                    <div>
+                       @for (int i = 0; i < 5; i++)
+                        {
+                            <h5 class="d-inline-block" style="color:#ccc"><i class="fa fa-star"></i></h5>
+                        }
+                    </div>
+                    <div style="transform:translateY(-100%)">
+
+                       @for (int i = 0; i < r.StarRating; i++)
+                        {
+                            <h5 class="d-inline-block" style="color:#f8ce0b"><i class="fa fa-star"></i></h5>
+                        }
+                    </div>
+                        <p>@r.ReviewDetails</p>
                         </div>
                     }
                 }
