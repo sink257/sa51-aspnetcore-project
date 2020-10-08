@@ -1,5 +1,8 @@
 ﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
 @model Review
+@{
+    Products product = (Products)ViewData["product"];
+ }
 <style>
     .star-rating input {
         display: none;
@@ -58,14 +61,14 @@
             <div class="row">
                 <div class="col-2">
                     <div class="pr-2 d-lg-block  d-none">
-                        <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="p-2 container img-thumbnail">
+                        <img src=@product.ProductPic class="p-2 container img-thumbnail">
                     </div>
                 </div>
                 <div class="col-10 ">
-                    <h5>Product Loooooooooooooooooooooooog Name</h5>
-                    <p class="p-2"> Microsoft Visio 2016 is a Part of Microsoft’s Office family, Microsoft Visio is a diagramming and vector graphics application that creates professional flowcharts, diagrams and organisational charts.</p>
+                    <h5>@product.ProductName</h5>
+                    <p class="p-2">@product.ProductDescription</p>
                     <div class="text-right">
-                        <a class="btn btn-outline-info btn-sm" asp-controller="ProductDetail" asp-action="ProductDetailPage">View Details</a>
+                        <a class="btn btn-outline-info btn-sm" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@product.Id">View Details</a>
                     </div>
                 </div>
             </div>

@@ -235,17 +235,11 @@
                         <p>Good product! Will buy again😁.</p>
                     </div>
 
-                    <div class="user-review container">
-                        <hr>
-                        <h6 class="text-info">User002:</h6>
-                        <h4 class="text-warning">★ ☆ ☆ ☆ ☆</h4>
-                        <p>Activation code does not work! Will never buy again🙃.</p>
-                    </div>
 
                 </div>
                 @*Leave a review -need to be logged in && bought this product*@
                 <div class="row pt-5 container">
-                    <a class="btn btn-outline-success container" id="leave-review" asp-controller="CreateReview" asp-action="Index">Leave a Review</a>
+                    <a class="btn btn-outline-success container" id="leave-review" asp-controller="CreateReview" asp-action="Index" asp-route-id="@product.Id">Leave a Review</a>
                 </div>
 
             </div>
@@ -271,7 +265,6 @@
                 </div>
             }
         </div>
-
 
     </div>
 </div>
