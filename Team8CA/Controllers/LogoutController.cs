@@ -19,7 +19,7 @@ namespace Team8CA.Controllers
 
         public IActionResult Index()
         {
-            ViewData["sessionId"] = Request.Cookies["sessionId"];
+
             string sessionId = HttpContext.Request.Cookies["sessionId"];
             db.Sessions.Remove(new Session()
             {
@@ -28,7 +28,8 @@ namespace Team8CA.Controllers
             );
 
             HttpContext.Response.Cookies.Delete("sessionId");
-
+            ViewData["username"] = Request.Cookies["username"];
+            ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View ("Logout");
         }
     }

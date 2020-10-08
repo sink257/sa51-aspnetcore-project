@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,6 +53,7 @@ namespace Team8CA.Controllers
                 db.Sessions.Add(session);
                 db.SaveChanges();
 
+                Response.Cookies.Append("username", session.Username);
                 Response.Cookies.Append("sessionId", session.Id);
                 return RedirectToAction("Index", "Gallery");
             }

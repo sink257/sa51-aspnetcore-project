@@ -21,8 +21,9 @@ namespace Team8CA.Controllers
             List<Products> product = db.Products.ToList();
 
             ViewData["product"] = product;
-
+            ViewData["username"] = Request.Cookies["username"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
+
 
             return View();
         }

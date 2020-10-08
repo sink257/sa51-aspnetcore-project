@@ -12,6 +12,7 @@ namespace Team8CA.Controllers
         [Route("ProductDetail")]
         public IActionResult Index()
         {
+            ViewData["username"] = Request.Cookies["username"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View("ProductDetailPage");
         }
