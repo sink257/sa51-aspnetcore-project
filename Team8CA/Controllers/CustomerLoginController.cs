@@ -47,7 +47,7 @@ namespace Team8CA.Controllers
                 Session session = new Session()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    Username = customers.Username,
+                    Username = customers.Username, // to check this
                     Timestamp = DateTimeOffset.Now.ToUnixTimeSeconds()
                 };
                 db.Sessions.Add(session);
