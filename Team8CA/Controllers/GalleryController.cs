@@ -41,6 +41,7 @@ namespace Team8CA.Controllers
 
             ViewData["product"] = product;
 
+            ViewData["username"] = Request.Cookies["username"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
 
             return View();
@@ -53,6 +54,7 @@ namespace Team8CA.Controllers
 
             ViewData["product"] = product;
 
+            ViewData["username"] = Request.Cookies["username"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
 
 
@@ -65,6 +67,7 @@ namespace Team8CA.Controllers
 
             ViewData["product"] = product;
 
+            ViewData["username"] = Request.Cookies["username"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
 
             return View();
@@ -99,7 +102,23 @@ namespace Team8CA.Controllers
                                                 .ToList();
             ViewData["product"] = product;
             ViewData["similarProducts"] = similarProducts;
+            ViewData["username"] = Request.Cookies["username"];
+            ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View("ProductDetailPage");
         }
+
+        //public IActionResult AddToCart([FromServices] CartRelatedService service, int productid, int quantity)
+        //{
+        //    string sessionid = Request.Cookies["sessionId"];
+        //    if (sessionid == null)
+        //    {
+
+        //    }
+
+
+
+
+
+        //    return View("Index");
     }
 }
