@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Team8CA.Models;
+using Team8CA.Services;
 
 namespace Team8CA.Controllers
 {
@@ -15,15 +18,6 @@ namespace Team8CA.Controllers
 
             return View();
         }
-
-        public IActionResult Checkout()
-        {
-            return View();
-        }
-
-
-
-
 
     }
 }
