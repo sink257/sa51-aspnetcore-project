@@ -20,9 +20,9 @@ namespace Team8CA.Controllers
         public IActionResult Index(int id)
         {  
             Products product = db.Products.First(p => p.Id == id);
+
             ViewData["username"] = Request.Cookies["username"];
-            ViewData["sessionId"] = Request.Cookies["sessionId"];
-                      
+            ViewData["sessionId"] = Request.Cookies["sessionId"];            
             ViewData["product"] = product;
 
             return View();

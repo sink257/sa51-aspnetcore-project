@@ -11,28 +11,38 @@ namespace Team8CA.Models
     [Table("Reviews")]
     public class Review
     {
+
+        public Review(int productID, int starRating, string reviewDetails)
+        {
+            this.ProductID = productID;
+            this.StarRating = starRating;
+            this.ReviewDetails = reviewDetails;
+        }
         // Primary Key
         [Column("ReviewID")]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public int Id { get; set; }
 
-        [Required]
+        [Required]//Foreign key
         public int ProductID { get; set; }
 
-        [Required]
-        public int CustomerID { get; set; }
+
+        public int CustomerId { get; set; }
 
         [Column("ReviewDate")]
-        [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")] 
         public DateTime ReviewDate { get; set; }
 
         [Required]
         public int StarRating { get; set; }
-
+        
+        [Required]
         public string ReviewDetails { get; set; }
 
-
+        //public virtual Customer Customer { get; set; }
+        public virtual Products Products { get; set; }
     }
 }
 
