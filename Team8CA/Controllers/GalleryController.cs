@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PagedList;
+using PagedList.Mvc;
+using PagedList.Core;
 using Team8CA.DataAccess;
 using Team8CA.Models;
 using Team8CA.Services;
@@ -14,58 +16,39 @@ namespace Team8CA.Controllers
 {
     public class GalleryController : Controller
     {
-
         protected AppDbContext db;
-        public IActionResult Index()
+
+        public IActionResult Index(int? page)
         {
             List<Products> product = db.Products.ToList();
-
             ViewData["product"] = product;
-
             ViewData["sessionId"] = Request.Cookies["sessionId"];
-
-            return View();
+            int pageSize = 6;
+            int pageNumber = (page ?? 1);
+            return View(db.Products.ToPagedList(pageNumber, pageSize));
         }
-
-        //public GalleryController(int ID, string ProductName, double ProductPrice, bool ProductAvailability, string ProductDescription)
-        //{ 
-
-        //}
 
         public IActionResult AntivirusAndSecurity()
         {
-
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "AntivirusandSecurity")).ToList();
-
-
             ViewData["product"] = product;
-
             ViewData["sessionId"] = Request.Cookies["sessionId"];
-
             return View();
         }
-
 
         public IActionResult BusinessAndOffice()
         {
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "BusinessAndOffice")).ToList();
-
             ViewData["product"] = product;
-
             ViewData["sessionId"] = Request.Cookies["sessionId"];
-
-
             return View();
         }
 
         public IActionResult DesignAndIllustration()
         {
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "DesignAndIllustration")).ToList();
-
             ViewData["product"] = product;
-
             ViewData["sessionId"] = Request.Cookies["sessionId"];
-
             return View();
         }
 
@@ -73,6 +56,7 @@ namespace Team8CA.Controllers
         {
             this.db = db;
         }
+
         public List<Products> GetProducts(string query)
         {
             List<Products> products = db.Products.ToList();

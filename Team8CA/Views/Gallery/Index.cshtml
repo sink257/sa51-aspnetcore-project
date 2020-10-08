@@ -1,4 +1,8 @@
 ﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model PagedList.IPagedList<Team8CA.Models.Products>
+@using PagedList
+@using PagedList.Mvc
+@using PagedList.Core  
 
 @{
     ViewData["Title"] = "Gallery Page";
@@ -81,7 +85,7 @@
         }
 
     .sidenav {
-        /*        height: 80%;
+        /*height: 80%;
         width: 20%;*/
         width: 220px;
         position: absolute;
@@ -158,7 +162,6 @@
     </script>
 }
 
-
 <div class="row">
 
     <div class="sidenav">
@@ -168,46 +171,44 @@
             @*<span class="fas fa-caret-down first"></span>*@
         </a>
         @*<div class="dropdown-container">
-            <a href="#security">Antivirus And Security</a>
-            <a href="#security">Antivirus And Security</a>
-            <a href="#security">Antivirus And Security</a>
-        </div>*@
+                <a href="#security">Antivirus And Security</a>
+                <a href="#security">Antivirus And Security</a>
+                <a href="#security">Antivirus And Security</a>
+            </div>*@
         <a class="dropdown-btn" href="/gallery/businessandoffice">
             Business And Office
             @*<span class="fas fa-caret-down first"></span>*@
         </a>
         @*<div class="dropdown-container">
-            <a href="#business">Business And Office</a>
-            <a href="#business">Business And Office</a>
-            <a href="#business">Business And Office</a>
-        </div>*@
+                <a href="#business">Business And Office</a>
+                <a href="#business">Business And Office</a>
+                <a href="#business">Business And Office</a>
+            </div>*@
         <a class="dropdown-btn" href="/gallery/designandillustration">
             Design and Illustration
             @*<span class="fas fa-caret-down first"></span>*@
         </a>
         @*<div class="dropdown-container">
-            <a href="#design">Design and Illustration</a>
-            <a href="#design">Design and Illustration</a>
-            <a href="#design">Design and Illustration</a>
-        </div>*@
+                <a href="#design">Design and Illustration</a>
+                <a href="#design">Design and Illustration</a>
+                <a href="#design">Design and Illustration</a>
+            </div>*@
 
-</div>
-
+    </div>
 
     <div class="gallery-table">
-
         <table>
             @for (int i = 0; i < product.Count; i += 3)
             {
                 <tr>
                     @for (int j = 0; j < 3 && i + j < product.Count; j++)
                     {
-                        <td >
+                        <td>
                             <div class="polaroid">
                                 @*images from database*@
-                                @{ 
+                                @{
                                     int id = i + j;
-                                    string imgPath =product[id].ProductPic;
+                                    string imgPath = product[id].ProductPic;
                                 }
 
                                 <div class="container">
@@ -233,27 +234,20 @@
                     }
                 </tr>
             }
+
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
         </table>
     </div>
 </div>
 
 
-
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
 <script>
-    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
-    var dropdown = document.getElementsByClassName("dropdown-btn");
-    var i;
-    for (i = 0; i < dropdown.length; i++) {
-        dropdown[i].addEventListener("click", function () {
-            this.classList.toggle("active");
-            var dropdownContent = this.nextElementSibling;
-            if (dropdownContent.style.display === "block") {
-                dropdownContent.style.display = "none";
-            } else {
-                dropdownContent.style.display = "block";
-            }
-        });
-    }
+    // Workaround to fix style of text for showing items .. through ..
+    // Problem related to Boostrap 4 according to issue in link below
+    // https://github.com/dncuug/X.PagedList/issues/127
+    $(document).ready(function () {
+        $('ul.pagination > li.disabled > a').addClass('page-link');
+    });
 </script>
