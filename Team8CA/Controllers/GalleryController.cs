@@ -10,7 +10,6 @@ using PagedList.Core;
 using Team8CA.DataAccess;
 using Team8CA.Models;
 using Team8CA.Services;
-//using Team8CA.Services;
 
 namespace Team8CA.Controllers
 {
@@ -18,30 +17,28 @@ namespace Team8CA.Controllers
     {
         protected AppDbContext db;
 
-        /*public IActionResult Index()                                          currently making a copy to test 
-        {                                                                       (have no idea where is the product respository) @@
-            List<Products> product = db.Products.ToList();                      (where do i store the linq request also?)
+        public IActionResult Index(int ? page)                                          
+        {                                                                      
+            List<Products> product = db.Products.ToList();          
             ViewData["product"] = product;
             ViewData["sessionId"] = Request.Cookies["sessionId"];
 
-            int pageSize = 6;
+            int pageSize = 3;
             int pageNumber = (page ?? 1);
-            return View(db.Products.ToPagedList(pageNumber, pageSize));
-        }*/
+            return View(db.Products.ToList().ToPagedList(pageNumber, pageSize));
+        }
 
-        public IActionResult Index([FromQuery] ProductParameters productParameters)
+        /*public IActionResult Index([FromQuery] ProductParameters productParameters)
         {
             List<Products> product = db.Product.Skip((productParameters.PageNumber - 1) * productParameters.PageSize).ToList(productParameters);
-            
-        
-        
-        ViewData["product"] = product;
+
+            ViewData["product"] = product;
             ViewData["sessionId"] = Request.Cookies["sessionId"];
 
             /*int pageSize = 6;
             int pageNumber = (page ?? 1);
-            return View(db.Products.ToPagedList(pageNumber, pageSize));*/
-        }
+            return View(db.Products.ToPagedList(pageNumber, pageSize));
+        }*/
 
         public IActionResult AntivirusAndSecurity()
         {

@@ -1,8 +1,8 @@
 ﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
 @model PagedList.IPagedList<Team8CA.Models.Products>
-@using PagedList
-@using PagedList.Mvc
-@using PagedList.Core  
+@using PagedList;
+@using PagedList.Mvc;
+@using PagedList.Core.Mvc;
 
 @{
     ViewData["Title"] = "Gallery Page";
@@ -238,7 +238,8 @@
 
             Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
 
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
+
         </table>
     </div>
 </div>
