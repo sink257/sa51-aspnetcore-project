@@ -27,6 +27,7 @@ namespace Team8CA.Controllers
         [Route("Login")]
         public IActionResult Index()
         {
+            ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View();
         }
         public IActionResult Authenticate(string username, string password)
