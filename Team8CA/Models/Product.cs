@@ -49,7 +49,11 @@ namespace Team8CA.Models
             this.ProductDescription = ProductDescription;
             this.ProductCategory = ProductCategory;
             this.LongProductDesc = LongProductDesc;
+
         }
+
+
+        public virtual IList<Review> Reviews { get; set; }
     }
 
 }

@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Team8CA.Models;
+using System.Data.Entity.ModelConfiguration.Conventions;
+
 
 namespace Team8CA.DataAccess
 {
@@ -18,10 +20,16 @@ namespace Team8CA.DataAccess
 
         }
 
-        protected override void OnModelCreating(ModelBuilder model)
+        //protected override void OnModelCreating(ModelBuilder model)
+        //{
+        //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-        }
 
+            modelBuilder.Entity<Review>().HasOne<Products>(p => p.Products).WithMany(p => p.Reviews);
+
+
+        }
 
         // neeed to implement the order and product methods in Models
         //public DbSet<Order> Orders { get; set; }
