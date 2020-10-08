@@ -17,11 +17,14 @@ namespace Team8CA.Models
 
         public int CustomerId { get; set; } //to get customerID
 
+        public int ProductId { get; set; }
+
+        public int NoOfProductTypes { get; set; }
+
         [Required]
         public DateTime OrderCreationTime { get; set; }
 
         public DateTime OrderTime {get;set;}
-
 
         public bool IsCheckOut { get; set; } //if checkout or not
 
@@ -39,9 +42,6 @@ namespace Team8CA.Models
             IsCheckOut = false;
             ShoppingCartItems = new List<ShoppingCartItems>();
         }
-
-        [NotMapped]
-        public int NoOfProductTypes { get; set; }
 
         [NotMapped]
         public double Total { get; set; }

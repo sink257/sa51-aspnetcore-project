@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Team8CA.DataAccess;
 using Team8CA.Models;
@@ -76,6 +77,39 @@ namespace Team8CA.Services
             cart.SubTotal += cartItem.QuantityPerItem * product.ProductPrice;
             cart.Total += cart.SubTotal;
         }
+
+        public void AddCartItemForSession(int userId, int prdId, int quantity, ShoppingCart cart)
+        {
+            Products product = _db.Products.First(x => x.Id == prdId);
+            ShoppingCartItems items = cart.ShoppingCartItems.FirstOrDefault(x => x.ProductId == prdId);
+
+
+            if (items == null)
+            {
+                items = new ShoppingCartItems(cart.Id, prdId);
+                items.Products = product;
+                cart.ShoppingCartItems.Add(items);
+            }
+            else
+            {
+                items.QuantityPerItem += quantity;
+            }
+            _db.SaveChanges();
+
+            List<ShoppingCartItems> cartitems = _db.ShoppingCartItem.Where(x => x.ProductId == prdId).ToList();
+            if (cartitems == null)
+            {
+                ShoppingCart shoppingcart = new ShoppingCart
+                {
+                    CustomerId = userId,
+                    ProductId = prdId,
+                    IsCheckOut = false,
+                    OrderCreationTime = DateTime.Now,
+                };
+            } //do a count of number of items in this list in controller for number of product types
+        }
+
+
 
         public ShoppingCart GetCartForCustomer(int customerId)
         {
