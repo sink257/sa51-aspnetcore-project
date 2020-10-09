@@ -25,7 +25,6 @@ namespace Team8CA.DataAccess
         //}
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
             modelBuilder.Entity<Review>().HasOne<Products>(p => p.Products).WithMany(p => p.Reviews);
 
 
