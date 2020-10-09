@@ -19,6 +19,7 @@
 }
 
 
+
 <div class="row">
 
     <div class="sidenav">
@@ -55,6 +56,24 @@
 
 
     <div class="gallery-table">
+        <h1 class="d-inline-block">Products</h1>
+
+        <form id="search" action="/Gallery/Index" method="post" class="float-right d-inline-block">
+            <table align="right">
+                <tr>
+                    <td>
+                        <input type="search" name="keyword" id="keyword" class="form-control" @*width="30%"*@ placeholder="Search" value=@(ViewBag.keyword)>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-primary" value="Submit" action="/Gallery/Index">
+                            <div style="-webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg);-o-transform: rotate(-45deg);transform: rotate(-45deg);">
+                                &#9906;
+                            </div>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
 
         <table>
             @for (int i = 0; i < product.Count; i += 3)
@@ -62,12 +81,12 @@
                 <tr>
                     @for (int j = 0; j < 3 && i + j < product.Count; j++)
                     {
-                        <td >
+                        <td>
                             <div class="polaroid">
                                 @*images from database*@
-                                @{ 
+                                @{
                                     int id = i + j;
-                                    string imgPath =product[id].ProductPic;
+                                    string imgPath = product[id].ProductPic;
                                 }
 
                                 <div class="container">
@@ -76,7 +95,7 @@
                                         <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@(product[id].Id)">View</a>
                                     </div>
                                     <div class="middle2">
-                                        <button type="button" class="btn btn-primary add-to-cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + id + "'"))">Add to Cart</button>
+                                        <a class="btn btn-primary view" asp-controller="Cart" asp-action="AddToShoppingCart" asp-route-productid="@(product[id].Id)">Add to cart</a>
                                     </div>
                                 </div>
 

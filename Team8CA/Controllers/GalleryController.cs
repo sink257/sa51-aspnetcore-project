@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using PagedList;
 using Team8CA.DataAccess;
 using Team8CA.Models;
-using Team8CA.Services;
-//using Team8CA.Services;
 
 namespace Team8CA.Controllers
 {
@@ -77,20 +75,29 @@ namespace Team8CA.Controllers
         {
             this.db = db;
         }
-        public List<Products> GetProducts(string query)
+        public List<Products> GetProducts(string keyword)
         {
             List<Products> products = db.Products.ToList();
             {
-                if (query == "" || query == null)
+                if (keyword == "" || keyword == null)
                 {
                     return db.Products.ToList();
                 }
 
                 return db.Products.Where(p =>
-                        p.ProductName.ToLower().Contains(query.ToLower()) ||
-                        p.ProductDescription.ToLower().Contains(query.ToLower()))
+                        p.ProductName.ToLower().Contains(keyword.ToLower()) ||
+                        p.ProductDescription.ToLower().Contains(keyword.ToLower()))
                     .ToList();
             }
+        }
+
+        [HttpPost]
+        public IActionResult Search(string keyword = "")
+        {
+            List<Products> product = GetProducts(keyword);
+            ViewBag.keyword = keyword;
+            ViewData["product"] = keyword;
+            return View("Index");
         }
 
         //Link to productDetailPage
@@ -112,18 +119,5 @@ namespace Team8CA.Controllers
             return View("ProductDetailPage");
         }
 
-        //public IActionResult AddToCart([FromServices] CartRelatedService service, int productid, int quantity)
-        //{
-        //    string sessionid = Request.Cookies["sessionId"];
-        //    if (sessionid == null)
-        //    {
-
-        //    }
-
-
-
-
-
-        //    return View("Index");
     }
 }
