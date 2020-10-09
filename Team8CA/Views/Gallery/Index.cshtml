@@ -1,8 +1,8 @@
 ﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
-@model PagedList.IPagedList<Team8CA.Models.Products>
-@using PagedList;
-@using PagedList.Mvc;
-@using PagedList.Core.Mvc;
+@using X.PagedList;
+@using X.PagedList.Mvc;
+@using X.PagedList.Mvc.Core;
+@using X.PagedList.Web.Common;
 
 @{
     ViewData["Title"] = "Gallery Page";
@@ -227,23 +227,24 @@
                                     <p class="text-muted p-2" style="overflow:auto; height: 100px">@product[id].ProductDescription</p>
                                     <h5><b>$@product[id].ProductPrice</b></h5>
                                 </div>
-
                             </div>
-
                             <br />
                         </td>
                     }
                 </tr>
             }
-
-            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-
-            @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))
-
+            <!-- paging control for navigation to the previous page, next page, etc -->
+            @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }),
+                new X.PagedList.Mvc.Common.PagedListRenderOptions
+                {
+                    DisplayItemSliceAndTotal = true,
+                    ContainerDivClasses = new[] { "navigation" },
+                    LiElementClasses = new[] { "page-item" },
+                    PageClasses = new[] { "page-link" },
+                })
         </table>
     </div>
 </div>
-
 
 <script>
     // Workaround to fix style of text for showing items .. through ..
