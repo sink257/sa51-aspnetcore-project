@@ -32,10 +32,22 @@ namespace Team8CA.Controllers
         public IActionResult AddToShoppingCart(int productid)
         {
             var productselected = _appDbContext.Products.FirstOrDefault(x => x.Id == productid);
+            
             string customerid = Request.Cookies["customerId"];
+            if(customerid == null)
+            {
+                customerid = "0";
+            }
+            
+            string sessionid = Request.Cookies["sessionId"];
+
+            if(sessionid == null)
+            {
+                sessionid = "12312312313";
+            }
             if(productselected != null)
             {
-                _shoppingcart.AddToCart(productselected, 1, customerid);
+                _shoppingcart.AddToCart(productselected, 1, customerid, sessionid);
             }
             return Redirect("http://localhost:61024/");
         }
@@ -49,40 +61,5 @@ namespace Team8CA.Controllers
             }
             return Redirect("http://localhost:61024/");
         }
-
-
-        //private void AddCartItems([FromServices] CartRelatedService cartservice, int productid, int quantity)
-        //{
-        //    var session = Request.Cookies["sessionId"];
-        //    var cart = new ShoppingCart();
-        //    if (session == null)
-        //    {
-        //        cartservice.AddCartItems(productid, quantity, cart);
-        //    }
-        //    else
-        //    {
-        //        var shpcart = cart.CartItems.FirstOrDefault(x => x.ProductId == productid);
-        //        cartservice.AddCartItems(productid, quantity, cart);
-        //    }
-        //}
-
-        //public IActionResult AddCartGallery ([FromServices] CartRelatedService cartservice, int productid)
-        //{
-        //    var customerid = Request.Cookies["customerId"];
-        //    if (customerid ==  null)
-        //    {
-        //        AddCartItems(cartservice, productid, 1);
-        //    }
-        //    else
-        //    {
-        //        ViewData["ItemCount"] = cartservice.AddToCart(customerid, productid, 1, cartid);
-        //    }
-
-        //    return View("Gallery");
-        //}
-
-
-
-
     }
 }
