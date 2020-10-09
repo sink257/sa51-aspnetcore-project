@@ -7,8 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using PagedList;
 using Team8CA.DataAccess;
 using Team8CA.Models;
-using Team8CA.Services;
-//using Team8CA.Services;
 
 namespace Team8CA.Controllers
 {
@@ -121,18 +119,5 @@ namespace Team8CA.Controllers
             return View("ProductDetailPage");
         }
 
-        //public IActionResult AddToCart([FromServices] CartRelatedService service, int productid, int quantity)
-        //{
-        //    string sessionid = Request.Cookies["sessionId"];
-        //    if (sessionid == null)
-        //    {
-
-        //    }
-
-
-
-
-
-        //    return View("Index");
     }
 }
