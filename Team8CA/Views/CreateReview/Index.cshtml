@@ -74,8 +74,8 @@
             </div>
         </div>
 
-        <form class="col-8 align-self-md-center" >
-
+        <form class="col-8 align-self-md-center" asp-controller="CreateReview" asp-action="Create">
+            <input type="hidden" name="productId" value="@product.Id"/>
             <div class="container pt-4">
 
                 <div class="d-inline-block star-rating" id="star-rating-system">
@@ -95,7 +95,7 @@
             <div id="review-comment" class="pt-2">
                 
                     <div class="pb-3">
-                        <textarea asp-for="ReviewDetails" class="form-control" id="review-text" name="review" placeholder="Write a review..." style="height:160px; width: 100%"></textarea>
+                        <textarea asp-for="ReviewDetails" class="form-control" id="review-text" name="details" placeholder="Write a review..." style="height:160px; width: 100%"></textarea>
                     </div>
                     <button type="submit" value="Submit" class="btn btn-success float-right">Submit</button>
                 
