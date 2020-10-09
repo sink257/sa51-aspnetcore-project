@@ -22,6 +22,7 @@ namespace Team8CA.Controllers
         {                                                                      
             List<Products> product = db.Products.ToList();          
             ViewData["product"] = product;
+            ViewData["username"] = Request.Cookies["username"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
 
             int pageSize = 3;
@@ -45,6 +46,8 @@ namespace Team8CA.Controllers
         {
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "AntivirusandSecurity")).ToList();
             ViewData["product"] = product;
+
+            ViewData["username"] = Request.Cookies["username"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View();
         }
@@ -53,6 +56,8 @@ namespace Team8CA.Controllers
         {
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "BusinessAndOffice")).ToList();
             ViewData["product"] = product;
+
+            ViewData["username"] = Request.Cookies["username"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View();
         }
@@ -61,6 +66,8 @@ namespace Team8CA.Controllers
         {
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "DesignAndIllustration")).ToList();
             ViewData["product"] = product;
+
+            ViewData["username"] = Request.Cookies["username"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View();
         }
@@ -69,33 +76,49 @@ namespace Team8CA.Controllers
         {
             this.db = db;
         }
-
-        public List<Products> GetProducts(string query)
+        public List<Products> GetProducts(string keyword)
         {
             List<Products> products = db.Products.ToList();
             {
-                if (query == "" || query == null)
+                if (keyword == "" || keyword == null)
                 {
                     return db.Products.ToList();
                 }
 
                 return db.Products.Where(p =>
-                        p.ProductName.ToLower().Contains(query.ToLower()) ||
-                        p.ProductDescription.ToLower().Contains(query.ToLower()))
+                        p.ProductName.ToLower().Contains(keyword.ToLower()) ||
+                        p.ProductDescription.ToLower().Contains(keyword.ToLower()))
                     .ToList();
             }
+        }
+
+        [HttpPost]
+        public IActionResult Search(string keyword = "")
+        {
+            List<Products> product = GetProducts(keyword);
+            ViewBag.keyword = keyword;
+            ViewData["product"] = keyword;
+            return View("Index");
         }
 
         //Link to productDetailPage
         public IActionResult ProductDetailPage(int id)
         {
-            Products product = db.Products.First(p => p.Id == id);
+            Products product = db.Products.FirstOrDefault(p => p.Id == id);
             List<Products> similarProducts = db.Products.Where(p => 
                                                (p.ProductCategory == product.ProductCategory) && (p!=product))
                                                 .ToList();
+            
+            var reviews = db.Reviews.Where(r => r.ProductID == id).ToList();
+            double averageRating = reviews.Average(r=>r.StarRating);
+            ViewData["reviews"] = reviews;
+            ViewData["averageRating"] = averageRating;
             ViewData["product"] = product;
             ViewData["similarProducts"] = similarProducts;
+            ViewData["username"] = Request.Cookies["username"];
+            ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View("ProductDetailPage");
         }
+
     }
 }

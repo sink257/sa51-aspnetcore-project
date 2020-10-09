@@ -5,7 +5,7 @@
             <a class="nav-link text-dark" asp-controller="Login" asp-action="Index">Login</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Shopping Cart (@ViewData["NoOfProductTypes"])</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Shopping Cart (@ViewData["ItemCount"])</a>
         </li>
     }
     else
@@ -17,7 +17,7 @@
             <a class="nav-link text-dark" asp-controller="Logout" asp-action="Index">Logout</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Shopping Cart (@ViewData["NoOfProductTypes"])</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Shopping Cart (@ViewData["ItemCount"])</a>
         </li>
     }
 </ul>

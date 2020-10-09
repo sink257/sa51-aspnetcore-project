@@ -13,9 +13,8 @@ namespace Team8CA.Models
     {
         [Column("CustomerId")]
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
-        public int CustomerId { get; set; }
+        public string CustomerID { get; set; }
 
         [Column("Username")]
         [Required]
@@ -27,15 +26,24 @@ namespace Team8CA.Models
         [StringLength(32)]
         public string Password { get; set; }
 
-        public Customer() { }
+        [Column("FirstName")]
+        [Required]
+        [StringLength(32)]
+        public string FirstName { get; set; }
 
-        public Customer(string Username, string Password)
-        {
-            this.Username = Username;
-            this.Password = Password;
-            //remember to hash the password in LoginUtility
-            //this.Password = LoginUtility.Password;
+        public Customer()
+        { 
+
         }
 
+        public Customer(string CustomerID, string Username, string Password, string FirstName)
+        {
+            this.CustomerID = CustomerID;
+            this.Username = Username;
+            this.Password = Password;
+            this.FirstName = FirstName;
+            //remember to hash the password in LoginUtility
+            //this.Password = LoginUtility.Password;
+        }        
     }
 }

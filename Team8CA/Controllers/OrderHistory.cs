@@ -10,6 +10,8 @@ namespace Team8CA.Controllers
     {
         public IActionResult Index()
         {
+            ViewData["username"] = Request.Cookies["username"];
+            ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View();
         }
     }

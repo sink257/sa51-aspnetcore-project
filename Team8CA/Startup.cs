@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Team8CA.DataAccess;
+using Team8CA.Models;
 
 namespace Team8CA
 {
@@ -32,7 +33,11 @@ namespace Team8CA
             services.AddScoped<Team8CA.Models.Customer>();
             services.AddScoped<Team8CA.Models.Products>();
             services.AddScoped<Team8CA.Models.Session>();
+            services.AddScoped < Team8CA.Models.ShoppingCart>();
+            //services.AddScoped<ShoppingCart>(x => ShoppingCart.GetCart(x));
 
+            services.AddHttpContextAccessor();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +53,8 @@ namespace Team8CA
             }
 
             app.UseStaticFiles();
+
+            app.UseSession(); //to set session before user moves from 1 page to another (establish session before routing request)
 
             app.UseRouting();
 
