@@ -18,7 +18,6 @@ namespace Team8CA.Models
     {
         private readonly AppDbContext _appDbContext;
 
-        [Key]
         public string ShoppingCartId { get; set; } //this is the cartID
 
         public List<ShoppingCartItem> ShoppingCartItems { get; set; }
@@ -42,95 +41,59 @@ namespace Team8CA.Models
         {
 
         }
-        
-        //public ShoppingCart (string customerid)
+
+        //public static ShoppingCart GetCart(IServiceProvider services)
         //{
-        //    ShoppingCartId = customerid;
-        //    OrderCreationTime = DateTime.Now;
-        //    IsCheckOut = false;
-        //    CartItems = new List<ShoppingCartItem>();
+        //    ISession session = services.GetRequiredService<IHttpContextAccessor>
+        //        ()?.HttpContext.Session;
+
+        //    var context = services.GetService<AppDbContext>();
+        //    string Id = session.GetString("CartId") ?? Guid.NewGuid().ToString();
+        //    session.SetString("CartId", Id);
+
+        //    return new ShoppingCart(context)
+        //    {
+        //        ShoppingCartId = Id
+        //    };
         //}
 
-        public static ShoppingCart GetCart(IServiceProvider services)
-        {
-            ISession session = services.GetRequiredService<IHttpContextAccessor>
-                ()?.HttpContext.Session;
-
-            var context = services.GetService<AppDbContext>();
-            string Id = session.GetString("CartId") ?? Guid.NewGuid().ToString();
-            session.SetString("CartId", Id);
-
-            return new ShoppingCart(context)
-            {
-                ShoppingCartId = Id
-            };
-        }
-        
-        //public void AddProductsToCart(string customerId, Products product, int quantity)
-        //{
-        //    using (var trn = _appDbContext.Database.BeginTransaction())
-        //    try
-        //    {
-        //        AddCart(customerId);
-        //        ShoppingCart shoppingcart = _appDbContext.ShoppingCart.FirstOrDefault(x => x.CustomerId == customerId && !x.IsCheckOut);
-        //        AddToCart(product, quantity);
-        //        _appDbContext.SaveChanges();
-        //        trn.Commit();
-        //    }
-
-        //    catch (Exception e)
-        //    {
-        //        trn.Rollback();
-        //        throw new Exception(e.Message);
-        //    }
-        //}
-
-        //public void AddCart(string customerId)
-        //{
-        //    ShoppingCart shoppingcart = _appDbContext.ShoppingCart.FirstOrDefault(x => x.CustomerId == customerId && !x.IsCheckOut);
-        //    if (shoppingcart == null)
-        //    {
-        //        shoppingcart = new ShoppingCart(customerId);
-        //        _appDbContext.ShoppingCart.Add(shoppingcart);
-        //    }
-        //    _appDbContext.SaveChanges();
-        //}
-                
-        public void AddToCart(Products product, int quantity, string customerId)
+        public void AddToCart(Products product, int quantity, string customerId, string sessionID)
         {
             var shoppingCartItem = _appDbContext.ShoppingCartItem.FirstOrDefault(
-                x => x.Product.Id == product.Id && x.ShoppingCartId == ShoppingCartId);
+                x => x.Product.Id == product.Id && x.ShoppingCartId == sessionID);
             var shoppingcart = _appDbContext.ShoppingCart.FirstOrDefault(
-                x => x.CustomerId == customerId && x.ShoppingCartId == ShoppingCartId);
+                x => x.CustomerId == customerId && x.ShoppingCartId == sessionID);
 
-            if (shoppingCartItem == null)
-            {
-                shoppingCartItem = new ShoppingCartItem
+                if (shoppingcart == null)
                 {
-                    ShoppingCartId = ShoppingCartId,
-                    Product = product,
-                    Quantity = quantity,
-            };
-
-                if(shoppingcart == null)
-                { 
-                ShoppingCart shoppingcarts = new ShoppingCart
-                {
-                    ShoppingCartId = ShoppingCartId,
-                    CustomerId = customerId,
-                    OrderCreationTime = DateTime.Now,
-                    IsCheckOut = false
-                };
+                    ShoppingCart shoppingcarts = new ShoppingCart
+                    {
+                        ShoppingCartId = sessionID,
+                        CustomerId = customerId,
+                        OrderCreationTime = DateTime.Now,
+                        IsCheckOut = false
+                    };
                     _appDbContext.ShoppingCart.Add(shoppingcarts);
                 }
+                _appDbContext.SaveChanges();
 
-                _appDbContext.ShoppingCartItem.Add(shoppingCartItem);
-            }
-            else
-            {
-                shoppingCartItem.Quantity++;
-            }
-            _appDbContext.SaveChanges();
+                if (shoppingCartItem == null)
+                {
+                    shoppingCartItem = new ShoppingCartItem
+                    {
+                        ShoppingCartId = sessionID,
+                        CustomerId = customerId,
+                        Product = product,
+                        Quantity = quantity,
+                    };
+                    _appDbContext.ShoppingCartItem.Add(shoppingCartItem);
+                }
+                else
+                {
+                    shoppingCartItem.Quantity++;
+                }
+                _appDbContext.SaveChanges();
+            
         }
 
         public int RemoveFromCart(Products product)
@@ -156,10 +119,10 @@ namespace Team8CA.Models
             return newquantity;
         }
 
-        public int AddQuantityToCart(Products product)
+        public int AddQuantityToCart(Products product, string sessionID)
         {
             var shoppingCartItem = _appDbContext.ShoppingCartItem.SingleOrDefault(
-                x => x.Product.Id == product.Id && x.ShoppingCartId == ShoppingCartId);
+                x => x.Product.Id == product.Id && x.ShoppingCartId == sessionID);
 
             var newquantity = 0;
 
@@ -193,9 +156,6 @@ namespace Team8CA.Models
 
             return total;
         }
-
-
-
-
     }
 }
+
