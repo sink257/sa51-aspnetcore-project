@@ -12,13 +12,13 @@ namespace Team8CA.Models
     public class Review
     {
 
-        public Review(int productID, string customerName, int starRating, string reviewDetails)
+        public Review(int productID, string customerName, int starRating, string reviewDetails, DateTime reviewDate)
         {
             this.ProductID = productID;
             this.CustomerName = customerName;
             this.StarRating = starRating;
             this.ReviewDetails = reviewDetails;
-            this.ReviewDate = DateTime.Now;
+            this.ReviewDate = reviewDate;
         }
         // Primary Key
         [Column("ReviewID")]
@@ -35,7 +35,7 @@ namespace Team8CA.Models
 
         [Column("ReviewDate")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")] 
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = true)] 
         public DateTime ReviewDate { get; set; }
 
         [Required]

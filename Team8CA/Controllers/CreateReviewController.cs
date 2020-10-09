@@ -28,6 +28,19 @@ namespace Team8CA.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Create(int rating, string details, int productId)
+        {
+            if (!ModelState.IsValid)
+                return View();
+            Review review = new Review(productId, Request.Cookies["username"], rating, details, DateTime.Now);
+
+            db.Reviews.Add(review);
+            db.SaveChanges();
+
+            return RedirectToAction("ProductDetailPage","Gallery", new { id = productId });
+        }
+
 
     }
 }
