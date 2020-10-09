@@ -77,20 +77,29 @@ namespace Team8CA.Controllers
         {
             this.db = db;
         }
-        public List<Products> GetProducts(string query)
+        public List<Products> GetProducts(string keyword)
         {
             List<Products> products = db.Products.ToList();
             {
-                if (query == "" || query == null)
+                if (keyword == "" || keyword == null)
                 {
                     return db.Products.ToList();
                 }
 
                 return db.Products.Where(p =>
-                        p.ProductName.ToLower().Contains(query.ToLower()) ||
-                        p.ProductDescription.ToLower().Contains(query.ToLower()))
+                        p.ProductName.ToLower().Contains(keyword.ToLower()) ||
+                        p.ProductDescription.ToLower().Contains(keyword.ToLower()))
                     .ToList();
             }
+        }
+
+        [HttpPost]
+        public IActionResult Search(string keyword = "")
+        {
+            List<Products> product = GetProducts(keyword);
+            ViewBag.keyword = keyword;
+            ViewData["product"] = keyword;
+            return View("Index");
         }
 
         //Link to productDetailPage

@@ -18,6 +18,22 @@
     </script>
 }
 
+<form id="search" action="/Gallery/Index" method="post">
+    <table align="right">
+        <tr>
+            <td>
+                <input type="search" name="keyword" id="keyword" class="form-control" @*width="30%"*@ placeholder="Search" value=@(ViewBag.keyword)>
+            </td>
+            <td>
+                <button type="submit" class="btn btn-primary" value="Submit" action="/Gallery/Index">
+                    <div style="-webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg);-o-transform: rotate(-45deg);transform: rotate(-45deg);">
+                        &#9906;
+                    </div>
+                </button>
+            </td>
+        </tr>
+    </table>
+</form>
 
 <div class="row">
 
@@ -55,19 +71,19 @@
 
 
     <div class="gallery-table">
-
+        <h1>Products</h1>
         <table>
             @for (int i = 0; i < product.Count; i += 3)
             {
                 <tr>
                     @for (int j = 0; j < 3 && i + j < product.Count; j++)
                     {
-                        <td >
+                        <td>
                             <div class="polaroid">
                                 @*images from database*@
-                                @{ 
+                                @{
                                     int id = i + j;
-                                    string imgPath =product[id].ProductPic;
+                                    string imgPath = product[id].ProductPic;
                                 }
 
                                 <div class="container">

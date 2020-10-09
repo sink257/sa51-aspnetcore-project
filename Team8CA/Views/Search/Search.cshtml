@@ -1,28 +1,21 @@
-﻿
-@{
-    ViewData["Title"] = "Search";
-}
-
-<h1>Search</h1>
-
-@using (Html.BeginForm("Search", "Search", FormMethod.Post))
-{
-
-    <div>
-        <br>
-        <input type="text" id="productName" name="productName">
-
-        <input type="submit" id="submitId" value="⌕" />
-
-    </div>
-
-}
-
-@{
-    if (ViewBag.SearchKey != null)
-    {
-        <span>
-            Searched for: @ViewBag.SearchKey
-        </span>
+﻿@{ Layout = "_Layout";
+                ViewData["Title"] = "Search";
+                var products = (List<Products>)ViewData["product"]; 
     }
-}
+
+<form id="search" action="/Search/Search" method="post">
+    <table align="right">
+        <tr>
+            <td>
+                <input type="search" name="query" id="query" class="form-control" width="30%" placeholder="Find a product:" value=@(ViewBag.keyword)>
+            </td>
+            <td>
+                <button type="submit" class="btn btn-primary" value="Submit" action="/Search/Search">
+                    <div style="-webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg);-o-transform: rotate(-45deg);transform: rotate(-45deg);">
+                    &#9906;
+                    </div>
+                </button>
+            </td>
+        </tr>
+    </table>
+</form>
