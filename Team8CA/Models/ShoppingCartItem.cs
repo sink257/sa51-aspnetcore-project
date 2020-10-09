@@ -9,9 +9,11 @@ namespace Team8CA.Models
     public class ShoppingCartItem
     {
 
-        public int Id { get; set; }
+        public int ShoppingCartItemId { get; set; }
 
         public string ShoppingCartId { get; set; }
+
+        public string CustomerId { get; set; }
 
         public virtual Products Product { get; set; }
 

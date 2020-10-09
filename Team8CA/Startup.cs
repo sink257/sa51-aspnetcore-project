@@ -33,7 +33,8 @@ namespace Team8CA
             services.AddScoped<Team8CA.Models.Customer>();
             services.AddScoped<Team8CA.Models.Products>();
             services.AddScoped<Team8CA.Models.Session>();
-            services.AddScoped<ShoppingCart>(x => ShoppingCart.GetCart(x));
+            services.AddScoped < Team8CA.Models.ShoppingCart>();
+            //services.AddScoped<ShoppingCart>(x => ShoppingCart.GetCart(x));
 
             services.AddHttpContextAccessor();
             services.AddSession();

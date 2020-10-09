@@ -26,7 +26,8 @@ namespace Team8CA.DataAccess
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<Review>().HasOne<Products>(p => p.Products).WithMany(p => p.Reviews);
+            //modelBuilder.Entity<Review>().HasOne<Products>(p => p.Products).WithMany(p => p.Reviews);
+            //modelBuilder.Entity<ShoppingCart>().HasKey(x => new { x.ShoppingCartId, x.CustomerId });
 
 
         }
