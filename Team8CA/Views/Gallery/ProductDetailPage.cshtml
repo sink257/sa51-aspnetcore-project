@@ -1,7 +1,7 @@
 ﻿@{ 
     Products product = (Products)ViewData["product"];
     List<Review> reviews = (List<Review>) ViewData["reviews"];
-    string username = (string)ViewData["username"];
+    //string username = (string)ViewData["username"];
     double averageRating = (double)ViewData["averageRating"];
     List<Products> similarProducts = (List<Products>)ViewData["similarProducts"];
 
@@ -120,8 +120,8 @@
 
                 </div>
                 @*Leave a review -need to be logged in && bought this product*@
-                @if ( username != null)
-                 {
+                @if (ViewData["firstname"] != null)
+                {
                     <div class="row pt-5 container">
                         <a class="btn btn-outline-success container" id="leave-review" asp-controller="CreateReview" asp-action="Index" asp-route-id="@product.Id">Leave a Review</a>
                     </div>
