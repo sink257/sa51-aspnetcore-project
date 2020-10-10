@@ -10,7 +10,7 @@ using X.PagedList.Mvc;
 using X.PagedList.Mvc.Core;
 using Team8CA.DataAccess;
 using Team8CA.Models;
-using Team8CA.Services;
+//using Team8CA.Services;
 
 namespace Team8CA.Controllers
 {

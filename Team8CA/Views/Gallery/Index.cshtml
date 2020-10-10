@@ -22,41 +22,17 @@
     </script>
 }
 
-
-
 <div class="row">
 
     <div class="sidenav">
         <h2>Categories</h2>
         <a class="dropdown-btn" href="/gallery">Home</a>
         <a class="dropdown-btn" href="/gallery/antivirusandsecurity">
-            Antivirus And Security
-            @*<span class="fas fa-caret-down first"></span>*@
-        </a>
-        @*<div class="dropdown-container">
-                <a href="#security">Antivirus And Security</a>
-                <a href="#security">Antivirus And Security</a>
-                <a href="#security">Antivirus And Security</a>
-            </div>*@
+            Antivirus And Security </a>
         <a class="dropdown-btn" href="/gallery/businessandoffice">
-            Business And Office
-            @*<span class="fas fa-caret-down first"></span>*@
-        </a>
-        @*<div class="dropdown-container">
-                <a href="#business">Business And Office</a>
-                <a href="#business">Business And Office</a>
-                <a href="#business">Business And Office</a>
-            </div>*@
+            Business And Office </a>
         <a class="dropdown-btn" href="/gallery/designandillustration">
-            Design and Illustration
-            @*<span class="fas fa-caret-down first"></span>*@
-        </a>
-        @*<div class="dropdown-container">
-                <a href="#design">Design and Illustration</a>
-                <a href="#design">Design and Illustration</a>
-                <a href="#design">Design and Illustration</a>
-            </div>*@
-
+            Design and Illustration </a>
     </div>
 
     <div class="gallery-table">
@@ -87,7 +63,6 @@
                     {
                         <td>
                             <div class="polaroid">
-                                @*images from database*@
                                 @{
                                     int id = i + j;
                                     string imgPath = product[id].ProductPic;
@@ -114,16 +89,16 @@
                     }
                 </tr>
             }
-            <!-- paging control for navigation to the previous page, next page, etc -->
-            @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }),
-                new X.PagedList.Mvc.Common.PagedListRenderOptions
-                {
-                    DisplayItemSliceAndTotal = true,
-                    ContainerDivClasses = new[] { "navigation" },
-                    LiElementClasses = new[] { "page-item" },
-                    PageClasses = new[] { "page-link" },
-                })
         </table>
+        <!-- paging control for navigation to the previous page, next page, etc -->
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }),
+            new X.PagedList.Mvc.Common.PagedListRenderOptions
+            {
+                DisplayItemSliceAndTotal = true,
+                ContainerDivClasses = new[] { "navigation" },
+                LiElementClasses = new[] { "page-item" },
+                PageClasses = new[] { "page-link" },
+            })
     </div>
 </div>
 
