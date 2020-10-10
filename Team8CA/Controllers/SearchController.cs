@@ -35,7 +35,7 @@ namespace Team8CA.Controllers
         }
 
         [HttpPost]
-        public IActionResult Search(string query = "")
+        public IActionResult Index(string query = "")
         {
             List<Products> product = GetProducts(query);
 
@@ -43,7 +43,7 @@ namespace Team8CA.Controllers
 
             ViewData["product"] = product;
 
-            return View("Search");
+            return View("Index");
         }
     }
 }
