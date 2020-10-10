@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using X.PagedList;
-using X.PagedList.Mvc;
+//using X.PagedList.Mvc;
 using X.PagedList.Mvc.Core;
 using Team8CA.DataAccess;
 using Team8CA.Models;
@@ -18,12 +18,16 @@ namespace Team8CA.Controllers
     {
         protected AppDbContext db;
 
-        public IActionResult Index()                                          
+        public IActionResult Index(int? page)                                          
         {                                                                      
             List<Products> product = db.Products.ToList();          
             ViewData["product"] = product;
             ViewData["username"] = Request.Cookies["username"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
+
+            var pageNumber = page ?? 1; 
+            var onePageOfProducts = product.ToPagedList(pageNumber, 6);
+            ViewData["OnePageOfProducts"] = onePageOfProducts;
             return View();
         }
 
