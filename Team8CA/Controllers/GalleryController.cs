@@ -12,16 +12,19 @@ namespace Team8CA.Controllers
 {
     public class GalleryController : Controller
     {
-
         protected AppDbContext db;
+        private readonly ShoppingCart _shoppingcart;
+
         public IActionResult Index()
         {
             List<Products> product = db.Products.ToList();
 
             ViewData["product"] = product;
             ViewData["username"] = Request.Cookies["username"];
-            ViewData["sessionId"] = Request.Cookies["sessionId"];
-
+            string sesID = Request.Cookies["sessionId"];
+            ViewData["sessionId"] = sesID;
+            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == sesID || x.CustomerId == "").ToList();
+            ViewData["cartcount"] = shoppingcart.Count;
 
             return View();
         }
