@@ -48,10 +48,26 @@ namespace Team8CA.Controllers
 
         public IActionResult Checkout()
         {
+            ViewData["firstname"] = Request.Cookies["firstname"];
+            string sessionid = Request.Cookies["sessionId"];
+            ViewData["sessionId"] = sessionid;
+            string customerId = Request.Cookies["customerId"];
+            ViewData["customerid"] = customerId;
+            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
+            List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
+            if (sessionid != null)
+            {
+                ViewData["cartcount"] = shoppingcart.Count;
+                ViewData["shoppingcartitems"] = shoppingcart;
+
+            }
+            else
+            {
+                ViewData["cartcount"] = shoppingcartNull.Count;
+                ViewData["shoppingcartitems"] = shoppingcartNull;
+            }
             return View();
         }
-
-
 
         public IActionResult AddToShoppingCart(int productid)
         {

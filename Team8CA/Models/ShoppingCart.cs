@@ -71,10 +71,6 @@ namespace Team8CA.Models
                         ShoppingCartId = "0",
                         CustomerId = customerId,
                         ProductsId = productid,
-                        Productname = product.ProductName,
-                        Productdescription = product.ProductDescription,
-                        Productavailability = product.ProductAvailability,
-                        Productprice = product.ProductPrice,
                         Products = product,
                         Quantity = quantity,
                     };
@@ -111,11 +107,6 @@ namespace Team8CA.Models
                     {
                         ShoppingCartId = customerId,
                         CustomerId = customerId,
-                        ProductsId = productid,
-                        Productname = product.ProductName,
-                        Productdescription = product.ProductDescription,
-                        Productavailability = product.ProductAvailability,
-                        Productprice = product.ProductPrice,
                         Products = product,
                         Quantity = quantity,
                     };

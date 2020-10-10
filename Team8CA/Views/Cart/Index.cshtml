@@ -28,23 +28,25 @@
                     </div>
                 </div>
                 <div class="card-body">
+                    @{double subtotal = 0.00;
+                        double total = 0.00;}
                     @foreach (ShoppingCartItem cartitem in shoppingcartitems)
                     {
                         <div class="row">
                             <div class="d-none d-lg-block col-lg-1 text-center py-2">
-                                <img src="@cartitem.ProductPic" class="rounded" width="100%" />
+                                <img src="@cartitem.Products.ProductPic" class="rounded" width="100%" />
                             </div>
                             <div class="col-12 text-sm-center col-lg-5 text-lg-left">
-                                <h5><strong>@cartitem.Productname</strong></h5>
-                                <p><small>@cartitem.Productdescription</small></p>
-                                <p><small>(Availablility: @cartitem.Quantity)</small></p>
+                                <h5><strong>@cartitem.Products.ProductName</strong></h5>
+                                <p><small>@cartitem.Products.ProductDescription</small></p>
+                                <p><small>(Availablility: @cartitem.Products.ProductAvailability)</small></p>
                             </div>
                             <div class="col-12 text-sm-center col-lg-6 text-lg-right row">
                                 <div class="col-2 text-md-right" style="padding-top:5px;">
-                                    <h6><strong>$10.00</strong></h6>
+                                    <h6><strong>$@cartitem.Products.ProductPrice</strong></h6>
                                 </div>
                                 <div class="col-2 text-md-right" style="padding-top:5px;">
-                                    <h6><strong>100pcs</strong></h6>
+                                    <h6><strong>@cartitem.Quantity pcs</strong></h6>
                                 </div>
                                 <div class="col-2 col-sm-4 col-lg-3">
                                     <div class="float-left mx-1">
@@ -59,7 +61,9 @@
                                     </div>
                                 </div>
                                 <div class="col-3 text-md-center" style="padding-top:5px;">
-                                    <h6><strong>$1,000.00</strong></h6>
+                                    @{subtotal = @cartitem.Products.ProductPrice * @cartitem.Quantity;
+                                        total += subtotal;}
+                                    <h6><strong>$@subtotal</strong></h6>
                                 </div>
                                 <div class="col-2 col-sm-4 col-lg-2 text-right">
                                     <button type="submit" class="btn btn-outline-danger">
@@ -69,16 +73,16 @@
                             </div>
                         </div>
                         <hr />
+                                        
                     }
                 </div>
-
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8 pr-4">
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between bg-light">
                                     <strong class="text-info"> Grand Total ($)</strong>
-                                    <strong class="text-info">$ <span id="txtOrderTotal">1,000.00</span></strong>
+                                    <strong class="text-info">$ <span id="txtOrderTotal">@total</span></strong>
                                 </li>
                             </ul>
                         </div>

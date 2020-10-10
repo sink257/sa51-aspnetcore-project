@@ -28,7 +28,7 @@ namespace Team8CA
             services.AddControllersWithViews();
 
             services.AddDbContext<AppDbContext>
-                (opt => opt.UseSqlServer(Configuration.GetConnectionString("DBConn")));
+                (opt => opt.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DBConn")));
 
             services.AddScoped<Team8CA.Models.Customer>();
             services.AddScoped<Team8CA.Models.Products>();
