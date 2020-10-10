@@ -41,7 +41,7 @@ namespace Team8CA.Controllers
             //db.SaveChanges();
             //Response.Cookies.Append("sessionId", session.SessionID);
 
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View ("Logout");
         }

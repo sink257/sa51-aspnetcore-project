@@ -21,7 +21,7 @@ namespace Team8CA.Controllers
         {  
             Products product = db.Products.First(p => p.Id == id);
 
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];            
             ViewData["product"] = product;
 
