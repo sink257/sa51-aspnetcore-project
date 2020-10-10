@@ -3,6 +3,7 @@
 @using X.PagedList.Mvc;
 @using X.PagedList.Mvc.Core;
 @using X.PagedList.Web.Common;
+@using System.Web; 
 
 @{
     ViewData["Title"] = "Gallery Page";
@@ -11,7 +12,6 @@
 <link href="~/css/Gallery.css" rel="stylesheet" />
 
 <title>G8Software</title>
-
 
 @section Scripts
     {
@@ -26,13 +26,10 @@
 
     <div class="sidenav">
         <h2>Categories</h2>
-        <a class="dropdown-btn" href="/gallery">Home</a>
-        <a class="dropdown-btn" href="/gallery/antivirusandsecurity">
-            Antivirus And Security </a>
-        <a class="dropdown-btn" href="/gallery/businessandoffice">
-            Business And Office </a>
-        <a class="dropdown-btn" href="/gallery/designandillustration">
-            Design and Illustration </a>
+        <a href="/gallery">Home</a>
+        <a href="/gallery/antivirusandsecurity"> Antivirus And Security </a>
+        <a href="/gallery/businessandoffice">Business And Office </a>
+        <a href="/gallery/designandillustration">Design and Illustration </a>
     </div>
 
     <div class="gallery-table">
@@ -92,7 +89,7 @@
         </table>
         <!-- paging control for navigation to the previous page, next page, etc -->
         @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }),
-            new X.PagedList.Mvc.Common.PagedListRenderOptions
+           new X.PagedList.Mvc.Common.PagedListRenderOptions
             {
                 DisplayItemSliceAndTotal = true,
                 ContainerDivClasses = new[] { "navigation" },

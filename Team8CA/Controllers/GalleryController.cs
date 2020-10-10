@@ -18,16 +18,13 @@ namespace Team8CA.Controllers
     {
         protected AppDbContext db;
 
-        public IActionResult Index(int ? page)                                          
+        public IActionResult Index()                                          
         {                                                                      
             List<Products> product = db.Products.ToList();          
             ViewData["product"] = product;
             ViewData["username"] = Request.Cookies["username"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
-
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
-            return View(db.Products.ToList().ToPagedList(pageNumber, pageSize));
+            return View();
         }
 
         /*public IActionResult Index([FromQuery] ProductParameters productParameters)
@@ -99,6 +96,13 @@ namespace Team8CA.Controllers
             ViewBag.keyword = keyword;
             ViewData["product"] = keyword;
             return View("Index");
+        }
+
+        public IActionResult PageNumber(int ? page)
+        {
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(db.Products.ToList().ToPagedList(pageNumber, pageSize));
         }
 
         //Link to productDetailPage

@@ -7,21 +7,50 @@ namespace Team8CA.Models
 {
     public class ProductParameters
     {
-        const int maxPageSize = 6;
+        //const int maxPageSize = 6;
 
-        public int PageNumber { get; set; } = 1;
+        //public int PageNumber { get; set; } = 1;
 
-        private int _pageSize = 1;
+        //private int _pageSize = 1;
 
-        public int PageSize
+        //public int PageSize
+        //{
+        //    get
+        //    {
+        //        return _pageSize;
+        //    }
+        //    set
+        //    {
+        //        _pageSize = (value > maxPageSize) ? maxPageSize: value;
+        //    }
+        //}
+
+        public abstract class PagedResultBase
         {
-            get
+            public int CurrentPage { get; set; }
+            public int PageCount { get; set; }
+            public int PageSize { get; set; }
+            public int RowCount { get; set; }
+
+            public int FirstRowOnPage
             {
-                return _pageSize;
+
+                get { return (CurrentPage - 1) * PageSize + 1; }
             }
-            set
+
+            public int LastRowOnPage
             {
-                _pageSize = (value > maxPageSize) ? maxPageSize: value;
+                get { return Math.Min(CurrentPage * PageSize, RowCount); }
+            }
+        }
+
+        public class PagedResult<T> : PagedResultBase where T : class
+        {
+            public IList<T> Results { get; set; }
+
+            public PagedResult()
+            {
+                Results = new List<T>();
             }
         }
 
