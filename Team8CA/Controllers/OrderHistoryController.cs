@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Team8CA.Controllers
 {
-    public class OrderHistory : Controller
+    public class OrderHistoryController : Controller
     {
         public IActionResult Index()
         {

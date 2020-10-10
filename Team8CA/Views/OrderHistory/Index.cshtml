@@ -8,7 +8,7 @@
     #customers {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
-        width: 80%;
+        width: 90%;
         margin-left: auto;
         margin-right: auto;
         table-layout: auto;
@@ -47,19 +47,19 @@
                 <th></th>
             </tr>
         </thead>
-        @*   @{ foreach ()
-             {
-         <tr>
-             <td>Id</td>
-             <td>Quantity</td>
-             <td>Value</td>
-             <td>CheckoutTime</td>
-             <td><a href=@("path to recentOrder")>More Details</a></td>
-         </tr>
-         }
-        } *@
+        @{ foreach (ShoppingCart cart in Model.ShoppingCart)
+            {
+                <tr>
+                    <td>Id</td>
+                    <td>Quantity</td>
+                    <td>Value</td>
+                    <td>CheckoutTime</td>
+                    <td><a href=@("path to recentOrder")>More Details</a></td>
+                </tr>
+            }
+        }
     </table>
 
-@* If they haven't ordered any items, display you have not yet orderd (using if statement)*@
-    <p>You have not yet ordered.<p>
+    @* If they haven't ordered any items, display you have not yet orderd (using if statement)
+        <p>You have not yet ordered.<p>*@
 </body>

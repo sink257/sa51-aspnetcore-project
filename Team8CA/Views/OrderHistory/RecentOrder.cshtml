@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
    
     ViewData["Title"] = "RecentOrder";
 }
@@ -8,7 +7,7 @@
     #customers {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
-        width: 80%;
+        width: 90%;
         margin-left: auto;
         margin-right: auto;
         table-layout: auto;
@@ -45,8 +44,8 @@
         <th>Time</th>
         <th>Activication Code</th>
     </tr>
-    @*   @foreach (in)
-        {
+    @foreach (ShoppingCart cartItem in Model.ShoppingCart)
+    {
         <tr>
             <td><img src="Image"></td>
             <td>ProductName</td>
@@ -56,16 +55,15 @@
             <td>Date</td>
             <td>
                 <select>
-                    @{
-                         foreach ()
-                         {
-                              <option>@code.ActivationCode</option>
-                         }
-                     }
+                 @{
+                    foreach (var code in Model.ActivationCodes)
+                    {
+                        <option>@code.activationCode</option>
+                    }
+                    } 
                 </select>
             </td>
         </tr>
-        }   *@
-
+      }
 </table>
 
