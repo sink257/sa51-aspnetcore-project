@@ -47,19 +47,20 @@
                 <th></th>
             </tr>
         </thead>
-        @{ foreach (ShoppingCart cart in Model.ShoppingCart)
-            {
-                <tr>
-                    <td>Id</td>
-                    <td>Quantity</td>
-                    <td>Value</td>
-                    <td>CheckoutTime</td>
-                    <td><a href=@("path to recentOrder")>More Details</a></td>
-                </tr>
-            }
-        }
-    </table>
+        @*   @{ foreach (ShoppingCart cart in Model.ShoppingCart)
+                 {
+                     <tr>
+                         <td>Id</td>
+                         <td>Quantity</td>
+                         <td>Value</td>
+                         <td>CheckoutTime</td>
+                         <td><a href=@("path to recentOrder")>More Details</a></td>
+                     </tr>
+                 }
+             }
 
-    @* If they haven't ordered any items, display you have not yet orderd (using if statement)
-        <p>You have not yet ordered.<p>*@
+
+        If they haven't ordered any items, display you have not yet orderd (using if statement)
+             <p>You have not yet ordered.<p>*@
+    </table>
 </body>
