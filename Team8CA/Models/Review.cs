@@ -10,16 +10,7 @@ namespace Team8CA.Models
 {
     [Table("Reviews")]
     public class Review
-    {
-
-        public Review(int productID, string customerName, int starRating, string reviewDetails, DateTime reviewDate)
-        {
-            this.ProductID = productID;
-            this.CustomerName = customerName;
-            this.StarRating = starRating;
-            this.ReviewDetails = reviewDetails;
-            this.ReviewDate = reviewDate;
-        }
+    {        
         // Primary Key
         [Column("ReviewID")]
         [Required]
@@ -46,6 +37,20 @@ namespace Team8CA.Models
 
         //public virtual Customer Customer { get; set; }
         public virtual Products Products { get; set; }
+
+        public Review()
+        {
+
+        }
+
+        public Review(int productID, string customerName, int starRating, string reviewDetails, DateTime reviewDate)
+        {
+            this.ProductID = productID;
+            this.CustomerName = customerName;
+            this.StarRating = starRating;
+            this.ReviewDetails = reviewDetails;
+            this.ReviewDate = reviewDate;
+        }
     }
 }
 

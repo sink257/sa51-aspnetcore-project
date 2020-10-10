@@ -11,6 +11,7 @@ namespace Team8CA.Controllers
     public class LogoutController : Controller
     {
         protected AppDbContext db;
+        private readonly Session sessions;
 
         public LogoutController(AppDbContext db)
         {
@@ -28,7 +29,19 @@ namespace Team8CA.Controllers
             );
 
             HttpContext.Response.Cookies.Delete("sessionId");
-            ViewData["username"] = Request.Cookies["username"];
+            //Session session = new Session()
+            //{
+            //    SessionID = "00",
+            //    Username = "00",
+            //    FirstName = "00",
+            //    Timestamp = DateTimeOffset.Now.ToUnixTimeSeconds(),
+            //    CustomerID = "00",
+            //};
+            //db.Sessions.Add(session);
+            //db.SaveChanges();
+            //Response.Cookies.Append("sessionId", session.SessionID);
+
+            ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View ("Logout");
         }

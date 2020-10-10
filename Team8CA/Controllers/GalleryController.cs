@@ -5,15 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-//using X.PagedList;
+using X.PagedList;
 //using X.PagedList.Mvc;
-//using X.PagedList.Mvc.Core;
-//using X.PagedList.Web.Common;
+using X.PagedList.Mvc.Core;
 using Team8CA.DataAccess;
 using Team8CA.Models;
-using PagedList;
-using PagedList.Mvc;
-using PagedList.Core.Mvc;
 //using Team8CA.Services;
 
 namespace Team8CA.Controllers
@@ -22,12 +18,38 @@ namespace Team8CA.Controllers
     {
         protected AppDbContext db;
 
-        public IActionResult Index()                                          
+        private readonly ShoppingCart _shoppingcart;
+
+        public IActionResult Index()
+        {
+            List<Products> product = db.Products.ToList();
+
+
+        public IActionResult Index(int? page)                                          
         {                                                                      
             List<Products> product = db.Products.ToList();          
             ViewData["product"] = product;
+
+            
+            var pageNumber = page ?? 1; 
+            var onePageOfProducts = product.ToPagedList(pageNumber, 6);
+            ViewData["OnePageOfProducts"] = onePageOfProducts;
+
             ViewData["username"] = Request.Cookies["username"];
-            ViewData["sessionId"] = Request.Cookies["sessionId"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
+            string sesID = Request.Cookies["sessionId"];
+            ViewData["sessionId"] = sesID;
+            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == sesID).ToList();
+            List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
+            if (sesID != null)
+            {
+                ViewData["cartcount"] = shoppingcart.Count;
+            }
+            else
+            {
+                ViewData["cartcount"] = shoppingcartNull.Count;
+            }
+
             return View();
         }
 
@@ -48,7 +70,7 @@ namespace Team8CA.Controllers
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "AntivirusandSecurity")).ToList();
             ViewData["product"] = product;
 
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View();
         }
@@ -58,7 +80,7 @@ namespace Team8CA.Controllers
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "BusinessAndOffice")).ToList();
             ViewData["product"] = product;
 
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View();
         }
@@ -68,7 +90,7 @@ namespace Team8CA.Controllers
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "DesignAndIllustration")).ToList();
             ViewData["product"] = product;
 
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View();
         }
@@ -123,7 +145,7 @@ namespace Team8CA.Controllers
             ViewData["averageRating"] = averageRating;
             ViewData["product"] = product;
             ViewData["similarProducts"] = similarProducts;
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View("ProductDetailPage");
         }
