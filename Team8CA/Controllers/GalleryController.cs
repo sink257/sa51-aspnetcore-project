@@ -5,11 +5,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using X.PagedList;
-using X.PagedList.Mvc;
-using X.PagedList.Mvc.Core;
+//using X.PagedList;
+//using X.PagedList.Mvc;
+//using X.PagedList.Mvc.Core;
+//using X.PagedList.Web.Common;
 using Team8CA.DataAccess;
 using Team8CA.Models;
+using PagedList;
+using PagedList.Mvc;
+using PagedList.Core.Mvc;
 //using Team8CA.Services;
 
 namespace Team8CA.Controllers

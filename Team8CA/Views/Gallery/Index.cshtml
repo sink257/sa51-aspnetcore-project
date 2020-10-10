@@ -1,9 +1,14 @@
 ﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
-@using X.PagedList;
+@*@using X.PagedList;
 @using X.PagedList.Mvc;
 @using X.PagedList.Mvc.Core;
-@using X.PagedList.Web.Common;
+@using X.PagedList.Web.Common;*@
+@model PagedList.IPagedList<Team8CA.Models.Products>;
+@using PagedList.Core.Mvc; 
+@using PagedList;
+@using PagedList.Mvc;  
 @using System.Web; 
+
 
 @{
     ViewData["Title"] = "Gallery Page";
@@ -88,14 +93,7 @@
             }
         </table>
         <!-- paging control for navigation to the previous page, next page, etc -->
-        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }),
-           new X.PagedList.Mvc.Common.PagedListRenderOptions
-            {
-                DisplayItemSliceAndTotal = true,
-                ContainerDivClasses = new[] { "navigation" },
-                LiElementClasses = new[] { "page-item" },
-                PageClasses = new[] { "page-link" },
-            })
+        @Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new { page = page }));
     </div>
 </div>
 
