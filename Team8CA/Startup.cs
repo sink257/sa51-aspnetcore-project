@@ -30,7 +30,7 @@ namespace Team8CA
             services.AddControllersWithViews();
 
             services.AddDbContext<AppDbContext>
-                (opt => opt.UseSqlServer(Configuration.GetConnectionString("DBConn")));
+                (opt => opt.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DBConn")));
 
             services.AddScoped<Team8CA.Models.Customer>();
             services.AddScoped<Team8CA.Models.Products>();
@@ -56,7 +56,7 @@ namespace Team8CA
 
             app.UseStaticFiles();
 
-            app.UseSession(); //to set session before user moves from 1 page to another (establish session before routing request)
+            //app.UseSession(); //to set session before user moves from 1 page to another (establish session before routing request)
 
             app.UseRouting();
 

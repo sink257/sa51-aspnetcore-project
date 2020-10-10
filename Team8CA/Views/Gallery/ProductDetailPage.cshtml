@@ -123,7 +123,7 @@
                 @if (ViewData["sessionId"] != null)
                 {
                     <div class="row pt-5 container">
-                        <a class="btn btn-outline-success container" id="leave-review" asp-controller="CreateReview" asp-action="Index" asp-route-id="@product.Id">Leave a Review</a>
+                        <a class="btn btn-outline-success container" id="leave-review" asp-controller="CreateReview" asp-action="Index" asp-route-id="@product.ProductId">Leave a Review</a>
                     </div>
                 }
                 else 
@@ -145,10 +145,10 @@
                 <div class="hover-product p-4 container">
                     <img src=@p.ProductPic class="container p-0 img-thumbnail" />
                     <div class="middle ">
-                        <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@p.Id">View</a>
+                        <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@p.ProductId">View</a>
                     </div>
                     <div class="middle" style="top: 35%">
-                        <button type="button" class="btn btn-primary cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + p.Id + "'"))"><i class="fa fa-cart-plus"></i></button>
+                        <button type="button" class="btn btn-primary cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + p.ProductId + "'"))"><i class="fa fa-cart-plus"></i></button>
                     </div>
                     <div class="similarProduct">
                         <h6>@p.ProductName</h6>
