@@ -35,14 +35,11 @@ namespace Team8CA.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(string query = "")
+        public IActionResult Index(string query)
         {
             List<Products> product = GetProducts(query);
-
             ViewBag.keyword = query;
-
             ViewData["product"] = product;
-
             return View("Index");
         }
     }
