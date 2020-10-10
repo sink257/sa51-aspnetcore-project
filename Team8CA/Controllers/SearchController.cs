@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Team8CA.DataAccess;
 using Team8CA.Models;
 
@@ -18,26 +19,26 @@ namespace Team8CA.Controllers
             this.db = db;
         }
 
-        public List<Products> GetProducts(string query)
+        public async Task<List<Products>> GetProducts(string query)
         {
             List<Products> product = db.Products.ToList();
             {
-                if (query == "" || query == null)
+                if (!String.IsNullOrEmpty(query))
                 {
-                    return db.Products.ToList();
-                }
-
-                return db.Products.Where(p =>
+                    return await db.Products.Where(p =>
                         p.ProductName.ToLower().Contains(query.ToLower()) ||
                         p.ProductDescription.ToLower().Contains(query.ToLower()))
-                    .ToList();
+                    .ToListAsync();
+                }
+
+                return db.Products.ToList();
             }
         }
 
         [HttpPost]
-        public IActionResult Index(string query)
+        public async Task<IActionResult> Index(string query)
         {
-            List<Products> product = GetProducts(query);
+            List<Products> product = await GetProducts(query);
             ViewBag.keyword = query;
             ViewData["product"] = product;
             return View("Index");
