@@ -3,6 +3,7 @@
 @using X.PagedList.Mvc.Core;
 @using X.PagedList.Web.Common;
 @using System.Web; 
+@using X.PagedList.Mvc.Bootstrap4;
 
 @{
     ViewData["Title"] = "Gallery Page";
@@ -12,7 +13,6 @@
     {
         product.Add(p);
     }
-
 }
 <link href="~/css/Gallery.css" rel="stylesheet" />
 
@@ -75,13 +75,7 @@
             }
         </table>
         <!-- paging control for navigation to the previous page, next page, etc -->
-        @Html.PagedListPager((IPagedList)ViewData["OnePageOfProducts"], page => Url.Action("Index", new { page }),
-        new X.PagedList.Web.Common.PagedListRenderOptionsBase
-         {
-            ContainerDivClasses = new[] { "navigation" },
-            LiElementClasses = new[] { "page-item" },
-            PageClasses = new[] { "page-link" },
-        })
+        @Html.PagedListPager((IPagedList)ViewData["OnePageOfProducts"], page => Url.Action("Index", new { page }), 
+        X.PagedList.Mvc.Bootstrap4.Core.Bootstrap4PagedListRenderOptions.Classic));
     </div>
 </div>
-
