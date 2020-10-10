@@ -35,7 +35,7 @@
         <div class="col-9">
             <div class="row ">
                 <div class="col-4 p-3 text-center">
-                    <img src=@product.ProductPic class="p-1 container img-thumbnail" />
+                    <img src=@product.ProductPic class="p-0 container img-thumbnail" />
                     <h5 class="text-success p-3">In stock</h5>
                 </div>
 
@@ -143,7 +143,7 @@
            @foreach (Products p in similarProducts)
             {
                 <div class="hover-product p-4 container">
-                    <img src=@p.ProductPic class="container p-3 img-thumbnail" />
+                    <img src=@p.ProductPic class="container p-0 img-thumbnail" />
                     <div class="middle ">
                         <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@p.Id">View</a>
                     </div>
