@@ -20,11 +20,19 @@ namespace Team8CA.Controllers
             List<Products> product = db.Products.ToList();
 
             ViewData["product"] = product;
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             string sesID = Request.Cookies["sessionId"];
             ViewData["sessionId"] = sesID;
-            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == sesID || x.CustomerId == "").ToList();
-            ViewData["cartcount"] = shoppingcart.Count;
+            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == sesID).ToList();
+            List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
+            if (sesID != null)
+            {
+                ViewData["cartcount"] = shoppingcart.Count;
+            }
+            else
+            {
+                ViewData["cartcount"] = shoppingcartNull.Count;
+            }
 
             return View();
         }
@@ -42,7 +50,7 @@ namespace Team8CA.Controllers
 
             ViewData["product"] = product;
 
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
 
             return View();
@@ -55,7 +63,7 @@ namespace Team8CA.Controllers
 
             ViewData["product"] = product;
 
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
 
 
@@ -68,7 +76,7 @@ namespace Team8CA.Controllers
 
             ViewData["product"] = product;
 
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
 
             return View();
@@ -117,7 +125,7 @@ namespace Team8CA.Controllers
             ViewData["averageRating"] = averageRating;
             ViewData["product"] = product;
             ViewData["similarProducts"] = similarProducts;
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View("ProductDetailPage");
         }

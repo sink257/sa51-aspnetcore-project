@@ -59,11 +59,49 @@ namespace Team8CA.Models
 
         public void AddToCart(Products product, int quantity, string customerId, string sessionID)
         {
-            var shoppingCartItem = _appDbContext.ShoppingCartItem.FirstOrDefault(
-                x => x.Product.Id == product.Id && x.ShoppingCartId == sessionID);
-            var shoppingcart = _appDbContext.ShoppingCart.FirstOrDefault(
-                x => x.CustomerId == customerId && x.ShoppingCartId == sessionID);
 
+            if (sessionID == null)
+            {
+                var shoppingCartItem = _appDbContext.ShoppingCartItem.FirstOrDefault(
+                    x => x.Product.Id == product.Id && x.ShoppingCartId == "0");
+                var shoppingcart = _appDbContext.ShoppingCart.FirstOrDefault(
+                    x => x.CustomerId == customerId && x.ShoppingCartId == "0");
+                if (shoppingcart == null)
+                {
+                    ShoppingCart shoppingcarts = new ShoppingCart
+                    {
+                        ShoppingCartId = "0",
+                        CustomerId = customerId,
+                        OrderCreationTime = DateTime.Now,
+                        IsCheckOut = false
+                    };
+                    _appDbContext.ShoppingCart.Add(shoppingcarts);
+                }
+                _appDbContext.SaveChanges();
+
+                if (shoppingCartItem == null)
+                {
+                    shoppingCartItem = new ShoppingCartItem
+                    {
+                        ShoppingCartId = "0",
+                        CustomerId = customerId,
+                        Product = product,
+                        Quantity = quantity,
+                    };
+                    _appDbContext.ShoppingCartItem.Add(shoppingCartItem);
+                }
+                else
+                {
+                    shoppingCartItem.Quantity++;
+                }
+                _appDbContext.SaveChanges();
+            }
+            else
+            {
+                var shoppingCartItem = _appDbContext.ShoppingCartItem.FirstOrDefault(
+                    x => x.Product.Id == product.Id && x.ShoppingCartId == sessionID);
+                var shoppingcart = _appDbContext.ShoppingCart.FirstOrDefault(
+                    x => x.CustomerId == customerId && x.ShoppingCartId == sessionID);
                 if (shoppingcart == null)
                 {
                     ShoppingCart shoppingcarts = new ShoppingCart
@@ -93,7 +131,10 @@ namespace Team8CA.Models
                     shoppingCartItem.Quantity++;
                 }
                 _appDbContext.SaveChanges();
-            
+            }
+
+
+
         }
 
         public int RemoveFromCart(Products product)
