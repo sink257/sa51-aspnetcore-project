@@ -32,6 +32,13 @@ namespace Team8CA.Models
         [StringLength(32)]
         public string FirstName { get; set; }
 
+        public static string hashPwd(string password)
+        {
+            byte[] data = System.Text.Encoding.ASCII.GetBytes(password);
+            data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
+            return System.Text.Encoding.ASCII.GetString(data);
+        }
+
         public Customer()
         { 
 
@@ -41,7 +48,7 @@ namespace Team8CA.Models
         {
             this.CustomerID = CustomerID;
             this.Username = Username;
-            this.Password = CustomerLoginController.hashPwd(Password);
+            this.Password = hashPwd(Password);
             this.FirstName = FirstName;
         }        
     }

@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +15,6 @@ using Team8CA.Models;
 
 namespace Team8CA.Controllers
 {
-    
     public class CustomerLoginController : Controller
     {
         private readonly Customer customers;
@@ -32,22 +35,15 @@ namespace Team8CA.Controllers
             return View();
         }
 
-        public static string hashPwd(string password)
-        {
-            byte[] data = System.Text.Encoding.ASCII.GetBytes(password);
-            data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
-            return System.Text.Encoding.ASCII.GetString(data);
-        }
-
         public IActionResult Authenticate(string username, string password, string firstname)
         {
             Customer customers;
             customers = db.Customers.Where(x => x.Username == username).FirstOrDefault();
 
-            string pwd = customers.Password;
-            password = hashPwd(password);
+            string hashedPwd = customers.Password;
+            password = Customer.hashPwd(password);
 
-            if (pwd != password && customers == null)
+            if (hashedPwd != password && customers == null)
             {
                 ViewData["username"] = username;
                 ViewData["loginerror"] = "Incorrect Username or Password";

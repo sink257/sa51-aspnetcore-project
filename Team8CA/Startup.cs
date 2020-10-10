@@ -10,6 +10,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Team8CA.DataAccess;
 using Team8CA.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Options;
 
 namespace Team8CA
 {
@@ -33,7 +35,7 @@ namespace Team8CA
             services.AddScoped<Team8CA.Models.Customer>();
             services.AddScoped<Team8CA.Models.Products>();
             services.AddScoped<Team8CA.Models.Session>();
-            services.AddScoped < Team8CA.Models.ShoppingCart>();
+            services.AddScoped<Team8CA.Models.ShoppingCart>();
             //services.AddScoped<ShoppingCart>(x => ShoppingCart.GetCart(x));
 
             services.AddHttpContextAccessor();
