@@ -101,7 +101,7 @@ namespace Team8CA.Models
                 var shoppingCartItem = _appDbContext.ShoppingCartItem.FirstOrDefault(
                     x => x.Product.Id == product.Id && x.ShoppingCartId == sessionID);
                 var shoppingcart = _appDbContext.ShoppingCart.FirstOrDefault(
-                    x => x.CustomerId == customerId && x.ShoppingCartId == sessionID);
+                    x => x.CustomerId == customerId && x.IsCheckOut == false);
                 if (shoppingcart == null)
                 {
                     ShoppingCart shoppingcarts = new ShoppingCart
