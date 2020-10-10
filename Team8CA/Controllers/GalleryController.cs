@@ -20,13 +20,9 @@ namespace Team8CA.Controllers
 
         private readonly ShoppingCart _shoppingcart;
 
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
-            List<Products> product = db.Products.ToList();
-
-
-        public IActionResult Index(int? page)                                          
-        {                                                                      
+                                                                     
             List<Products> product = db.Products.ToList();          
             ViewData["product"] = product;
 
