@@ -1,16 +1,12 @@
-﻿<form id="search" action="/Search/Index" method="post">
+﻿<form id="search" action="/search/index" method="post">
     <table align="left">
         <tr>
             <td>
                 <input type="search" name="query" id="query" class="form-control" width="30" placeholder="Search Products" value=@(ViewBag.keyword)>
             </td>
             <td>
-                <button type="submit" class="btn btn-primary" value="Submit" action="/Search/Index">
-                    <div style="
-                    -webkit-transform: rotate(-75deg);
-                    -moz-transform: rotate(-75deg);
-                    -o-transform: rotate(-75deg);
-                    transform: rotate(-75deg);">
+                <button type="submit" class="btn btn-primary" value="Submit" action="/search/index">
+                    <div style="transform: rotate(-75deg);">
                         &#8981;
                     </div>
                 </button>

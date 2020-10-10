@@ -31,12 +31,23 @@ namespace Team8CA.Controllers
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View();
         }
+
+        public static string hashPwd(string password)
+        {
+            byte[] data = System.Text.Encoding.ASCII.GetBytes(password);
+            data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
+            return System.Text.Encoding.ASCII.GetString(data);
+        }
+
         public IActionResult Authenticate(string username, string password, string firstname)
         {
             Customer customers;
-            customers = db.Customers.Where(x => x.Username == username && x.Password == password).FirstOrDefault();
+            customers = db.Customers.Where(x => x.Username == username).FirstOrDefault();
 
-            if (customers == null)
+            string pwd = customers.Password;
+            password = hashPwd(password);
+
+            if (pwd != password && customers == null)
             {
                 ViewData["username"] = username;
                 ViewData["loginerror"] = "Incorrect Username or Password";
@@ -56,7 +67,7 @@ namespace Team8CA.Controllers
                 db.SaveChanges();
 
                 Response.Cookies.Append("username", session.Username);
-                Response.Cookies.Append("firstname", session.FirstName);                
+                Response.Cookies.Append("firstname", session.FirstName);
                 Response.Cookies.Append("customerId", session.CustomerID);
                 Response.Cookies.Append("sessionId", session.SessionID);
                 return RedirectToAction("Index", "Gallery");

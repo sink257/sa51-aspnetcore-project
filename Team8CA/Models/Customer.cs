@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Team8CA.DataAccess;
+using Team8CA.Controllers;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -40,10 +41,8 @@ namespace Team8CA.Models
         {
             this.CustomerID = CustomerID;
             this.Username = Username;
-            this.Password = Password;
+            this.Password = CustomerLoginController.hashPwd(Password);
             this.FirstName = FirstName;
-            //remember to hash the password in LoginUtility
-            //this.Password = LoginUtility.Password;
         }        
     }
 }

@@ -32,9 +32,6 @@ namespace Team8CA.DataAccess
 
         }
 
-        // neeed to implement the order and product methods in Models
-        //public DbSet<Order> Orders { get; set; }
-        //public DbSet<Products> Products { get; set; }
         //implementation of Model methods
         public DbSet<Customer> Customers { get; set; }
         public DbSet<ShoppingCartItem> ShoppingCartItem { get; set; }
