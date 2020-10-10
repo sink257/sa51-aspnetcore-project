@@ -18,16 +18,38 @@ namespace Team8CA.Controllers
     {
         protected AppDbContext db;
 
+        private readonly ShoppingCart _shoppingcart;
+
+        public IActionResult Index()
+        {
+            List<Products> product = db.Products.ToList();
+
+
         public IActionResult Index(int? page)                                          
         {                                                                      
             List<Products> product = db.Products.ToList();          
             ViewData["product"] = product;
-            ViewData["username"] = Request.Cookies["username"];
-            ViewData["sessionId"] = Request.Cookies["sessionId"];
 
+            
             var pageNumber = page ?? 1; 
             var onePageOfProducts = product.ToPagedList(pageNumber, 6);
             ViewData["OnePageOfProducts"] = onePageOfProducts;
+
+            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
+            string sesID = Request.Cookies["sessionId"];
+            ViewData["sessionId"] = sesID;
+            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == sesID).ToList();
+            List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
+            if (sesID != null)
+            {
+                ViewData["cartcount"] = shoppingcart.Count;
+            }
+            else
+            {
+                ViewData["cartcount"] = shoppingcartNull.Count;
+            }
+
             return View();
         }
 
@@ -48,7 +70,7 @@ namespace Team8CA.Controllers
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "AntivirusandSecurity")).ToList();
             ViewData["product"] = product;
 
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View();
         }
@@ -58,7 +80,7 @@ namespace Team8CA.Controllers
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "BusinessAndOffice")).ToList();
             ViewData["product"] = product;
 
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View();
         }
@@ -68,7 +90,7 @@ namespace Team8CA.Controllers
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "DesignAndIllustration")).ToList();
             ViewData["product"] = product;
 
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View();
         }
@@ -123,7 +145,7 @@ namespace Team8CA.Controllers
             ViewData["averageRating"] = averageRating;
             ViewData["product"] = product;
             ViewData["similarProducts"] = similarProducts;
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View("ProductDetailPage");
         }
