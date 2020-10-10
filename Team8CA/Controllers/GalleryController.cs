@@ -109,7 +109,7 @@ namespace Team8CA.Controllers
                                                (p.ProductCategory == product.ProductCategory) && (p!=product))
                                                 .ToList();
             
-            var reviews = db.Reviews.Where(r => r.ProductID == id).ToList();
+            var reviews = db.Reviews.Where(r => r.ProductID == product.Id).ToList();
             double averageRating = reviews.Average(r=>r.StarRating);
             ViewData["reviews"] = reviews;
             ViewData["averageRating"] = averageRating;

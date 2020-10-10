@@ -1,9 +1,10 @@
 ﻿@{ 
     Products product = (Products)ViewData["product"];
     List<Review> reviews = (List<Review>) ViewData["reviews"];
+    string username = (string)ViewData["username"];
     double averageRating = (double)ViewData["averageRating"];
     List<Products> similarProducts = (List<Products>)ViewData["similarProducts"];
-    double starRating = 4.6; //average rating calculated from db
+
 }
 @addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
 @model Team8CA.Models.Products
@@ -90,20 +91,22 @@
                    {    <div class="user-review container">
                             <hr>
                             <h6 class="text-info">@r.CustomerName</h6>
+                            <p class="text-muted">@r.ReviewDate</p>
+
                     <div>
                        @for (int i = 0; i < 5; i++)
                         {
                             <h5 class="d-inline-block" style="color:#ccc"><i class="fa fa-star"></i></h5>
                         }
                     </div>
-                    <div style="transform:translateY(-100%)">
+                    <div style="position: absolute;transform:translateY(-100%)">
 
                        @for (int i = 0; i < r.StarRating; i++)
                         {
                             <h5 class="d-inline-block" style="color:#f8ce0b"><i class="fa fa-star"></i></h5>
                         }
                     </div>
-                        <p>@r.ReviewDetails</p>
+                        <p class="pt-2">@r.ReviewDetails</p>
                         </div>
                     }
                 }
@@ -117,9 +120,19 @@
 
                 </div>
                 @*Leave a review -need to be logged in && bought this product*@
-                <div class="row pt-5 container">
-                    <a class="btn btn-outline-success container" id="leave-review" asp-controller="CreateReview" asp-action="Index" asp-route-id="@product.Id">Leave a Review</a>
-                </div>
+                @if ( username != null)
+                 {
+                    <div class="row pt-5 container">
+                        <a class="btn btn-outline-success container" id="leave-review" asp-controller="CreateReview" asp-action="Index" asp-route-id="@product.Id">Leave a Review</a>
+                    </div>
+                }
+                else 
+                { 
+                    <div class="user-review container">
+                        <hr>
+                        <p class="text-muted"><a href="/Login">Login</a> to leave a review.</p>
+                    </div>
+                }
 
             </div>
         </div>
