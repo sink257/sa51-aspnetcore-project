@@ -46,7 +46,7 @@ namespace Team8CA.DataAccess
                 Random r = new Random();
                 int random = r.Next(1, 6);
                 DateTime reviewDate = DateTime.Now.AddDays(-random).AddHours(-random);
-                db.Reviews.Add(new Review(productID, customerName, starRating, reviewDetails,reviewDate));
+                db.Reviews.Add(new Review(productID, customerName, starRating, reviewDetails, reviewDate));
             }
         }
     }
