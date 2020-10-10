@@ -39,7 +39,7 @@ namespace Team8CA.Controllers
             if (customers == null)
             {
                 ViewData["username"] = username;
-                ViewData["errMsg"] = "haha loser can't login";
+                ViewData["loginerror"] = "Incorrect Username or Password";
                 return View("Index");
             }
             else
