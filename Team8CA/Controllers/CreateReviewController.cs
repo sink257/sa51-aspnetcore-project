@@ -33,7 +33,7 @@ namespace Team8CA.Controllers
         {
             if (!ModelState.IsValid)
                 return View();
-            Review review = new Review(productId, Request.Cookies["username"], rating, details, DateTime.Now);
+            Review review = new Review(productId, Request.Cookies["firstname"], rating, details, DateTime.Now);
 
             db.Reviews.Add(review);
             db.SaveChanges();

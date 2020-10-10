@@ -44,8 +44,8 @@ namespace Team8CA.DataAccess
                 int starRating = Convert.ToInt32(cell[2]);
                 string reviewDetails = cell[3];
                 Random r = new Random();
-                int random = r.Next(1, 6);
-                DateTime reviewDate = DateTime.Now.AddDays(-random).AddHours(-random);
+                int random = r.Next(1, 12);
+                DateTime reviewDate = DateTime.Now.AddDays(-random).AddHours(-random).AddMinutes(+random);
                 db.Reviews.Add(new Review(productID, customerName, starRating, reviewDetails, reviewDate));
             }
         }

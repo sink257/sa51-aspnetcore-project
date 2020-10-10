@@ -120,7 +120,7 @@
 
                 </div>
                 @*Leave a review -need to be logged in && bought this product*@
-                @if (ViewData["sessionId"] != null)
+                @if (ViewData["firstname"] != null)
                 {
                     <div class="row pt-5 container">
                         <a class="btn btn-outline-success container" id="leave-review" asp-controller="CreateReview" asp-action="Index" asp-route-id="@product.Id">Leave a Review</a>
