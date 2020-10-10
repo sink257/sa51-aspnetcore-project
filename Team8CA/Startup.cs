@@ -54,7 +54,7 @@ namespace Team8CA
 
             app.UseStaticFiles();
 
-            app.UseSession(); //to set session before user moves from 1 page to another (establish session before routing request)
+            //app.UseSession(); //to set session before user moves from 1 page to another (establish session before routing request)
 
             app.UseRouting();
 

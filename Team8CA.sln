@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30517.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Team8CA", "Team8CA\Team8CA.csproj", "{292E53C7-340C-4370-9C4E-AEF504516CF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Team8CA", "Team8CA\Team8CA.csproj", "{292E53C7-340C-4370-9C4E-AEF504516CF2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ViewModels", "ViewModels", "{594CC2CB-A950-40EE-A012-ADACBA264504}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

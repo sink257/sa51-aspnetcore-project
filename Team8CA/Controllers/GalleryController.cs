@@ -116,12 +116,12 @@ namespace Team8CA.Controllers
         //Link to productDetailPage
         public IActionResult ProductDetailPage(int id)
         {
-            Products product = db.Products.FirstOrDefault(p => p.Id == id);
+            Products product = db.Products.FirstOrDefault(p => p.ProductId == id);
             List<Products> similarProducts = db.Products.Where(p => 
                                                (p.ProductCategory == product.ProductCategory) && (p!=product))
                                                 .ToList();
             
-            var reviews = db.Reviews.Where(r => r.ProductID == product.Id).ToList();
+            var reviews = db.Reviews.Where(r => r.ProductID == product.ProductId).ToList();
             double averageRating = reviews.Average(r=>r.StarRating);
             ViewData["reviews"] = reviews;
             ViewData["averageRating"] = averageRating;

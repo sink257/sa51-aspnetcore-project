@@ -13,12 +13,12 @@ namespace Team8CA.Controllers
     public class CartController : Controller
     {
 
-        private readonly AppDbContext _appDbContext;
+        private readonly AppDbContext db;
         private readonly ShoppingCart _shoppingcart;
 
         public CartController(AppDbContext appDbContext, ShoppingCart shoppingcart)
         {
-            _appDbContext = appDbContext;
+            db = appDbContext;
             _shoppingcart = shoppingcart;
         }
 
@@ -29,21 +29,22 @@ namespace Team8CA.Controllers
             ViewData["sessionId"] = sessionid;
             string customerId = Request.Cookies["customerId"];
             ViewData["customerid"] = customerId;
-            List<ShoppingCartItem> shoppingcart = _appDbContext.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
-            List<ShoppingCartItem> shoppingcartNull = _appDbContext.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList(); 
+            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
+            List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList(); 
             if (sessionid != null)
             {
                 ViewData["cartcount"] = shoppingcart.Count;
+                ViewData["shoppingcartitems"] = shoppingcart;
+
             }
             else
             {
                 ViewData["cartcount"] = shoppingcartNull.Count;
+                ViewData["shoppingcartitems"] = shoppingcartNull;
             }
 
             return View();
         }
-
-
 
         public IActionResult Checkout()
         {
@@ -54,7 +55,7 @@ namespace Team8CA.Controllers
 
         public IActionResult AddToShoppingCart(int productid)
         {
-            var productselected = _appDbContext.Products.FirstOrDefault(x => x.Id == productid);
+            var productselected = db.Products.FirstOrDefault(x => x.ProductId == productid);
             
             string customerid = Request.Cookies["customerId"];
 
@@ -66,14 +67,14 @@ namespace Team8CA.Controllers
 
             if(productselected != null)
             {
-                _shoppingcart.AddToCart(productselected, 1, customerid, sessionid);
+                _shoppingcart.AddToCart(productselected, productid, 1, customerid, sessionid);
             }
             return Redirect("http://localhost:61024/");
         }
 
         public IActionResult RemoveFromShoppingCart(int productid)
         {
-            var productselected = _appDbContext.Products.FirstOrDefault(x => x.Id == productid);
+            var productselected = db.Products.FirstOrDefault(x => x.ProductId == productid);
             if (productselected != null)
             {
                 _shoppingcart.RemoveFromCart(productselected);

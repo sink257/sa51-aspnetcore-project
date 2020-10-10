@@ -12,10 +12,11 @@ namespace Team8CA.Models
     public class Products
     {
         //Primary key
+        [Key]
         [Column("ProductID")]
         [Required]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        public int ProductId { get; set; }
 
         [Required]
         public string ProductName { get; set; }
@@ -49,9 +50,7 @@ namespace Team8CA.Models
             this.ProductDescription = ProductDescription;
             this.ProductCategory = ProductCategory;
             this.LongProductDesc = LongProductDesc;
-
         }
-
 
         public virtual IList<Review> Reviews { get; set; }
     }
