@@ -23,13 +23,14 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Gallery" asp-action="Index">Products</a>
                         </li>
                         @if (ViewData["sessionId"] != null)
-                        { 
+                        {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="OrderHistory" asp-action="Index">My Purchases</a>
                             </li>
                         }
-                    </ul>
+                    </ul>                    
                 </div>
+                @Html.Partial("_SearchBar")                
                 @Html.Partial("_RightBar")
             </div>
         </nav>
