@@ -2,25 +2,26 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Team8CA.DataAccess;
 using Team8CA.Models;
-//using Team8CA.Services;
 
 namespace Team8CA.Controllers
 {
-    public class CreateReviewController : Controller
+    public class OrderHistoryController : Controller
     {
-        protected AppDbContext db;
-        public CreateReviewController(AppDbContext db)
-        {
-            this.db = db;
-        }
-        public IActionResult Index(int id)
-        {  
-            Products product = db.Products.First(p => p.Id == id);
 
+        private readonly AppDbContext db;
+        private readonly ShoppingCart _shoppingcart;
+
+        public OrderHistoryController(AppDbContext appDbContext, ShoppingCart shoppingcart)
+        {
+            db = appDbContext;
+            _shoppingcart = shoppingcart;
+        }
+
+        public IActionResult Index()
+        {
             ViewData["firstname"] = Request.Cookies["firstname"];
             string sessionid = Request.Cookies["sessionId"];
             ViewData["sessionId"] = sessionid;
@@ -36,24 +37,7 @@ namespace Team8CA.Controllers
             {
                 ViewData["cartcount"] = shoppingcartNull.Count;
             }
-            ViewData["product"] = product;
-
             return View();
         }
-
-        [HttpPost]
-        public IActionResult Create(int rating, string details, int productId)
-        {
-            if (!ModelState.IsValid)
-                return View();
-            Review review = new Review(productId, Request.Cookies["username"], rating, details, DateTime.Now);
-
-            db.Reviews.Add(review);
-            db.SaveChanges();
-
-            return RedirectToAction("ProductDetailPage","Gallery", new { id = productId });
-        }
-
-
     }
 }

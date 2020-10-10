@@ -99,14 +99,14 @@ namespace Team8CA.Models
             else
             {
                 var shoppingCartItem = _appDbContext.ShoppingCartItem.FirstOrDefault(
-                    x => x.Product.Id == product.Id && x.ShoppingCartId == sessionID);
+                    x => x.Product.Id == product.Id && x.ShoppingCartId == customerId);
                 var shoppingcart = _appDbContext.ShoppingCart.FirstOrDefault(
                     x => x.CustomerId == customerId && x.IsCheckOut == false);
                 if (shoppingcart == null)
                 {
                     ShoppingCart shoppingcarts = new ShoppingCart
                     {
-                        ShoppingCartId = sessionID,
+                        ShoppingCartId = customerId,
                         CustomerId = customerId,
                         OrderCreationTime = DateTime.Now,
                         IsCheckOut = false
@@ -119,7 +119,7 @@ namespace Team8CA.Models
                 {
                     shoppingCartItem = new ShoppingCartItem
                     {
-                        ShoppingCartId = sessionID,
+                        ShoppingCartId = customerId,
                         CustomerId = customerId,
                         Product = product,
                         Quantity = quantity,
