@@ -125,14 +125,16 @@
     padding-left: 250px;
     width: 100%;
     overflow-x: auto;
-    min-width: 1000px;
+    //min-width: 1000px;
 }
 
 .responsive {
     width: 100%;
-    max-width: 350px;
+    max-width: 300px;
+    min-width: 2300px;
     height: 100%;
-    max-height: 235px;
+    max-height: 300px;
+    min-width: 230px;
 }
 
 .btn {
