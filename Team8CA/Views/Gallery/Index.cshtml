@@ -1,18 +1,18 @@
 ﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
 @using X.PagedList;
 @using X.PagedList.Mvc.Core;
-@using X.PagedList.Web.Common;
-@using System.Web; 
+@*@using X.PagedList.Web.Common;*@
+@using System.Web;
+@using X.PagedList.Mvc.Bootstrap4;
 
 @{
     ViewData["Title"] = "Gallery Page";
     var onePageOfproduct = (IPagedList<Products>)ViewData["OnePageOfProducts"];
-    List <Products> product = new List<Products>();
-    foreach (Products p in onePageOfproduct) 
+    List<Products> product = new List<Products>();
+    foreach (Products p in onePageOfproduct)
     {
         product.Add(p);
     }
-
 }
 <link href="~/css/Gallery.css" rel="stylesheet" />
 
@@ -74,14 +74,9 @@
                 </tr>
             }
         </table>
-        <!-- paging control for navigation to the previous page, next page, etc -->
-        @Html.PagedListPager((IPagedList)ViewData["OnePageOfProducts"], page => Url.Action("Index", new { page }),
-        new X.PagedList.Web.Common.PagedListRenderOptionsBase
-         {
-            ContainerDivClasses = new[] { "navigation" },
-            LiElementClasses = new[] { "page-item" },
-            PageClasses = new[] { "page-link" },
-        })
+            <!-- paging control for navigation to the previous page, next page, etc -->
+            @Html.PagedListPager((IPagedList)ViewData["OnePageOfProducts"], page => Url.Action("Index", new { page }),
+            X.PagedList.Mvc.Bootstrap4.Core.Bootstrap4PagedListRenderOptions.Default)
+        
     </div>
 </div>
-
