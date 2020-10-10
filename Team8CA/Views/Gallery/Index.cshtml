@@ -1,6 +1,5 @@
 ﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
 @using X.PagedList;
-@*@using X.PagedList.Mvc;*@
 @using X.PagedList.Mvc.Core;
 @using X.PagedList.Web.Common;
 @using System.Web; 
@@ -76,15 +75,13 @@
             }
         </table>
         <!-- paging control for navigation to the previous page, next page, etc -->
-        @Html.PagedListPager((IPagedList)ViewData["OnePageOfProducts"], page => Url.Action("Index", new { page }))
+        @Html.PagedListPager((IPagedList)ViewData["OnePageOfProducts"], page => Url.Action("Index", new { page }),
+        new X.PagedList.Web.Common.PagedListRenderOptionsBase
+         {
+            ContainerDivClasses = new[] { "navigation" },
+            LiElementClasses = new[] { "page-item" },
+            PageClasses = new[] { "page-link" },
+        })
     </div>
 </div>
 
-<script>
-    // Workaround to fix style of text for showing items .. through ..
-    // Problem related to Boostrap 4 according to issue in link below
-    // https://github.com/dncuug/X.PagedList/issues/127
-    $(document).ready(function () {
-        $('ul.pagination > li.disabled > a').addClass('page-link');
-    });
-</script>

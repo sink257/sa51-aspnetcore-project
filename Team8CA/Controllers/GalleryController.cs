@@ -25,7 +25,6 @@ namespace Team8CA.Controllers
             List<Products> product = db.Products.ToList();          
             ViewData["product"] = product;
 
-            
             var pageNumber = page ?? 1; 
             var onePageOfProducts = product.ToPagedList(pageNumber, 6);
             ViewData["OnePageOfProducts"] = onePageOfProducts;
@@ -47,18 +46,6 @@ namespace Team8CA.Controllers
 
             return View();
         }
-
-        /*public IActionResult Index([FromQuery] ProductParameters productParameters)
-        {
-            List<Products> product = db.Product.Skip((productParameters.PageNumber - 1) * productParameters.PageSize).ToList(productParameters);
-
-            ViewData["product"] = product;
-            ViewData["sessionId"] = Request.Cookies["sessionId"];
-
-            /*int pageSize = 6;
-            int pageNumber = (page ?? 1);
-            return View(db.Products.ToPagedList(pageNumber, pageSize));
-        }*/
 
         public IActionResult AntivirusAndSecurity()
         {
@@ -117,13 +104,6 @@ namespace Team8CA.Controllers
             ViewBag.keyword = keyword;
             ViewData["product"] = keyword;
             return View("Index");
-        }
-
-        public IActionResult PageNumber(int ? page)
-        {
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
-            return View(db.Products.ToList().ToPagedList(pageNumber, pageSize));
         }
 
         //Link to productDetailPage
