@@ -27,18 +27,14 @@ namespace Team8CA.Controllers
             ViewData["username"] = Request.Cookies["username"];
             string sesID = Request.Cookies["sessionId"];
             ViewData["sessionId"] = sesID;
-            List<ShoppingCartItem> shoppingcart = _appDbContext.ShoppingCartItem.Where(x => x.ShoppingCartId == sesID || x.ShoppingCartId == "12312312313").ToList();
+            List<ShoppingCartItem> shoppingcart = _appDbContext.ShoppingCartItem.Where(x => x.ShoppingCartId == sesID || x.ShoppingCartId == "0").ToList();
             ViewData["cartcount"] = shoppingcart.Count;
-
             return View();
         }
-
         public IActionResult Checkout()
         {
             return View();
         }
-
-
 
         public IActionResult AddToShoppingCart(int productid)
         {
