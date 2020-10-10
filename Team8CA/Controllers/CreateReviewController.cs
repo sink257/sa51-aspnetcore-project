@@ -21,11 +21,24 @@ namespace Team8CA.Controllers
         {  
             Products product = db.Products.First(p => p.Id == id);
 
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];            
             ViewData["product"] = product;
 
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(int rating, string details, int productId)
+        {
+            if (!ModelState.IsValid)
+                return View();
+            Review review = new Review(productId, Request.Cookies["username"], rating, details, DateTime.Now);
+
+            db.Reviews.Add(review);
+            db.SaveChanges();
+
+            return RedirectToAction("ProductDetailPage","Gallery", new { id = productId });
         }
 
 

@@ -24,17 +24,29 @@ namespace Team8CA.Controllers
 
         public IActionResult Index()
         {
-            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
             string sesID = Request.Cookies["sessionId"];
             ViewData["sessionId"] = sesID;
-            List<ShoppingCartItem> shoppingcart = _appDbContext.ShoppingCartItem.Where(x => x.ShoppingCartId == sesID || x.ShoppingCartId == "0").ToList();
-            ViewData["cartcount"] = shoppingcart.Count;
+            List<ShoppingCartItem> shoppingcart = _appDbContext.ShoppingCartItem.Where(x => x.ShoppingCartId == sesID).ToList();
+            List<ShoppingCartItem> shoppingcartNull = _appDbContext.ShoppingCartItem.Where(x => x.ShoppingCartId == null).ToList(); 
+            if (sesID != null)
+            {
+                ViewData["cartcount"] = shoppingcart.Count;
+            }
+            else
+            {
+                ViewData["cartcount"] = shoppingcartNull.Count;
+            }
+
             return View();
         }
+
         public IActionResult Checkout()
         {
             return View();
         }
+
+
 
         public IActionResult AddToShoppingCart(int productid)
         {
@@ -45,8 +57,7 @@ namespace Team8CA.Controllers
             string sessionid = Request.Cookies["sessionId"];
             if (sessionid == null)
             {
-                sessionid = "0";
-                customerid = "";
+                customerid = "0";
             }
 
             if(productselected != null)

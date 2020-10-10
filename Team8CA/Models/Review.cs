@@ -10,16 +10,7 @@ namespace Team8CA.Models
 {
     [Table("Reviews")]
     public class Review
-    {
-
-        public Review(int productID, string customerName, int starRating, string reviewDetails)
-        {
-            this.ProductID = productID;
-            this.CustomerName = customerName;
-            this.StarRating = starRating;
-            this.ReviewDetails = reviewDetails;
-            this.ReviewDate = DateTime.Now;
-        }
+    {        
         // Primary Key
         [Column("ReviewID")]
         [Required]
@@ -35,7 +26,7 @@ namespace Team8CA.Models
 
         [Column("ReviewDate")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}")] 
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = true)] 
         public DateTime ReviewDate { get; set; }
 
         [Required]
@@ -46,6 +37,20 @@ namespace Team8CA.Models
 
         //public virtual Customer Customer { get; set; }
         public virtual Products Products { get; set; }
+
+        public Review()
+        {
+
+        }
+
+        public Review(int productID, string customerName, int starRating, string reviewDetails, DateTime reviewDate)
+        {
+            this.ProductID = productID;
+            this.CustomerName = customerName;
+            this.StarRating = starRating;
+            this.ReviewDetails = reviewDetails;
+            this.ReviewDate = reviewDate;
+        }
     }
 }
 
