@@ -1,25 +1,41 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PagedList;
+using X.PagedList;
+//using X.PagedList.Mvc;
+using X.PagedList.Mvc.Core;
 using Team8CA.DataAccess;
 using Team8CA.Models;
+//using Team8CA.Services;
 
 namespace Team8CA.Controllers
 {
     public class GalleryController : Controller
     {
         protected AppDbContext db;
+
         private readonly ShoppingCart _shoppingcart;
 
         public IActionResult Index()
         {
             List<Products> product = db.Products.ToList();
 
+
+        public IActionResult Index(int? page)                                          
+        {                                                                      
+            List<Products> product = db.Products.ToList();          
             ViewData["product"] = product;
+
+            
+            var pageNumber = page ?? 1; 
+            var onePageOfProducts = product.ToPagedList(pageNumber, 6);
+            ViewData["OnePageOfProducts"] = onePageOfProducts;
+
+            ViewData["username"] = Request.Cookies["username"];
             ViewData["firstname"] = Request.Cookies["firstname"];
             string sesID = Request.Cookies["sessionId"];
             ViewData["sessionId"] = sesID;
@@ -37,48 +53,45 @@ namespace Team8CA.Controllers
             return View();
         }
 
-        //public GalleryController(int ID, string ProductName, double ProductPrice, bool ProductAvailability, string ProductDescription)
-        //{ 
+        /*public IActionResult Index([FromQuery] ProductParameters productParameters)
+        {
+            List<Products> product = db.Product.Skip((productParameters.PageNumber - 1) * productParameters.PageSize).ToList(productParameters);
 
-        //}
+            ViewData["product"] = product;
+            ViewData["sessionId"] = Request.Cookies["sessionId"];
+
+            /*int pageSize = 6;
+            int pageNumber = (page ?? 1);
+            return View(db.Products.ToPagedList(pageNumber, pageSize));
+        }*/
 
         public IActionResult AntivirusAndSecurity()
         {
-
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "AntivirusandSecurity")).ToList();
-
-
             ViewData["product"] = product;
 
             ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
-
             return View();
         }
-
 
         public IActionResult BusinessAndOffice()
         {
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "BusinessAndOffice")).ToList();
-
             ViewData["product"] = product;
 
             ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
-
-
             return View();
         }
 
         public IActionResult DesignAndIllustration()
         {
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "DesignAndIllustration")).ToList();
-
             ViewData["product"] = product;
 
             ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
-
             return View();
         }
 
@@ -109,6 +122,13 @@ namespace Team8CA.Controllers
             ViewBag.keyword = keyword;
             ViewData["product"] = keyword;
             return View("Index");
+        }
+
+        public IActionResult PageNumber(int ? page)
+        {
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(db.Products.ToList().ToPagedList(pageNumber, pageSize));
         }
 
         //Link to productDetailPage
