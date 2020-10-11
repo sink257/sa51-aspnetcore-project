@@ -15,5 +15,9 @@ namespace Team8CA.Models
         {
             ActivationCode = activationCode;
         }
+        public ActivationCodes()
+        {
+
+        }
     }
 }

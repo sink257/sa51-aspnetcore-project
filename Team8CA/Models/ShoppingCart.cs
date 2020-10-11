@@ -18,6 +18,7 @@ namespace Team8CA.Models
     {
         private readonly AppDbContext db;
 
+        [Key]
         public string ShoppingCartId { get; set; } //this is the cartID
 
         public virtual List<ShoppingCartItem> ShoppingCartItems { get; set; }
@@ -48,9 +49,9 @@ namespace Team8CA.Models
             if (sessionID == null)
             {
                 ShoppingCartItem shoppingCartItem = db.ShoppingCartItem.FirstOrDefault(
-                    x => x.Products.ProductId == product.ProductId && x.ShoppingCartId == "0");
+                    x => x.Products.ProductId == product.ProductId && x.ShoppingCartId == "0" && x.ShoppingCart.IsCheckOut == false);
                 ShoppingCart shoppingcart = db.ShoppingCart.FirstOrDefault(
-                    x => x.CustomerId == customerId && x.ShoppingCartId == "0");
+                    x => x.CustomerId == customerId && x.ShoppingCartId == "0" && x.IsCheckOut == false);
                 if (shoppingcart == null)
                 {
                     ShoppingCart shoppingcarts = new ShoppingCart
@@ -85,7 +86,7 @@ namespace Team8CA.Models
             else
             {
                 ShoppingCartItem shoppingCartItem = db.ShoppingCartItem.FirstOrDefault(
-                    x => x.Products.ProductId == product.ProductId && x.ShoppingCartId == customerId);
+                    x => x.Products.ProductId == product.ProductId && x.ShoppingCartId == customerId && x.ShoppingCart.IsCheckOut == false);
                 ShoppingCart shoppingcart = db.ShoppingCart.FirstOrDefault(
                     x => x.CustomerId == customerId && x.IsCheckOut == false);
                 if (shoppingcart == null)
@@ -176,9 +177,39 @@ namespace Team8CA.Models
 
         public double GetCartTotal()
         {
-            var total = db.ShoppingCartItem.Where(x => x.ShoppingCartId == ShoppingCartId).Select(x => x.Products.ProductPrice * x.Quantity).Sum();
+            double total = db.ShoppingCartItem.Where(x => x.ShoppingCartId == ShoppingCartId).Select(x => x.Products.ProductPrice * x.Quantity).Sum();
 
             return total;
+        }
+
+        public void CheckoutCart (string customerid)
+        {
+            ShoppingCart shoppingcart = db.ShoppingCart.FirstOrDefault(x => x.CustomerId == customerid && !x.IsCheckOut);
+            shoppingcart.IsCheckOut = true;
+            shoppingcart.OrderTime = DateTime.Now;
+            db.ShoppingCart.Update(shoppingcart);
+            db.SaveChanges();
+
+            Order orders = db.Order.FirstOrDefault(
+                x => x.CustomerId == customerid);
+            if (orders == null)
+            {
+                orders.CreateOrder(orders);
+            }
+
+            List<ShoppingCartItem> cartitems = db.ShoppingCartItem.Where(x => x.ShoppingCartId == shoppingcart.ShoppingCartId).ToList();
+            foreach (var item in cartitems)
+            {
+                OrderDetails orderdetails = new OrderDetails()
+                {
+                    ProductId = item.ProductsId,
+                    OrderId = orders.OrderId,
+                    Quantity = item.Quantity,
+                    Price = item.Products.ProductPrice
+                };
+                db.OrderDetails.Add(orderdetails);
+                db.SaveChanges();
+            }
         }
     }
 }

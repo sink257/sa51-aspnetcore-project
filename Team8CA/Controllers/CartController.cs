@@ -41,32 +41,6 @@ namespace Team8CA.Controllers
             {
                 ViewData["cartcount"] = shoppingcart.Count;
                 ViewData["shoppingcartitems"] = shoppingcart;
-
-            }
-            else
-            {
-                ViewData["cartcount"] = shoppingcartNull.Count;
-                ViewData["shoppingcartitems"] = shoppingcartNull;
-            }
-
-            return View();
-            }
-        }
-
-        public IActionResult Checkout()
-        {
-            ViewData["firstname"] = Request.Cookies["firstname"];
-            string sessionid = Request.Cookies["sessionId"];
-            ViewData["sessionId"] = sessionid;
-            string customerId = Request.Cookies["customerId"];
-            ViewData["customerid"] = customerId;
-            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
-            List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
-            if (sessionid != null)
-            {
-                ViewData["cartcount"] = shoppingcart.Count;
-                ViewData["shoppingcartitems"] = shoppingcart;
-
             }
             else
             {
@@ -74,6 +48,7 @@ namespace Team8CA.Controllers
                 ViewData["shoppingcartitems"] = shoppingcartNull;
             }
             return View();
+            }
         }
 
         public IActionResult AddToShoppingCart(int productid)
@@ -155,6 +130,62 @@ namespace Team8CA.Controllers
             }
             return Redirect("http://localhost:61024/Cart");
         }
+
+
+
+
+
+
+
+        public IActionResult Checkout()
+        {
+            ViewData["firstname"] = Request.Cookies["firstname"];
+            string sessionid = Request.Cookies["sessionId"];
+            ViewData["sessionId"] = sessionid;
+            string customerId = Request.Cookies["customerId"];
+            ViewData["customerid"] = customerId;
+            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
+            List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
+            if (sessionid != null)
+            {
+                ViewData["cartcount"] = shoppingcart.Count;
+                ViewData["shoppingcartitems"] = shoppingcart;
+
+            }
+            else
+            {
+                ViewData["cartcount"] = shoppingcartNull.Count;
+                ViewData["shoppingcartitems"] = shoppingcartNull;
+            }
+            return View();
+        }
+
+
+        //[HttpPost]
+        //public IActionResult Checkout(Order order)
+        //{
+        //    _shoppingcart.ShoppingCartItems = _shoppingcart.GetShoppingCartItems();
+
+        //    if(_shoppingcart.ShoppingCartItems.Count == 0)
+        //    {
+        //        ModelState.AddModelError("", "Your cart is empty");
+        //    }
+        //    if (ModelState.IsValid)
+        //    {
+        //        order.CreateOrder(order);
+        //        _shoppingcart.ClearCart();
+        //        return RedirectToAction("CheckoutComplete");
+        //    }
+        //    return View(order);
+        //}
+
+        //public IActionResult CheckoutComplete()
+        //{
+        //    ViewBag.CheckoutCompleteMessage = "Thank you for your order! Enjoy your purchase";
+        //    return View();
+        //}
+
+
 
 
     }

@@ -27,8 +27,6 @@ namespace Team8CA.DataAccess
         {
 
             //modelBuilder.Entity<Review>().HasOne<Products>(p => p.Products).WithMany(p => p.Reviews);
-            //modelBuilder.Entity<ShoppingCart>().HasKey(x => new { x.ShoppingCartId, x.CustomerId });
-
 
         }
 
@@ -39,8 +37,7 @@ namespace Team8CA.DataAccess
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Products> Products { get; set; }
         public DbSet<Session> Sessions { get; set; }
-
-
-
+        public DbSet<Order> Order { get; set; }
+        public DbSet<OrderDetails> OrderDetails { get; set; }
     }
 }

@@ -1,4 +1,9 @@
-﻿@{
+﻿@model Order
+@using Microsoft.Extensions.Options
+
+@inject IOptions<Team8CA.Services.StripeSettings> Stripe
+
+@{
     ViewData["Title"] = "ShoppingCart";
     List<ShoppingCartItem> shoppingcartitems = (List<ShoppingCartItem>)ViewData["shoppingcartitems"];
 }
@@ -31,7 +36,7 @@
                                         <label>Name</label>
                                     </div>
                                     <div class="col-9">
-                                        <input type="text" class="form-control" />
+                                        <input asp-for="Name" type="text" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -39,7 +44,7 @@
                                         <label>Phone</label>
                                     </div>
                                     <div class="col-9">
-                                        <input type="text" class="form-control" />
+                                        <input asp-for="PhoneNumber" type="text" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -47,7 +52,7 @@
                                         <label>Street Address</label>
                                     </div>
                                     <div class="col-9">
-                                        <input type="text" class="form-control" />
+                                        <input asp-for="StreetAddress"  type="text" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -55,7 +60,7 @@
                                         <label>City</label>
                                     </div>
                                     <div class="col-9">
-                                        <input type="text" class="form-control" />
+                                        <input asp-for="City" type="text" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -63,7 +68,7 @@
                                         <label>State</label>
                                     </div>
                                     <div class="col-9">
-                                        <input type="text" class="form-control" />
+                                        <input  asp-for="State" type="text" class="form-control" />
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -71,7 +76,7 @@
                                         <label>Postal Code</label>
                                     </div>
                                     <div class="col-9">
-                                        <input type="text" class="form-control" />
+                                        <input  asp-for="PostalCode" type="text" class="form-control" />
                                     </div>
                                 </div>
                             </div>
@@ -111,7 +116,25 @@
                         </div>
                         <div class="col-12 col-md-4">
 
+                            @{
+                                var OrderTotalForStripe = @total * 100;
+                            }
+
+                            <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                    data-key="@Stripe.Value.PublishableKey"
+                                    data-amount="@OrderTotalForStripe"
+                                    data-name="Bulky Book"
+                                    data-label="Place Order"
+                                    data-description="Get Books, For Less"
+                                    data-locale="auto"
+                                    data-allow-remember-me="false"
+                                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png">
+                            </script>
+                            <script>
+                                document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
+                            </script>
                             <button type="submit" value="Place Order" class="btn btn-success form-control">Place Order</button>
+
                         </div>
                     </div>
                 </div>
