@@ -68,14 +68,14 @@
                     <h5>@product.ProductName</h5>
                     <p class="p-2">@product.ProductDescription</p>
                     <div class="text-right">
-                        <a class="btn btn-outline-info btn-sm" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@product.Id">View Details</a>
+                        <a class="btn btn-outline-info btn-sm" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@product.ProductId">View Details</a>
                     </div>
                 </div>
             </div>
         </div>
 
         <form class="col-8 align-self-md-center" asp-controller="CreateReview" asp-action="Create">
-            <input type="hidden" name="productId" value="@product.Id"/>
+            <input type="hidden" name="productId" value="@product.ProductId"/>
             <div class="container pt-4">
 
                 <div class="d-inline-block star-rating" id="star-rating-system">

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Team8CA.DataAccess;
+using Team8CA.Controllers;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -31,6 +32,13 @@ namespace Team8CA.Models
         [StringLength(32)]
         public string FirstName { get; set; }
 
+        public static string hashPwd(string password)
+        {
+            byte[] data = System.Text.Encoding.ASCII.GetBytes(password);
+            data = new System.Security.Cryptography.SHA256Managed().ComputeHash(data);
+            return System.Text.Encoding.ASCII.GetString(data);
+        }
+
         public Customer()
         { 
 
@@ -40,10 +48,8 @@ namespace Team8CA.Models
         {
             this.CustomerID = CustomerID;
             this.Username = Username;
-            this.Password = Password;
+            this.Password = hashPwd(Password);
             this.FirstName = FirstName;
-            //remember to hash the password in LoginUtility
-            //this.Password = LoginUtility.Password;
         }        
     }
 }

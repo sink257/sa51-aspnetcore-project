@@ -1,10 +1,4 @@
-﻿@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
-@using X.PagedList;
-@using X.PagedList.Mvc.Core;
-@using X.PagedList.Web.Common;
-@using System.Web;
-
-@{
+﻿@{
     ViewData["Title"] = "Search";
     List<Products> product = (List<Products>)ViewData["product"];
 }
@@ -26,13 +20,13 @@
     <div class="sidenav">
         <h2>Categories</h2>
         <a href="/gallery">Home</a>
-        <a href="/gallery/antivirusandsecurity"> Antivirus And Security </a>
-        <a href="/gallery/businessandoffice">Business And Office </a>
+        <a href="/gallery/antivirusandsecurity"> Antivirus and Security </a>
+        <a href="/gallery/businessandoffice">Business and Office </a>
         <a href="/gallery/designandillustration">Design and Illustration </a>
     </div>
 
     <div class="gallery-table">
-        <h1 class="d-inline-block">Products</h1>
+        <h1 class="d-inline-block">You searched for: @(ViewBag.keyword)</h1>        
         <table>
             @for (int i = 0; i < product.Count; i += 3)
             {
@@ -49,10 +43,10 @@
                                 <div class="container">
                                     <img src=@imgPath class="responsive productImage" />
                                     <div class="middle">
-                                        <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@(product[id].Id)">View</a>
+                                        <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@(product[id].ProductId)">View</a>
                                     </div>
                                     <div class="middle2">
-                                        <a class="btn btn-primary view" asp-controller="Cart" asp-action="AddToShoppingCart" asp-route-productid="@(product[id].Id)">Add to cart</a>
+                                        <a class="btn btn-primary view" asp-controller="Cart" asp-action="AddToShoppingCart" asp-route-productid="@(product[id].ProductId)">Add to cart</a>
                                     </div>
                                 </div>
 

@@ -31,11 +31,13 @@ namespace Team8CA.Controllers
 
             ViewData["username"] = Request.Cookies["username"];
             ViewData["firstname"] = Request.Cookies["firstname"];
-            string sesID = Request.Cookies["sessionId"];
-            ViewData["sessionId"] = sesID;
-            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == sesID).ToList();
+            string sessionid = Request.Cookies["sessionId"];
+            ViewData["sessionId"] = sessionid;
+            string customerId = Request.Cookies["customerId"];
+            ViewData["customerid"] = customerId;
+            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
             List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
-            if (sesID != null)
+            if (sessionid != null)
             {
                 ViewData["cartcount"] = shoppingcart.Count;
             }
@@ -109,12 +111,12 @@ namespace Team8CA.Controllers
         //Link to productDetailPage
         public IActionResult ProductDetailPage(int id)
         {
-            Products product = db.Products.FirstOrDefault(p => p.Id == id);
+            Products product = db.Products.FirstOrDefault(p => p.ProductId == id);
             List<Products> similarProducts = db.Products.Where(p => 
                                                (p.ProductCategory == product.ProductCategory) && (p!=product))
                                                 .ToList();
             
-            var reviews = db.Reviews.Where(r => r.ProductID == product.Id).ToList();
+            var reviews = db.Reviews.Where(r => r.ProductID == product.ProductId).ToList();
             double averageRating = reviews.Average(r=>r.StarRating);
             ViewData["reviews"] = reviews;
             ViewData["averageRating"] = averageRating;

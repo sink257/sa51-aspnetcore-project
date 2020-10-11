@@ -1,107 +1,109 @@
-﻿@model ShoppingCart
-@{
+﻿@{
     ViewData["Title"] = "ShoppingCart";
+    List<ShoppingCartItem> shoppingcartitems = (List<ShoppingCartItem>)ViewData["shoppingcartitems"];
+    int cartcount = (int)ViewData["cartcount"];
 }
 
 <style>
-    img.one{
+    img.one {
         height: 20%;
-        width:20%;
+        width: 20%;
     }
 </style>
 
+<br />
+@if (cartcount > 0)
+{
+    <div class="backgroundWhiteBorder">
+        <div class="container">
+            <div class="card">
 
-<form method="post">
-    <br />
-    @if (1 > 0)  // replace this with item counts
-    {
-        <div class="backgroundWhiteBorder">
-            <div class="container">
-                <div class="card">
-
-                    <div class="card-header bg-dark text-light ml-0 row container">
-                        <div class="col-6">
-                            <i class="fa fa-shopping-cart"></i> &nbsp;
-                            Shopping Cart
-                        </div>
-                        <div class="col-6 text-right">
-                            <a asp-area="" asp-controller="Gallery" asp-action="Index" class="btn btn-outline-info btn-sm">Continue Shopping</a>
-                        </div>
+                <div class="card-header bg-dark text-light ml-0 row container">
+                    <div class="col-6">
+                        <i class="fa fa-shopping-cart"></i> &nbsp;
+                        Shopping Cart
                     </div>
-                    <div class="card-body">
-                        @*@foreach (ShoppingCart CartItems in  )*@
-                        @*{*@
+                    <div class="col-6 text-right">
+                        <a asp-area="" asp-controller="Gallery" asp-action="Index" class="btn btn-outline-info btn-sm">Continue Shopping</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @{double subtotal = 0.00;
+                        double total = 0.00;}
+                    @foreach (ShoppingCartItem cartitem in shoppingcartitems)
+                    {
                         <div class="row">
                             <div class="d-none d-lg-block col-lg-1 text-center py-2">
-                                <img src="https://images.g2a.com/newlayout/323x433/1x1x0/6192e93c4f93/5f5b30fd7e696c2842699832" class="rounded" width="100%" />
+                                <img src="@cartitem.Products.ProductPic" class="rounded" width="100%" />
                             </div>
                             <div class="col-12 text-sm-center col-lg-5 text-lg-left">
-                                <h5><strong>MICROSOFT WORD</strong></h5>
-                                <p><small>asdasdasdasdasdasdasdasdasdasdawdasdawdasdawdasdasdawdasdawdasdawdasdawdasd</small></p>
-                                <p><small>(Quantity remaining = 100)</small></p>
+                                <h5><strong>@cartitem.Products.ProductName</strong></h5>
+                                <p><small>@cartitem.Products.ProductDescription</small></p>
+                                <p><small>(Availablility: @cartitem.Products.ProductAvailability)</small></p>
                             </div>
                             <div class="col-12 text-sm-center col-lg-6 text-lg-right row">
                                 <div class="col-2 text-md-right" style="padding-top:5px;">
-                                    <h6><strong>$10.00</strong></h6>
+                                    <h6><strong>$@cartitem.Products.ProductPrice</strong></h6>
                                 </div>
                                 <div class="col-2 text-md-right" style="padding-top:5px;">
-                                    <h6><strong>100pcs</strong></h6>
+                                    <h6><strong>@cartitem.Quantity pcs</strong></h6>
                                 </div>
                                 <div class="col-2 col-sm-4 col-lg-3">
                                     <div class="float-left mx-1">
-                                        <button type="submit" class="btn btn-primary">
+                                        <a asp-area="" asp-controller="Cart" asp-action="AddInCart" asp-route-productid="@cartitem.ProductsId" alt="" class="btn btn-primary">
                                             <i class="fas fa-plus"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                     <div class="float-left mx-1">
-                                        <button type="submit" class="btn btn-danger">
+                                        <a asp-area="" asp-controller="Cart" asp-action="RemoveFromShoppingCart" asp-route-productid="@cartitem.ProductsId" alt="" class="btn btn-danger">
                                             <i class="fas fa-minus"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="col-3 text-md-center" style="padding-top:5px;">
-                                    <h6><strong>$1,000.00</strong></h6>
+                                    @{subtotal = @cartitem.Products.ProductPrice * @cartitem.Quantity;
+                                        total += subtotal;}
+                                    <h6><strong>$@subtotal</strong></h6>
                                 </div>
                                 <div class="col-2 col-sm-4 col-lg-2 text-right">
-                                    <button type="submit" class="btn btn-outline-danger">
+                                    <a asp-area="" asp-controller="Cart" asp-action="RemoveCartRow" asp-route-productid="@cartitem.ProductsId" alt="" class="btn btn-outline-danger" >
                                         <i class="fas fa-trash"></i>
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                         <hr />
-                    </div>
-                    @*}*@
+                                        
+                    }
+                </div>
                 <div class="card-footer">
                     <div class="row">
                         <div class="col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8 pr-4">
                             <ul class="list-group">
                                 <li class="list-group-item d-flex justify-content-between bg-light">
                                     <strong class="text-info"> Grand Total ($)</strong>
-                                    <strong class="text-info">$ <span id="txtOrderTotal">1,000.00</span></strong>
+                                    <strong class="text-info">$ <span id="txtOrderTotal">@total</span></strong>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                    <div class="card-footer">
-                        <div class="card-footer row">
+                <div class="card-footer">
+                    <div class="card-footer row">
 
-                            <div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6 ">
+                        <div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6 ">
 
-                                <a asp-area="" asp-controller="Cart" asp-action="Checkout" class="btn btn-success form-control">Proceed to checkout</a>
-                            </div>
+                            <a asp-area="" asp-controller="Cart" asp-action="Checkout" class="btn btn-success form-control">Proceed to checkout</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-    }
-    else
-    {
-        <div class="text-center">There are no items in the shopping cart.</div>
-        <div class="text-center"><a href="http://localhost:61024/"><button class="btn-primary">Continute Shopping</button></a></div>
-    }
-</form>
+    </div>
+}
+else
+{
+    <div class="text-center">There are no items in the shopping cart.</div>
+    <div class="text-center"><a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="Index">Continue Shopping</a></div>
+}
