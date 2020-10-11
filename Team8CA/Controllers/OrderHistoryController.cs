@@ -12,12 +12,12 @@ namespace Team8CA.Controllers
     {
 
         private readonly AppDbContext db;
-        private readonly ShoppingCart _shoppingcart;
+        private readonly ShoppingCart shoppingcart;
 
-        public OrderHistoryController(AppDbContext appDbContext, ShoppingCart shoppingcart)
+        public OrderHistoryController(AppDbContext db, ShoppingCart shoppingcart)
         {
-            db = appDbContext;
-            _shoppingcart = shoppingcart;
+            this.db = db;
+            this.shoppingcart = shoppingcart;
         }
 
         public IActionResult Index()
