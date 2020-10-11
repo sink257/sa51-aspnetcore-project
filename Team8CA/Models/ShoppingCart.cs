@@ -170,7 +170,7 @@ namespace Team8CA.Models
             db.SaveChanges();
         }
 
-        public ICollection<ShoppingCartItem> GetShoppingCartItems()
+        public List<ShoppingCartItem> GetShoppingCartItems()
         {
             return ShoppingCartItems ?? (ShoppingCartItems = db.ShoppingCartItem.Where(x => x.ShoppingCartId == ShoppingCartId).Include(y => y.Products).ToList());
         }
@@ -181,6 +181,14 @@ namespace Team8CA.Models
 
             return total;
         }
+
+        public void ClearCart()
+        {
+            var cartitems = db.ShoppingCartItem.Where(x => x.ShoppingCartId == ShoppingCartId);
+            db.ShoppingCartItem.RemoveRange(cartitems);
+            db.SaveChanges();
+        }
+
 
         public void CheckoutCart (string customerid)
         {

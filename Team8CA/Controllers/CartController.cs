@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+//using Stripe;
 using Team8CA.DataAccess;
 using Team8CA.Models;
 
@@ -131,12 +132,6 @@ namespace Team8CA.Controllers
             return Redirect("http://localhost:61024/Cart");
         }
 
-
-
-
-
-
-
         public IActionResult Checkout()
         {
             ViewData["firstname"] = Request.Cookies["firstname"];
@@ -159,6 +154,36 @@ namespace Team8CA.Controllers
             }
             return View();
         }
+
+        [HttpPost]
+        public IActionResult Checkout(Order order)
+        {
+            _shoppingcart.ShoppingCartItems = _shoppingcart.GetShoppingCartItems();
+
+            if (_shoppingcart.ShoppingCartItems.Count == 0)
+            {
+                ModelState.AddModelError("", "Your cart is empty");
+            }
+            
+            if(ModelState.IsValid)
+            {
+                order.CreateOrder(order);
+                _shoppingcart.ClearCart();
+                return RedirectToAction("CheckoutComplete");
+            }
+            return View(order);
+        }
+
+        public IActionResult CheckoutComplete()
+        {
+            ViewBag.CheckoutCompleteMessage = "Thank you for shopping with us. Please enjoy your products!";
+            return View();
+        }
+
+
+
+
+
 
 
         //[HttpPost]

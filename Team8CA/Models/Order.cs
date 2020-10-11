@@ -18,6 +18,7 @@ namespace Team8CA.Models
         public string CustomerId { get; set; }
         public DateTime OrderDate { get; set; }
         public double OrderTotal { get; set; }
+        public virtual List<OrderDetails> OrderDetails { get; set; }
 
         [Required]
         public string PhoneNumber { get; set; }
@@ -34,7 +35,6 @@ namespace Team8CA.Models
 
         public Order()
         {
-
         }
 
         public Order(AppDbContext db, ShoppingCart shoppingcart)
@@ -42,6 +42,7 @@ namespace Team8CA.Models
             this.db = db;
             this.shoppingcart = shoppingcart;
         }
+
         public void CreateOrder(Order order)
         {
             order.OrderDate = DateTime.Now;
