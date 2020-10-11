@@ -33,7 +33,7 @@ namespace Team8CA.Models
 
         public DateTime OrderCreationTime { get; set; }
 
-        public DateTime OrderTime {get;set;}
+        public DateTime OrderTime { get; set; }
 
         public bool IsCheckOut { get; set; } //if checkout or not
 
@@ -47,9 +47,9 @@ namespace Team8CA.Models
 
             if (sessionID == null)
             {
-                var shoppingCartItem = db.ShoppingCartItem.FirstOrDefault(
+                ShoppingCartItem shoppingCartItem = db.ShoppingCartItem.FirstOrDefault(
                     x => x.Products.ProductId == product.ProductId && x.ShoppingCartId == "0");
-                var shoppingcart = db.ShoppingCart.FirstOrDefault(
+                ShoppingCart shoppingcart = db.ShoppingCart.FirstOrDefault(
                     x => x.CustomerId == customerId && x.ShoppingCartId == "0");
                 if (shoppingcart == null)
                 {
@@ -84,9 +84,9 @@ namespace Team8CA.Models
             }
             else
             {
-                var shoppingCartItem = db.ShoppingCartItem.FirstOrDefault(
+                ShoppingCartItem shoppingCartItem = db.ShoppingCartItem.FirstOrDefault(
                     x => x.Products.ProductId == product.ProductId && x.ShoppingCartId == customerId);
-                var shoppingcart = db.ShoppingCart.FirstOrDefault(
+                ShoppingCart shoppingcart = db.ShoppingCart.FirstOrDefault(
                     x => x.CustomerId == customerId && x.IsCheckOut == false);
                 if (shoppingcart == null)
                 {
@@ -120,58 +120,58 @@ namespace Team8CA.Models
             }
         }
 
-        public int RemoveFromCart(Products product)
+        public void RemoveFromCart(Products product, string customerId, string sessionID)
         {
-            var shoppingCartItem = db.ShoppingCartItem.SingleOrDefault(
-                x => x.Products.ProductId == product.ProductId && x.ShoppingCartId == ShoppingCartId);
-
-            var newquantity = 0;
-
-            if(shoppingCartItem != null)
+            if (sessionID == null)
             {
-                if(shoppingCartItem.Quantity>1)
+                ShoppingCartItem shoppingCartItem = db.ShoppingCartItem.FirstOrDefault(
+                    x => x.Products.ProductId == product.ProductId && x.ShoppingCartId == "0");
+
+                if (shoppingCartItem != null)
                 {
-                    shoppingCartItem.Quantity--;
-                    newquantity = shoppingCartItem.Quantity;
+                    if (shoppingCartItem.Quantity > 1)
+                    {
+                        shoppingCartItem.Quantity--;
+                    }
+                    else
+                    {
+                        db.ShoppingCartItem.Remove(shoppingCartItem);
+                    }
                 }
-                else
-                {
-                    db.ShoppingCartItem.Remove(shoppingCartItem);
-                }
+                db.SaveChanges();
             }
-            db.SaveChanges();
-            return newquantity;
+            else
+            {
+                ShoppingCartItem shoppingCartItem = db.ShoppingCartItem.FirstOrDefault(
+                    x => x.Products.ProductId == product.ProductId && x.ShoppingCartId == customerId);
+
+                if (shoppingCartItem != null)
+                {
+                    if (shoppingCartItem.Quantity > 1)
+                    {
+                        shoppingCartItem.Quantity--;
+                    }
+                    else
+                    {
+                        db.ShoppingCartItem.Remove(shoppingCartItem);
+                    }
+                }
+                db.SaveChanges();
+            }
         }
 
-        public int AddQuantityToCart(Products product, string sessionID)
+        public void RemoveRow(Products product, string customerId, string sessionID)
         {
-            var shoppingCartItem = db.ShoppingCartItem.SingleOrDefault(
-                x => x.Products.ProductId == product.ProductId && x.ShoppingCartId == sessionID);
+            ShoppingCartItem shoppingCartItem = db.ShoppingCartItem.FirstOrDefault(
+                x => x.Products.ProductId == product.ProductId && x.ShoppingCartId == customerId);
 
-            var newquantity = 0;
-
-            if (shoppingCartItem != null)
-            {
-                if (shoppingCartItem.Quantity > 0)
-                {
-                    shoppingCartItem.Quantity++;
-                    newquantity = shoppingCartItem.Quantity;
-                }
-            }
+            db.ShoppingCartItem.Remove(shoppingCartItem);
             db.SaveChanges();
-            return newquantity;
         }
 
         public ICollection<ShoppingCartItem> GetShoppingCartItems()
         {
             return ShoppingCartItems ?? (ShoppingCartItems = db.ShoppingCartItem.Where(x => x.ShoppingCartId == ShoppingCartId).Include(y => y.Products).ToList());
-        }
-
-        public void ClearCart()
-        {
-            var cartitems = db.ShoppingCartItem.Where(x => x.ShoppingCartId == ShoppingCartId);
-            db.ShoppingCartItem.RemoveRange(cartitems);
-            db.SaveChanges();
         }
 
         public double GetCartTotal()
