@@ -76,6 +76,38 @@ namespace Team8CA.Controllers
                 db.Sessions.Add(session);
                 db.SaveChanges();
 
+                //List<ShoppingCart> shoppingcart = db.ShoppingCart.Where(x => x.ShoppingCartId == "0").ToList();
+                //foreach(ShoppingCart cart in shoppingcart)
+                //{
+                //    db.ShoppingCart.Remove(cart);
+                //    ShoppingCart newcart = new ShoppingCart()
+                //    {
+                //        ShoppingCartId = session.CustomerID,
+                //        CustomerId = session.CustomerID,
+                //        OrderCreationTime = DateTime.Now,
+                //        IsCheckOut = false,
+                //    };
+                //    db.ShoppingCart.Add(newcart);
+                //}
+                //db.SaveChanges();
+
+                //List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
+                //foreach (ShoppingCartItem shoppingcartitem in shoppingcartNull)
+                //{
+                //    db.ShoppingCartItem.Remove(shoppingcartitem);
+                //    ShoppingCartItem newcartitem = new ShoppingCartItem()
+                //    {
+                //        ShoppingCartItemId = shoppingcartitem.ShoppingCartItemId,
+                //        ShoppingCartId = session.CustomerID,
+                //        CustomerId = session.CustomerID,
+                //        ProductsId = shoppingcartitem.ProductsId,
+                //        Quantity = shoppingcartitem.Quantity
+                //    };
+                //    db.ShoppingCartItem.Add(newcartitem);
+                //}
+
+                //db.SaveChanges();
+
                 Response.Cookies.Append("username", session.Username);
                 Response.Cookies.Append("firstname", session.FirstName);
                 Response.Cookies.Append("customerId", session.CustomerID);
