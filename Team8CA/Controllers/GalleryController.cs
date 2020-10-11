@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using PagedList;
+using X.PagedList;
+//using X.PagedList.Mvc;
+using X.PagedList.Mvc.Core;
+using Team8CA.DataAccess;
 using Team8CA.Models;
 //using Team8CA.Services;
 
@@ -12,65 +16,133 @@ namespace Team8CA.Controllers
 {
     public class GalleryController : Controller
     {
-        public IActionResult Index()
-        {
+        protected AppDbContext db;
 
-            string[] imgs = {
-                "photo-1593642632559-0c6d3fc62b89",
-                "photo-1497366754035-f200968a6e72",
-                "photo-1497366811353-6870744d04b2",
-                "photo-1524758631624-e2822e304c36",
-                "photo-1531973576160-7125cd663d86",
-                "photo-1505409859467-3a796fd5798e",
-                "photo-1564069114553-7215e1ff1890"
-            };
+        private readonly ShoppingCart _shoppingcart;
 
-            ViewData["images"] = imgs;
-            ViewData["url_prefix"] = "https://images.unsplash.com/";
-            ViewData["url_postfix"] = "?w=350";
+        public IActionResult Index(int? page)                                          
+        {                                                                      
+            List<Products> product = db.Products.ToList();          
+            ViewData["product"] = product;
+
+            var pageNumber = page ?? 1; 
+            var onePageOfProducts = product.ToPagedList(pageNumber, 6);
+            ViewData["OnePageOfProducts"] = onePageOfProducts;
+
+            ViewData["username"] = Request.Cookies["username"];
+            ViewData["firstname"] = Request.Cookies["firstname"];
+            string sessionid = Request.Cookies["sessionId"];
+            ViewData["sessionId"] = sessionid;
+            string customerId = Request.Cookies["customerId"];
+            ViewData["customerid"] = customerId;
+            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
+            List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
+            if (sessionid != null)
+            {
+                ViewData["cartcount"] = shoppingcart.Count;
+            }
+            else
+            {
+                ViewData["cartcount"] = shoppingcartNull.Count;
+            }
 
             return View();
         }
 
         public IActionResult AntivirusAndSecurity()
         {
+            List<Products> product = db.Products.Where(p => (p.ProductCategory == "AntivirusandSecurity")).ToList();
+            ViewData["product"] = product;
+
+            ViewData["firstname"] = Request.Cookies["firstname"];
+            ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View();
         }
 
-
-
         public IActionResult BusinessAndOffice()
         {
-            return View();
+            List<Products> product = db.Products.Where(p => (p.ProductCategory == "BusinessAndOffice")).ToList();
+            ViewData["product"] = product;
 
+            ViewData["firstname"] = Request.Cookies["firstname"];
+            ViewData["sessionId"] = Request.Cookies["sessionId"];
+            return View();
         }
 
         public IActionResult DesignAndIllustration()
         {
+            List<Products> product = db.Products.Where(p => (p.ProductCategory == "DesignAndIllustration")).ToList();
+            ViewData["product"] = product;
+
+            ViewData["firstname"] = Request.Cookies["firstname"];
+            ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View();
         }
 
-        //public IActionResult AddToCart([FromServices] CartRelatedService srv, int prdId)
-        //{
-        //    var customerId = HttpContext.Session.GetInt32("customerId") ?? 0;
-        //    //if (customerId == 0)
-        //    //{
-        //    //    AddToCartForSession(srv, prdId, 1);
-        //    //}
-        //    //else
-        //    //{
-        //        ViewData["ItemCount"] = srv.AddProductsToCart(customerId, prdId, 1);
-        //    //}
-        //    return PartialView("_CartIcon");
-        //}
+        public GalleryController(AppDbContext db)
+        {
+            this.db = db;
+        }
+        public List<Products> GetProducts(string keyword)
+        {
+            List<Products> products = db.Products.ToList();
+            {
+                if (keyword == "" || keyword == null)
+                {
+                    return db.Products.ToList();
+                }
 
+                return db.Products.Where(p =>
+                        p.ProductName.ToLower().Contains(keyword.ToLower()) ||
+                        p.ProductDescription.ToLower().Contains(keyword.ToLower()))
+                    .ToList();
+            }
+        }
 
+        [HttpPost]
+        public IActionResult Search(string keyword = "")
+        {
+            List<Products> product = GetProducts(keyword);
+            ViewBag.keyword = keyword;
+            ViewData["product"] = keyword;
+            return View("Index");
+        }
 
+        //Link to productDetailPage
+        public IActionResult ProductDetailPage(int id)
+        {
+            Products product = db.Products.FirstOrDefault(p => p.ProductId == id);
+            List<Products> similarProducts = db.Products.Where(p => 
+                                               (p.ProductCategory == product.ProductCategory) && (p!=product))
+                                                .ToList();
+            
+            var reviews = db.Reviews.Where(r => r.ProductID == product.ProductId).ToList();
+            double averageRating = reviews.Average(r=>r.StarRating);
+            ViewData["reviews"] = reviews;
+            ViewData["averageRating"] = averageRating;
+            ViewData["product"] = product;
+            ViewData["similarProducts"] = similarProducts;
+            ViewData["firstname"] = Request.Cookies["firstname"];
+            ViewData["sessionId"] = Request.Cookies["sessionId"];
 
+            string sessionid = Request.Cookies["sessionId"];
+            ViewData["sessionId"] = sessionid;
+            string customerId = Request.Cookies["customerId"];
+            ViewData["customerid"] = customerId;
+            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
+            List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
 
+            if (sessionid != null)
+            {
+                ViewData["cartcount"] = shoppingcart.Count;
+            }
+            else
+            {
+                ViewData["cartcount"] = shoppingcartNull.Count;
+            }
+            return View();
 
-
-
+        }
 
     }
 }

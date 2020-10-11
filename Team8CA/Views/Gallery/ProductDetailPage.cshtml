@@ -1,0 +1,175 @@
+﻿@{
+    Products product = (Products)ViewData["product"];
+    List<Review> reviews = (List<Review>)ViewData["reviews"];
+    //string username = (string)ViewData["username"];
+    double averageRating = (double)ViewData["averageRating"];
+    List<Products> similarProducts = (List<Products>)ViewData["similarProducts"];
+
+}
+@addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+@model Team8CA.Models.Products
+
+
+<link href="~/css/ProductDetailPage.css" rel="stylesheet" />
+
+
+<script>
+    //to be replaced
+    const rating = @averageRating;
+    const ratingCount = @reviews.Count;
+    document.addEventListener('DOMContentLoaded', getRating);
+
+    function getRating() {
+        const starPercentage = (rating / 5) * 100;
+        const starPercentageRounded = `${Math.round(starPercentage)}%`;
+        const starRatingRounded = (Math.round(rating * 10) / 10).toFixed(1);
+        document.querySelector(`.stars-inner`).style.width = starPercentageRounded;
+        document.querySelector(`.number-rating`).innerHTML = starRatingRounded;
+        document.getElementById("count-rating").innerHTML = "See reviews (" + ratingCount + ")";
+    }
+
+    var updateCart = function (url) {
+        $("RightBar").load(url);
+    };
+</script>
+
+
+
+
+<div class="container">
+    <div class="row pt-4">
+        <div class="col-9">
+            <div class="row ">
+                <div class="col-4 p-3 text-center">
+                    <img src=@product.ProductPic class="p-0 container img-thumbnail" />
+                    <h5 class="text-success p-3">In stock</h5>
+                </div>
+
+                <div class="col-8 pt-4">
+                    <h2>@product.ProductName</h2>
+
+                    <div class="stars-outer">
+                        <div class="stars-inner"></div>
+                    </div>
+
+                    @*display average rating*@
+                    <h4 class="number-rating text-warning d-inline pl-4"></h4>
+
+                    <div class="d-block">
+                        <a href="#product-reviews" class="text-primary" id="count-rating">See reviews</a>
+                    </div>
+
+                    <div class="price pt-3"><h1 class="text-danger">$@product.ProductPrice</h1></div>
+                    <p class="pt-3">@product.ProductDescription</p>
+                    <a href="#product-details" class="text-primary">Learn more</a>
+
+                    <form asp-controller="Cart" asp-action="AddMultipleToShoppingCart">
+                        <input type="hidden" name="productid" value=@product.ProductId />
+                    <div class="number-input">
+                        <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="fas fa-minus"></i> </button>
+                        
+                        <input class="quantity form-control" min="0" name="quantity" value="1" type="number">
+
+                        <button type="button" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="fas fa-plus"></i></button>
+                    </div>
+
+                    <div class="pt-3">
+                        <button type="submit" class="btn btn-primary add-to-cart" value="true" name="buyNow">Buy Now</button>
+                        <button type="submit" class="btn btn-outline-primary add-to-cart" value="Submit">Add to Cart</button>
+                    </div>
+                     </form>
+                </div>
+
+            </div>
+            <div class="row">
+                @*product details*@
+                <div class="row pt-5 container" id="product-details">
+                    <h4 class="container-fluid">Product Details</h4>
+                    <div class="user-review container">
+                        <hr>
+                        <p>
+                            @Html.Raw(product.LongProductDesc)
+                        </p>
+                    </div>
+                </div>
+                @*product review*@
+                <div class="row pt-5 container" id="product-reviews">
+                    <h4 class="container-fluid">Product Reviews</h4>
+
+                    @if (reviews.Count() > 0)
+                    {
+                        foreach (Review r in reviews)
+                        {<div class="user-review container">
+                                <hr>
+                                <h6 class="text-info">@r.CustomerName</h6>
+                                <p class="text-muted">@r.ReviewDate</p>
+
+                                <div>
+                                    @for (int i = 0; i < 5; i++)
+                                    {
+                                        <h5 class="d-inline-block" style="color:#ccc"><i class="fa fa-star"></i></h5>
+                                    }
+                                </div>
+                                <div style="position: absolute;transform:translateY(-100%)">
+
+                                    @for (int i = 0; i < r.StarRating; i++)
+                                    {
+                                        <h5 class="d-inline-block" style="color:#f8ce0b"><i class="fa fa-star"></i></h5>
+                                    }
+                                </div>
+                                <p class="pt-2">@r.ReviewDetails</p>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="user-review container">
+                            <hr>
+                            <p class="text-muted">No reviews yet.</p>
+                        </div>
+                    }
+
+                </div>
+                @*Leave a review -need to be logged in && bought this product*@
+                @if (ViewData["sessionId"] != null)
+                {
+                    <div class="row pt-5 container">
+                        <a class="btn btn-outline-success container" id="leave-review" asp-controller="CreateReview" asp-action="Index" asp-route-id="@product.ProductId">Leave a Review</a>
+                    </div>
+                }
+                else
+                {
+                    <div class="user-review container">
+                        <hr>
+                        <p class="text-muted"><a href="/Login">Login</a> to leave a review.</p>
+                    </div>
+                }
+
+            </div>
+        </div>
+
+        @*similar items from the same category*@
+        <div class="col-3 p-4 side text-center">
+            <h5>Related Products</h5>
+            @foreach (Products p in similarProducts)
+            {
+                <div class="hover-product p-4 container">
+                    <img src=@p.ProductPic class="container p-0 img-thumbnail" />
+                    <div class="middle ">
+                        <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@p.ProductId">View</a>
+                    </div>
+                    <div class="middle" style="top: 35%">
+                        <a type="button" class="btn btn-primary cart" asp-controller="Cart" asp-action="AddToShoppingCart" asp-route-productid="@(p.ProductId)"><i class="fa fa-cart-plus"></i></a>
+                    </div>
+                    <div class="similarProduct">
+                        <h6>@p.ProductName</h6>
+                        <h6 class="text-danger"><b>$@p.ProductPrice</b></h6>
+                    </div>
+                </div>
+            }
+        </div>
+
+    </div>
+</div>
+
+

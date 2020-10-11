@@ -2,24 +2,43 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Team8CA.DataAccess;
 using Team8CA.Models;
-//using Team8CA.Services;
 
 namespace Team8CA.Controllers
 {
-    public class CreateReviewController : Controller
+    public class LogoutController : Controller
     {
         protected AppDbContext db;
-        public CreateReviewController(AppDbContext db)
+
+        public LogoutController(AppDbContext db)
         {
             this.db = db;
         }
-        public IActionResult Index(int id)
-        {  
-            Products product = db.Products.First(p => p.ProductId == id);
+
+        public IActionResult Index()
+        {
+
+            string sessionId = HttpContext.Request.Cookies["sessionId"];
+            db.Sessions.Remove(new Session()
+            {
+                SessionID = sessionId
+            }
+            );
+
+            HttpContext.Response.Cookies.Delete("sessionId");
+            //Session session = new Session()
+            //{
+            //    SessionID = "00",
+            //    Username = "00",
+            //    FirstName = "00",
+            //    Timestamp = DateTimeOffset.Now.ToUnixTimeSeconds(),
+            //    CustomerID = "00",
+            //};
+            //db.Sessions.Add(session);
+            //db.SaveChanges();
+            //Response.Cookies.Append("sessionId", session.SessionID);
 
             ViewData["firstname"] = Request.Cookies["firstname"];
             string sessionid = Request.Cookies["sessionId"];
@@ -36,24 +55,7 @@ namespace Team8CA.Controllers
             {
                 ViewData["cartcount"] = shoppingcartNull.Count;
             }
-            ViewData["product"] = product;
-
-            return View();
+            return View ("Logout");
         }
-
-        [HttpPost]
-        public IActionResult Create(int rating, string details, int productId)
-        {
-            if (!ModelState.IsValid)
-                return View();
-            Review review = new Review(productId, Request.Cookies["firstname"], rating, details, DateTime.Now);
-
-            db.Reviews.Add(review);
-            db.SaveChanges();
-
-            return RedirectToAction("ProductDetailPage","Gallery", new { id = productId });
-        }
-
-
     }
 }

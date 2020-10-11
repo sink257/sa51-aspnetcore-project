@@ -1,0 +1,124 @@
+﻿
+    @{
+        ViewData["Title"] = "DesignAndIllustration";
+        List<Products> product = (List<Products>)ViewData["product"];
+    }
+
+
+    @addTagHelper "*, Microsoft.AspNetCore.Mvc.TagHelpers"
+
+<link href="~/css/Gallery.css" rel="stylesheet" />
+
+
+    @section Scripts
+        {
+        <script>
+            var updateCart = function (url) {
+                $("RightBar").load(url);
+            };
+        </script>
+    }
+
+
+    <div class="row">
+
+        <div class="sidenav">
+            <h2>Categories</h2>
+            <a class="dropdown-btn" href="/gallery">Home</a>
+            <a class="dropdown-btn" href="/gallery/antivirusandsecurity">
+                Antivirus and Security
+                @*<span class="fas fa-caret-down first"></span>*@
+            </a>
+            @*<div class="dropdown-container">
+            <a href="#security">Antivirus And Security</a>
+            <a href="#security">Antivirus And Security</a>
+            <a href="#security">Antivirus And Security</a>
+        </div>*@
+            <a class="dropdown-btn" href="/gallery/businessandoffice">
+                Business and Office
+                @*<span class="fas fa-caret-down first"></span>*@
+            </a>
+            @*<div class="dropdown-container">
+            <a href="#business">Business And Office</a>
+            <a href="#business">Business And Office</a>
+            <a href="#business">Business And Office</a>
+        </div>*@
+            <a class="dropdown-btn" href="/gallery/designandillustration">
+                Design and Illustration
+                @*<span class="fas fa-caret-down first"></span>*@
+            </a>
+            @*<div class="dropdown-container">
+            <a href="#design">Design and Illustration</a>
+            <a href="#design">Design and Illustration</a>
+            <a href="#design">Design and Illustration</a>
+        </div>*@
+        </div>
+
+
+<div class="gallery-table">
+    <h1>Design and Illustration</h1>
+    <table>
+        @for (int i = 0; i < product.Count; i += 3)
+        {
+            <tr>
+                @for (int j = 0; j < 3 && i + j < product.Count; j++)
+                {
+                    <td>
+                        <div class="polaroid">
+                            @*images from database*@
+                            @{
+                                int id = i + j;
+                                string imgPath = product[id].ProductPic;
+                            }
+
+                            <div class="container">
+                                <img src=@imgPath class="responsive productImage" />
+                                <div class="middle">
+                                    <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@(product[id].ProductId)">View</a>
+                                </div>
+                                <div class="middle2">
+                                    <button type="button" class="btn btn-primary add-to-cart" onclick="updateCart(@Html.Raw("'" + "/Home/AddToCart?prdId=" + id + "'"))">Add to Cart</button>
+                                </div>
+                            </div>
+
+
+
+                            <div class="productdesc">
+                                <h5 style="height: 50px">@product[id].ProductName</h5>
+                                <p class="text-muted p-2" style="overflow:auto; height: 100px">@product[id].ProductDescription</p>
+                                <h5><b>$@product[id].ProductPrice</b></h5>
+                            </div>
+
+                        </div>
+
+                        <br />
+                    </td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+</div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script>
+    /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+    var dropdown = document.getElementsByClassName("dropdown-btn");
+    var i;
+    for (i = 0; i < dropdown.length; i++) {
+        dropdown[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var dropdownContent = this.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+        });
+    }
+</script>
+
+
