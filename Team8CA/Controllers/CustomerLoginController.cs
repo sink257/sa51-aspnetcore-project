@@ -76,6 +76,8 @@ namespace Team8CA.Controllers
                 db.Sessions.Add(session);
                 db.SaveChanges();
 
+
+                //Merging of shopping cart
                 List<ShoppingCart> shoppingcartnull = db.ShoppingCart.Where(x => x.ShoppingCartId == "0").ToList();
                 foreach (ShoppingCart cart in shoppingcartnull)
                 {
@@ -165,6 +167,8 @@ namespace Team8CA.Controllers
                         shoppingCartItems.Quantity++;
                     }
                 }
+                db.TemporaryShoppingCart.RemoveRange(shoppingcart);
+                db.TemporaryShoppingCartItem.RemoveRange(shoppingcartitem);
                 db.SaveChanges();
 
                 Response.Cookies.Append("username", session.Username);

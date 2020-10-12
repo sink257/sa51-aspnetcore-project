@@ -6,6 +6,7 @@
     ViewData["Title"] = "ShoppingCart";
     List<ShoppingCartItem> shoppingcartitems = (List<ShoppingCartItem>)ViewData["shoppingcartitems"];
     int cartcount = (int)ViewData["cartcount"];
+    
 }
 
 <style>
@@ -97,6 +98,7 @@
                     <div class="card-footer row">
 
                         <div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6 ">
+                            
                             <form asp-action="Checkout" asp-controller="Cart" method="Post" role="form">
                                 @{
                                     var OrderTotalForStripe = @total * 100;
