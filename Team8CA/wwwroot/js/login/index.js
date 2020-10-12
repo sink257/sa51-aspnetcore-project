@@ -1,5 +1,5 @@
 ﻿window.onload = function () {
-	let errDiv = document.getElementById("err_msg");
+	let errDiv = document.getElementById("loginerror");
 
 	let form = document.getElementById("form");
 	form.onsubmit = function () {
@@ -11,17 +11,17 @@
 
 		if (username.length === 0 || password.length === 0) {
 			errDiv.innerHTML = "Please fill up all fields.";
-			return false;	// cancel form submission
+			return false;
 		}
 
-		return true;	// allow form submission to continue
+		return true;
 	}
 
 	let elems = document.getElementsByClassName("form-control");
-	for (let i = 0; i < elems.length; i++) {
-		// remove our error message as long as any 
-		// of the input boxes have focus
-		elems[i].onfocus = function () {
+	for (let i = 0; i < elems.length; i++)
+	{
+		elems[i].onfocus = function ()
+		{
 			errDiv.innerHTML = "";
 		}
 	}
