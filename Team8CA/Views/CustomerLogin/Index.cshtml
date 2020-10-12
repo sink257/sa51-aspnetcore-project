@@ -13,43 +13,56 @@
         font-weight: bold;
         padding: 10px;
     }
+    .login {
+        margin-top: 75px;
+    }
+    .t8softwares {
+        margin-top: 75px;
+    }
+    h1{
+        font-size: 100px;
+    }
 </style>
 
-<p></p>
+<div class="t8softwares">
+    <h1 style="text-align:center"><span style="color:red">T8</span>Softwares</h1>
+</div>
 
 
-<h2 style="text-align:center">Please Login</h2>
-<form id="form" action="/CustomerLogin/Authenticate" method="POST">
-    <table align="center">
-        <tr>
-            <td>
-                Username:
-            </td>
-            <td>
-                <input id="username" name="username"
-                       class="form-control" value="@ViewData["username"]" />
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Password:
-            </td>
-            <td>
-                <input id="password" name="password"
-                       type="password" class="form-control" />
-            </td>
-        </tr>
-        <tr>
-            <td colspan="2" align="right">
-                <input id="submitBtn" type="submit" class="btn btn-success" />
-            </td>
-        </tr>        
-    </table>
-    <table align ="center">
-        <tr>
-            <td colspan="2" align="center">
-                <div id="err_msg">@ViewData["loginerror"]</div>
-            </td>
-        </tr>
+<div class="login">
+    <h3 style="text-align:center">Login</h3><br />
+    <form id="form" action="/CustomerLogin/Authenticate" method="POST">
+        <table align="center">
+            <tr>
+                <td>
+                    Username:
+                </td>
+                <td>
+                    <input id="username" name="username"
+                           class="form-control" value="@ViewData["username"]" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Password:
+                </td>
+                <td>
+                    <input id="password" name="password"
+                           type="password" class="form-control" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <input id="submitBtn" type="submit" class="btn btn-success" />
+                </td>
+            </tr>
         </table>
-</form>
+        <table align="center">
+            <tr>
+                <td colspan="2" align="center">
+                    <div id="err_msg">@ViewData["loginerror"]</div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
