@@ -70,15 +70,15 @@ namespace Team8CA.Controllers
             List<OrderDetails> orderdetail = db.OrderDetails.Where(o => o.OrderId == orderId).ToList();
             ViewData["orderdetail"] = orderdetail;
 
-            string customerId = Request.Cookies["customerId"];
+            customerId = Request.Cookies["customerId"];
 
             ViewData["firstname"] = Request.Cookies["firstname"];
-            string sessionid = Request.Cookies["sessionId"];
+            sessionid = Request.Cookies["sessionId"];
             ViewData["sessionId"] = sessionid;
 
             ViewData["customerid"] = customerId;
-            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
-            List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
+            shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
+            shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
             if (sessionid != null)
             {
                 ViewData["cartcount"] = shoppingcart.Count;
