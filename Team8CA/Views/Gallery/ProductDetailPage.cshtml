@@ -159,7 +159,7 @@
                         <a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@p.ProductId">View</a>
                     </div>
                     <div class="middle" style="top: 35%">
-                        <a type="button" class="btn btn-primary cart" asp-controller="Cart" asp-action="AddToShoppingCart" asp-route-productid="@(p.ProductId)"><i class="fa fa-cart-plus"></i></a>
+                        <a type="button" class="btn btn-primary cart" asp-controller="Cart" asp-action="AddSimilarToShoppingCart" asp-route-productid="@(p.ProductId)"><i class="fa fa-cart-plus"></i></a>
                     </div>
                     <div class="similarProduct">
                         <h6>@p.ProductName</h6>
