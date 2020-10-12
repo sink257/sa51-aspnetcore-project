@@ -2,22 +2,29 @@
     @if (ViewData["sessionId"] == null)
     {
         <li class="nav-item">
-                <a class="nav-link text-dark" asp-controller="Login" asp-action="Index">Login</a>
+            <a class="nav-link text-dark" asp-controller="Login" asp-action="Index">Login</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Shopping Cart (@ViewData["cartcount"])</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Shopping Cart <i class="fa fa-shopping-cart text-muted"></i> (@ViewData["cartcount"])</a>
         </li>
-     }
+    }
     else
     {
         <li class="nav-item">
             <span class="nav-link text-dark">Hi @ViewData["firstname"]!</span> @*need to edit this to text*@
         </li>
+
         <li class="nav-item">
             <a class="nav-link text-dark" asp-controller="Logout" asp-action="Index">Logout</a>
         </li>
+        @if (ViewData["sessionId"] != null)
+        {
+            <li class="nav-item">
+                <a class="nav-link text-dark" asp-area="" asp-controller="OrderHistory" asp-action="Index">My Purchases <i class="fa fa-shopping-bag text-muted"></i></a>
+            </li>
+        }
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Shopping Cart (@ViewData["cartcount"])</a>
+            <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Shopping Cart <i class="fa fa-shopping-cart text-muted"></i> (@ViewData["cartcount"])</a>
         </li>
     }
 </ul>

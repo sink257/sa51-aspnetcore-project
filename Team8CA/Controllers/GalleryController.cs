@@ -157,6 +157,11 @@ namespace Team8CA.Controllers
             {
                 ViewData["cartcount"] = shoppingcartNull.Count;
             }
+
+            bool boughtThis = false;
+            boughtThis = db.OrderDetails.Any(o => o.ProductId == id);
+            ViewData["boughtThis"] = boughtThis;
+
             return View();
 
         }

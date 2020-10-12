@@ -90,37 +90,99 @@ namespace Team8CA.Controllers
                     db.Sessions.Add(session);
                     db.SaveChanges();
 
-                    //List<ShoppingCart> shoppingcart = db.ShoppingCart.Where(x => x.ShoppingCartId == "0").ToList();
-                    //foreach(ShoppingCart cart in shoppingcart)
-                    //{
-                    //    db.ShoppingCart.Remove(cart);
-                    //    ShoppingCart newcart = new ShoppingCart()
-                    //    {
-                    //        ShoppingCartId = session.CustomerID,
-                    //        CustomerId = session.CustomerID,
-                    //        OrderCreationTime = DateTime.Now,
-                    //        IsCheckOut = false,
-                    //    };
-                    //    db.ShoppingCart.Add(newcart);
-                    //}
-                    //db.SaveChanges();
+                    //Merging of shopping cart
+                    List<ShoppingCart> shoppingcartnull = db.ShoppingCart.Where(x => x.ShoppingCartId == "0").ToList();
+                    foreach (ShoppingCart cart in shoppingcartnull)
+                    {
+                        TemporaryShoppingCart temporaryshoppingCarts = db.TemporaryShoppingCart.FirstOrDefault(
+                            x => x.CustomerId == session.CustomerID && x.IsCheckOut == false);
 
-                    //List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
-                    //foreach (ShoppingCartItem shoppingcartitem in shoppingcartNull)
-                    //{
-                    //    db.ShoppingCartItem.Remove(shoppingcartitem);
-                    //    ShoppingCartItem newcartitem = new ShoppingCartItem()
-                    //    {
-                    //        ShoppingCartItemId = shoppingcartitem.ShoppingCartItemId,
-                    //        ShoppingCartId = session.CustomerID,
-                    //        CustomerId = session.CustomerID,
-                    //        ProductsId = shoppingcartitem.ProductsId,
-                    //        Quantity = shoppingcartitem.Quantity
-                    //    };
-                    //    db.ShoppingCartItem.Add(newcartitem);
-                    //}
+                        if (temporaryshoppingCarts == null)
+                        {
+                            TemporaryShoppingCart tempnewcart = new TemporaryShoppingCart()
+                            {
+                                TemporaryShoppingCartId = session.CustomerID,
+                                CustomerId = session.CustomerID,
+                                OrderCreationTime = DateTime.Now,
+                                IsCheckOut = false,
+                            };
+                            db.TemporaryShoppingCart.Add(tempnewcart);
+                        }
+                        db.SaveChanges();
+                    }
 
-                    //db.SaveChanges();
+                    List<ShoppingCartItem> shoppingcartitemnull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
+                    foreach (ShoppingCartItem tempshoppingcartitem in shoppingcartitemnull)
+                    {
+                        TemporaryShoppingCartItem tempShoppingCartItems = db.TemporaryShoppingCartItem.FirstOrDefault(
+                           x => x.Products.ProductId == tempshoppingcartitem.ProductsId && x.TemporaryShoppingCartId == session.CustomerID && x.TemporaryShoppingCart.IsCheckOut == false);
+                        if (tempShoppingCartItems == null)
+                        {
+
+                            TemporaryShoppingCartItem tempnewcartitem = new TemporaryShoppingCartItem()
+                            {
+                                TemporaryShoppingCartId = session.CustomerID,
+                                CustomerId = session.CustomerID,
+                                ProductsId = tempshoppingcartitem.ProductsId,
+                                Quantity = tempshoppingcartitem.Quantity
+                            };
+                            db.TemporaryShoppingCartItem.Add(tempnewcartitem);
+                        }
+                        else
+                        {
+                            tempShoppingCartItems.Quantity++;
+                        }
+                    }
+
+                    db.ShoppingCart.RemoveRange(shoppingcartnull);
+                    db.ShoppingCartItem.RemoveRange(shoppingcartitemnull);
+                    db.SaveChanges();
+
+                    List<TemporaryShoppingCart> shoppingcart = db.TemporaryShoppingCart.Where(x => x.TemporaryShoppingCartId == session.CustomerID).ToList();
+
+                    foreach (TemporaryShoppingCart newshoppingcart in shoppingcart)
+                    {
+                        ShoppingCart shoppingCarts = db.ShoppingCart.FirstOrDefault(
+                            x => x.CustomerId == session.CustomerID && x.IsCheckOut == false);
+
+                        if (shoppingCarts == null)
+                        {
+                            ShoppingCart newcart = new ShoppingCart()
+                            {
+                                ShoppingCartId = session.CustomerID,
+                                CustomerId = session.CustomerID,
+                                OrderCreationTime = DateTime.Now,
+                                IsCheckOut = false,
+                            };
+                            db.ShoppingCart.Add(newcart);
+                        }
+                        db.SaveChanges();
+                    }
+
+                    List<TemporaryShoppingCartItem> shoppingcartitem = db.TemporaryShoppingCartItem.Where(x => x.TemporaryShoppingCartId == session.CustomerID).ToList();
+                    foreach (TemporaryShoppingCartItem newshoppingcartitem in shoppingcartitem)
+                    {
+                        ShoppingCartItem shoppingCartItems = db.ShoppingCartItem.FirstOrDefault(
+                            x => x.Products.ProductId == newshoppingcartitem.ProductsId && x.ShoppingCartId == session.CustomerID && x.ShoppingCart.IsCheckOut == false);
+                        if (shoppingCartItems == null)
+                        {
+                            ShoppingCartItem newcartitem = new ShoppingCartItem()
+                            {
+                                ShoppingCartId = session.CustomerID,
+                                CustomerId = session.CustomerID,
+                                ProductsId = newshoppingcartitem.ProductsId,
+                                Quantity = newshoppingcartitem.Quantity
+                            };
+                            db.ShoppingCartItem.Add(newcartitem);
+                        }
+                        else
+                        {
+                            shoppingCartItems.Quantity++;
+                        }
+                    }
+                    db.TemporaryShoppingCart.RemoveRange(shoppingcart);
+                    db.TemporaryShoppingCartItem.RemoveRange(shoppingcartitem);
+                    db.SaveChanges();
 
                     Response.Cookies.Append("username", session.Username);
                     Response.Cookies.Append("firstname", session.FirstName);

@@ -18,7 +18,6 @@ namespace Team8CA.Models
         public bool CheckOutComplete { get; set; }
         public OrderDetails()
         {
-
         }
     }
 }

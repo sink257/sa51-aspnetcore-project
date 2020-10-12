@@ -18,7 +18,7 @@ namespace Team8CA.Controllers
         private readonly ShoppingCart _shoppingcart;
         //private readonly IOrderRepository _orderRepository;
 
-        public CartController(AppDbContext appDbContext, ShoppingCart shoppingcart/*, IOrderRepository orderRepository*/)
+        public CartController(AppDbContext appDbContext, ShoppingCart shoppingcart/*, IOrderRepository orderRepository*/) 
         {
             db = appDbContext;
             _shoppingcart = shoppingcart;
@@ -66,18 +66,18 @@ namespace Team8CA.Controllers
             string sessionid = Request.Cookies["sessionId"];
 
 
-            if (sessionid == null)
-            {
-                return Redirect("http://localhost:61024/Login");
-            }
-            else
-            {
+            //if (sessionid == null)
+            //{
+            //    return Redirect("http://localhost:61024/Login");
+            //}
+            //ebased on the
+            //{
                 if (productselected != null)
                 {
                     _shoppingcart.AddToCart(productselected, productid, 1, customerid, sessionid);
                 }
                 return Redirect("http://localhost:61024/");
-            }
+            //}
         }
 
         public IActionResult AddSimilarToShoppingCart(int productid)
@@ -90,18 +90,18 @@ namespace Team8CA.Controllers
             string sessionid = Request.Cookies["sessionId"];
 
 
-            if (sessionid == null)
-            {
-                return Redirect("http://localhost:61024/Login");
-            }
-            else
-            {
+            //if (sessionid == null)
+            //{
+            //    return Redirect("http://localhost:61024/Login");
+            //}
+            //else
+            //{
                 if (productselected != null)
                 {
                     _shoppingcart.AddToCart(productselected, productid, 1, customerid, sessionid);
                 }
                 return RedirectToAction("ProductDetailPage", "Gallery", new { id = productid });
-            }
+            //}
         }
 
         public IActionResult AddMultipleToShoppingCart(int productid, int quantity, bool? buyNow)
@@ -113,12 +113,12 @@ namespace Team8CA.Controllers
 
             string sessionid = Request.Cookies["sessionId"];
 
-            if (sessionid == null)
-            {
-                return Redirect("http://localhost:61024/Login");
-            }
-            else
-            {
+            //if (sessionid == null)
+            //{
+            //    return Redirect("http://localhost:61024/Login");
+            //}
+            //else
+            //{
                 if (productselected != null)
                 {
                     _shoppingcart.AddToCart(productselected, productid, quantity, customerid, sessionid);
@@ -131,9 +131,8 @@ namespace Team8CA.Controllers
                 {
                     return RedirectToAction("ProductDetailPage", "Gallery", new { id = productid });
                 }
-            }
+            //}
         }
-
 
         public IActionResult AddInCart(int productid)
         {
