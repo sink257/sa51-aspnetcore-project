@@ -177,5 +177,23 @@ namespace Team8CA.Controllers
 
         }
 
+        public IActionResult RemoveReview(int id)
+        {
+            string customerid = Request.Cookies["customerId"];
+            ViewData["customerid"] = customerid;
+            string sessionid = Request.Cookies["sessionId"];
+            if (sessionid == null)
+            {
+                customerid = "0";
+            }
+            var reviewselected = db.Reviews.FirstOrDefault(r => r.ProductID == id && r.CustomerId == customerid);
+            if (reviewselected != null)
+            {
+                db.Reviews.Remove(reviewselected);
+                db.SaveChanges();
+            }
+            return RedirectToAction("ProductDetailPage", "Gallery", new { id = id});
+        }
+
     }
 }

@@ -49,22 +49,26 @@
      {
             <tr>
                 <td>
-                    <div >
+                    <div>
                         <img src="@orders.Product.ProductPic" style="min-width: 50px; max-width: 100px; display: inline-block">
-                        <div class="pb-3 ml-3 d-inline-block font-weight-bold">@orders.Product.ProductName</div>
-                        <div class="d-lg-table-row">@orders.Product.ProductDescription</div><br>
+                        <div class="pb-2 ml-3 d-inline-block font-weight-bold">@orders.Product.ProductName</div>
+                        <div class="pt-2 d-lg-table-row">@orders.Product.ProductDescription</div><br>
+
                         @if (customerReviews.Any(r => r.ProductID == orders.ProductId))
                         {
                             <div><p class="text-muted">You have reviewed this product.</p></div>
                         }
                         else
                         {
-                        <a class="btn btn-outline-success float-right" id="leave-review" asp-controller="CreateReview" asp-action="Index" asp-route-id="@orders.Product.ProductId">Leave a Review</a>
+                            <a class="btn btn-success float-right mx-2" id="leave-review" asp-controller="CreateReview" asp-action="Index" asp-route-id="@orders.Product.ProductId">Leave a Review</a>
                         }
+                        <div class="mx-2">
+                            <a class="btn btn-outline-info float-right " asp-controller="Gallery" asp-action="ProductDetailPage" asp-route-id="@orders.Product.ProductId">View Details</a>
+                        </div>
                     </div>
                 </td>
-                <td>@orders.Quantity</td>
-                <td>@orders.Price</td>
+                <td>$@orders.Quantity</td>
+                <td>$@orders.Price</td>
                 @{ 
                     double ordertotal = orders.Price * orders.Quantity;
                 }
