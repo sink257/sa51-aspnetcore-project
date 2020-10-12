@@ -17,7 +17,14 @@ namespace Team8CA.Models
         public virtual List<ActivationCodes> ActivationCodes { get; set; }
         public OrderDetails()
         {
-
+           
+        }
+        public OrderDetails(int orderId, int productId)
+        {
+            OrderId = orderId;
+            ProductId = productId;
+          //  Quantity = ;
+            ActivationCodes = new List<ActivationCodes>();
         }
     }
 }

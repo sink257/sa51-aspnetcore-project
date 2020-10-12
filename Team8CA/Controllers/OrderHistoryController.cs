@@ -15,6 +15,7 @@ namespace Team8CA.Controllers
 
         private readonly AppDbContext db;
         private readonly ShoppingCart shoppingcart;
+      
 
         public OrderHistoryController(AppDbContext db, ShoppingCart shoppingcart)
         {
@@ -24,6 +25,9 @@ namespace Team8CA.Controllers
 
         public IActionResult Index()
         {
+            List<Order> orders = db.Order.ToList();
+            ViewData["order"] = orders;
+
             ViewData["firstname"] = Request.Cookies["firstname"];
             string sessionid = Request.Cookies["sessionId"];
             ViewData["sessionId"] = sessionid;
@@ -39,8 +43,8 @@ namespace Team8CA.Controllers
             {
                 ViewData["cartcount"] = shoppingcartNull.Count;
             }
-
             return View();
         }
+        
     }
 }

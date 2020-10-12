@@ -32,6 +32,14 @@ namespace Team8CA.Models
 
         public Order()
         {
+            OrderDetails = new List<OrderDetails>();
+        }
+        public Order(string customerId)
+        {
+            CustomerId = customerId;
+            OrderDate = DateTime.Now;
+            OrderDetails = new List<OrderDetails>();
+
         }
     }
 }
