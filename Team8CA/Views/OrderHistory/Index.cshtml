@@ -1,9 +1,8 @@
 ﻿
 @{
     ViewData["Title"] = "OrderHistory";
-   @* List<Order> orders = (List<Order>)ViewData["OrderHistory"]; *@
+    List<Order> orders = (List<Order>)ViewData["order"];
 }
-
 <style>
     #customers {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
@@ -47,7 +46,8 @@
                 <th></th>
             </tr>
         </thead>
-          @{ foreach (Order order in Model)
+          @{ foreach (Order order in orders )
+
                  {
                      <tr>
                          <td>@order.OrderId</td>

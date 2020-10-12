@@ -25,13 +25,14 @@ namespace Team8CA.Controllers
 
         public IActionResult Index()
         {
-            List<Order> orders = db.Order.ToList();
+            string customerId = Request.Cookies["customerId"];
+            List<Order> orders = db.Order.Where(o=>o.CustomerId == customerId).ToList();
             ViewData["order"] = orders;
 
             ViewData["firstname"] = Request.Cookies["firstname"];
             string sessionid = Request.Cookies["sessionId"];
             ViewData["sessionId"] = sessionid;
-            string customerId = Request.Cookies["customerId"];
+           
             ViewData["customerid"] = customerId;
             List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
             List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
@@ -45,6 +46,11 @@ namespace Team8CA.Controllers
             }
             return View();
         }
-        
+        public IActionResult RecentOrder(int orderId)
+        {
+            List<OrderDetails> orderdetails = db.OrderDetails.Where(o => o.OrderId == orderId).ToList();
+            ViewData["orderdetail"] = orderdetails;
+            return View();
+        }
     }
 }

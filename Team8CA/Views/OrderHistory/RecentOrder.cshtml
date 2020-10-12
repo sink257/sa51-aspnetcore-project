@@ -1,6 +1,7 @@
-﻿@{
-   
+﻿
+@{ 
     ViewData["Title"] = "RecentOrder";
+    List<OrderDetails> orderdetails = (List<OrderDetails>)ViewData["orderdetail"];
 }
 
 <style>
@@ -41,30 +42,31 @@
         <th>Description</th>
         <th>Quantity</th>
         <th>Unit Price</th>
-        <th>Total Price<\>
+        <th>Total Price</th>
         <th>Time</th>
         <th>Activication Code</th>
     </tr>
-    @* @foreach (OrderDetails orders in Model.OrderDetails)
+     @foreach (OrderDetails orders in orderdetails)
         {
             <tr>
-                <td><img src="@orders.ProductPic"></td>
-                <td>@orders.ProductName</td>
-                <td>@orders.ProductDescription</td>
-                <td>@orders.ProductPrice</td>
+                <td><img src="@orders.Product.ProductPic"></td>
+                <td>@orders.Product.ProductName</td>
+                <td>@orders.Product.ProductDescription</td>
+                <td></td>
+                <td>@orders.Product.ProductPrice</td>
                 <td>@orders.Price</td>
-                <td>@orders.Date</td>
+                <td>@orders.Order.OrderDate</td>
                 <td>
                     <select>
                      @{
-                        foreach (var code in Model.ActivationCodes)
+                        foreach (var activationcode in Model.OrderDetails)
                         {
-                            <option>@code.activationCode</option>
+                            <option>@activationcode.ActivationCodes.ActivationCode</option>
                         }
                         }
                     </select>
                 </td>
             </tr>
-          } *@
+          } 
 </table>
 
