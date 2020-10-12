@@ -26,19 +26,19 @@
             background-color: #ddd;
         }
 
+       
         #customers th {
             padding-top: 12px;
             padding-bottom: 12px;
-            text-align: center;
-            background-color: #4CAF50;
+            background-color: #343a40;
             color: white;
         }
 </style>
+
+<div class="container">
 <table id="customers">
     <tr>
-        <th>  </th>
         <th>Product</th>
-        <th>Description</th>
         <th>Quantity</th>
         <th>Unit Price</th>
         <th>Total Price</th>
@@ -47,11 +47,15 @@
      @foreach (OrderDetails orders in Model.OrderDetails)
      {
             <tr>
-                <td><img src="@orders.Product.ProductPic"></td>
-                <td>@orders.Product.ProductName</td>
-                <td>@orders.Product.ProductDescription</td>
-                <td></td>
-                <td>@orders.Quantity
+                <td>
+                    <div >
+                        <img src="@orders.Product.ProductPic" style="min-width: 50px; max-width: 100px; display: inline-block">
+                        <div class="pb-3 ml-3 d-inline-block font-weight-bold">@orders.Product.ProductName</div>
+                        <div class="d-lg-table-row">@orders.Product.ProductDescription</div><br>
+                        <a class="btn btn-outline-success float-right" id="leave-review" asp-controller="CreateReview" asp-action="Index" asp-route-id="@orders.Product.ProductId">Leave a Review</a>
+                    </div>
+                </td>
+                <td>@orders.Quantity</td>
                 <td>@orders.Price</td>
                 @{ 
                     double ordertotal = orders.Price * orders.Quantity;
@@ -60,7 +64,7 @@
                 <td>
                     <select>
                      @{
-                        foreach (var activationcode in orders.ActivationCodes)
+                        foreach (var activationcode in orders.ActivationCodes.Where(o=>o.ProductId == orders.ProductId))
                         {
                             <option>@activationcode.ActivationCode</option>
                         }
@@ -68,6 +72,8 @@
                     </select>
                 </td>
             </tr>
-          } 
+
+      } 
 </table>
+</div>
 
