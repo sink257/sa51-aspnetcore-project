@@ -26,14 +26,16 @@
             background-color: #ddd;
         }
 
+       
         #customers th {
             padding-top: 12px;
             padding-bottom: 12px;
-            text-align: center;
-            background-color: #4CAF50;
+            background-color: #343a40;
             color: white;
         }
 </style>
+
+<div class="container">
 <table id="customers">
     <tr>
         <th>  </th>
@@ -47,7 +49,7 @@
      @foreach (OrderDetails orders in Model.OrderDetails)
         {
             <tr>
-                <td><img src="@orders.Product.ProductPic"></td>
+                <td><img src="@orders.Product.ProductPic" style="width: 300px"></td>
                 <td>@orders.Product.ProductName</td>
                 <td>@orders.Product.ProductDescription</td>
                 <td></td>
@@ -66,4 +68,5 @@
             </tr>
           } 
 </table>
+</div>
 
