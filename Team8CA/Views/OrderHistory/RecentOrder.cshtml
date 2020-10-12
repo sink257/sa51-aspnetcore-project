@@ -47,7 +47,7 @@
         <th>Activication Code</th>
     </tr>
      @foreach (OrderDetails orders in Model.OrderDetails)
-        {
+     {
             <tr>
                 <td><img src="@orders.Product.ProductPic" style="width: 300px"></td>
                 <td>@orders.Product.ProductName</td>
@@ -55,6 +55,10 @@
                 <td></td>
                 <td>@orders.Quantity
                 <td>@orders.Price</td>
+                @{ 
+                    double ordertotal = orders.Price * orders.Quantity;
+                }
+                <td>@ordertotal</td>
                 <td>
                     <select>
                      @{
