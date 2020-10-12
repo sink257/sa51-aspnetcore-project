@@ -51,6 +51,8 @@ namespace Team8CA.Controllers
             List<OrderDetails> orderdetail = db.OrderDetails.Where(o => o.OrderId == orderId).ToList();
             ViewData["orderdetail"] = orderdetail;
 
+            string customerId = Request.Cookies["customerId"];
+
             ViewData["firstname"] = Request.Cookies["firstname"];
             string sessionid = Request.Cookies["sessionId"];
             ViewData["sessionId"] = sessionid;
