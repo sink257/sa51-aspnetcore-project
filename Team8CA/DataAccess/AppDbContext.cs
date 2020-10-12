@@ -39,5 +39,6 @@ namespace Team8CA.DataAccess
         public DbSet<Session> Sessions { get; set; }
         public DbSet<Order> Order { get; set; }
         public DbSet<OrderDetails> OrderDetails { get; set; }
+        public DbSet<ActivationCodes> ActivationCodes { get; set; }
     }
 }

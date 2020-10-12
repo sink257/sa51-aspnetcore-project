@@ -128,7 +128,6 @@ namespace Team8CA.Controllers
                 ViewData["cartcount"] = shoppingcartNull.Count;
             }
 
-
             Products product = db.Products.FirstOrDefault(p => p.ProductId == id);
             List<Products> similarProducts = db.Products.Where(p => 
                                                (p.ProductCategory == product.ProductCategory) && (p!=product))

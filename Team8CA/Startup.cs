@@ -34,7 +34,7 @@ namespace Team8CA
             services.AddDbContext<AppDbContext>
                 (opt => opt.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DBConn")));
 
-            //services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
 
             services.AddControllersWithViews();
             services.AddScoped<Team8CA.Models.Customer>();
@@ -68,7 +68,7 @@ namespace Team8CA
 
             app.UseRouting();
 
-            //StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
+            StripeConfiguration.ApiKey = Configuration.GetSection("Stripe")["SecretKey"];
 
             app.UseAuthorization();
 

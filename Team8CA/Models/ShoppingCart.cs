@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,6 @@ namespace Team8CA.Models
     public class ShoppingCart
     {
         private readonly AppDbContext db;
-
-
 
         public string ShoppingCartId { get; set; } //this is the cartID
 
@@ -194,13 +193,13 @@ namespace Team8CA.Models
 
         public void CheckoutCart(string customerid)
         {
-            ShoppingCart shoppingcart = db.ShoppingCart.FirstOrDefault(x => x.CustomerId == customerid && !x.IsCheckOut);
+            ShoppingCart shoppingcart = db.ShoppingCart.FirstOrDefault(x => x.CustomerId == customerid && IsCheckOut == false);
             shoppingcart.IsCheckOut = true;
             shoppingcart.OrderTime = DateTime.Now;
             db.ShoppingCart.Update(shoppingcart);
             db.SaveChanges();
 
-            Order orders = db.Order.FirstOrDefault(x => x.CustomerId == customerid && x.OrderDate != shoppingcart.OrderTime);
+            Order orders = db.Order.FirstOrDefault(x => x.CustomerId == customerid && x.CheckOutComplete == false);
 
             if (orders == null)
             {
@@ -208,13 +207,14 @@ namespace Team8CA.Models
                 {
                     CustomerId = customerid,
                     OrderDate = DateTime.Now,
+                    CheckOutComplete = false,
                     OrderTotal = shoppingcart.GetCartTotal()
                 };
                 db.Order.Add(neworder);
             }
             db.SaveChanges();
 
-            Order orderid = db.Order.FirstOrDefault(x => x.CustomerId == customerid);
+            Order orderid = db.Order.FirstOrDefault(x => x.CustomerId == customerid && x.CheckOutComplete==false);
             List<ShoppingCartItem> shoppingcartitems = db.ShoppingCartItem.Where(x => x.CustomerId == customerid).ToList();
             foreach (ShoppingCartItem shoppingcartitem in shoppingcartitems)
             {
@@ -223,16 +223,21 @@ namespace Team8CA.Models
                     Quantity = shoppingcartitem.Quantity,
                     Price = shoppingcartitem.Products.ProductPrice,
                     ProductId = shoppingcartitem.Products.ProductId,
-                    OrderId = orderid.OrderId
+                    OrderId = orderid.OrderId,
                 };
                 db.OrderDetails.Add(neworderdetails);
+
+                for (int i = 0; i < shoppingcartitem.Quantity; i++)
+                {
+                    string code = orderid.OrderId + shoppingcartitem.ProductsId + Guid.NewGuid().ToString();
+                    ActivationCodes codes = new ActivationCodes(orderid.OrderId, code, shoppingcartitem.ProductsId);
+                    db.ActivationCodes.Add(codes);
+                }
             }
+            orderid.CheckOutComplete = true;
+            db.ShoppingCart.Update(shoppingcart);
             db.SaveChanges();
         }
-
-
-
-
     }
 }
 

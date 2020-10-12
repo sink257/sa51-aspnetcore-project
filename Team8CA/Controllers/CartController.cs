@@ -5,7 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-//using Stripe;
+using Stripe;
 using Team8CA.DataAccess;
 using Team8CA.Models;
 
@@ -16,7 +16,7 @@ namespace Team8CA.Controllers
 
         private readonly AppDbContext db;
         private readonly ShoppingCart _shoppingcart;
-        private readonly IOrderRepository _orderRepository;
+        //private readonly IOrderRepository _orderRepository;
 
         public CartController(AppDbContext appDbContext, ShoppingCart shoppingcart/*, IOrderRepository orderRepository*/)
         {
@@ -104,7 +104,7 @@ namespace Team8CA.Controllers
             }
         }
 
-        public IActionResult AddMultipleToShoppingCart(int productid,int quantity,bool? buyNow)
+        public IActionResult AddMultipleToShoppingCart(int productid, int quantity, bool? buyNow)
         {
 
             var productselected = db.Products.FirstOrDefault(x => x.ProductId == productid);

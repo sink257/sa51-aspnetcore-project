@@ -15,7 +15,9 @@ namespace Team8CA.Models
         public string CustomerId { get; set; }
         public DateTime OrderDate { get; set; }
         public double OrderTotal { get; set; }
+        public bool CheckOutComplete { get; set; }
         public virtual List<OrderDetails> OrderDetails { get; set; }
+        public virtual List<ActivationCodes> ActivationCodes { get; set; }
 
         //[Required]
         //public string PhoneNumber { get; set; }
