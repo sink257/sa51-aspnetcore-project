@@ -45,6 +45,8 @@ namespace Team8CA
 
             services.AddHttpContextAccessor();
             services.AddSession();
+
+            services.AddScoped<Team8CA.Services.CartRelatedService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

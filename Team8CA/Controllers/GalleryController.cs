@@ -18,9 +18,7 @@ namespace Team8CA.Controllers
     {
         protected AppDbContext db;
 
-        private readonly ShoppingCart _shoppingcart;
-
-        public IActionResult Index(int? page)                                          
+        public IActionResult Index(int? page)                                    
         {                                                                      
             List<Products> product = db.Products.ToList();          
             ViewData["product"] = product;
@@ -68,7 +66,6 @@ namespace Team8CA.Controllers
             ViewData["sessionId"] = Request.Cookies["sessionId"];
             return View();
         }
-
         public IActionResult DesignAndIllustration()
         {
             List<Products> product = db.Products.Where(p => (p.ProductCategory == "DesignAndIllustration")).ToList();

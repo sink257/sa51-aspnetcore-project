@@ -10,7 +10,7 @@ namespace Team8CA.Models
     {
         private readonly AppDbContext db;
 
-        public string TemporaryShoppingCartId { get; set; } //this is the cartID
+        public string TemporaryShoppingCartId { get; set; }
 
         public virtual List<TemporaryShoppingCartItem> TemporaryShoppingCartItem { get; set; }
 
