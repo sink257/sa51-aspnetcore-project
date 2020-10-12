@@ -11,6 +11,11 @@ namespace Team8CA.Models
 
         public string ActivationCode { get; set; }
 
+        public ActivationCodes()
+        {
+
+        }
+
         public ActivationCodes(int cartItemId, string activationCode)
         {
             ActivationCode = activationCode;

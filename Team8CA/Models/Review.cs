@@ -20,7 +20,6 @@ namespace Team8CA.Models
         [Required]//Foreign key
         public int ProductID { get; set; }
 
-
         public string CustomerName { get; set; }
         public int CustomerId { get; set; }
 
