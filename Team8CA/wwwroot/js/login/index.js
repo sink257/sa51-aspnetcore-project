@@ -1,5 +1,5 @@
 ﻿window.onload = function () {
-	let errDiv = document.getElementById("err_msg");
+	let errDiv = document.getElementById("loginerror");
 
 	let form = document.getElementById("form");
 	form.onsubmit = function () {
