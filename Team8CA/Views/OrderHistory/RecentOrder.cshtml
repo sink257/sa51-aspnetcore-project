@@ -43,7 +43,6 @@
         <th>Quantity</th>
         <th>Unit Price</th>
         <th>Total Price</th>
-        <th>Time</th>
         <th>Activication Code</th>
     </tr>
      @foreach (OrderDetails orders in orderdetails)
@@ -63,7 +62,7 @@
                         {
                             <option>@activationcode.ActivationCodes.ActivationCode</option>
                         }
-                        }
+                      }
                     </select>
                 </td>
             </tr>
