@@ -126,7 +126,7 @@ namespace Team8CA.Controllers
             }
         }
 
-        public IActionResult AddMultipleToShoppingCart(int productid,int quantity,bool? buyNow)
+        public IActionResult AddMultipleToShoppingCart(int productid, int quantity, bool? buyNow)
         {
 
             var productselected = db.Products.FirstOrDefault(x => x.ProductId == productid);
