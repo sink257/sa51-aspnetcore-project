@@ -19,8 +19,6 @@ namespace Team8CA.Models
     {
         private readonly AppDbContext db;
 
-
-
         public string ShoppingCartId { get; set; } //this is the cartID
 
         public virtual List<ShoppingCartItem> ShoppingCartItems { get; set; }
@@ -240,10 +238,6 @@ namespace Team8CA.Models
             db.ShoppingCart.Update(shoppingcart);
             db.SaveChanges();
         }
-
-
-
-
     }
 }
 

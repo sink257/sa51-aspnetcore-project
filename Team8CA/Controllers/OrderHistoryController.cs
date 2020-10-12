@@ -39,5 +39,10 @@ namespace Team8CA.Controllers
             }
             return View();
         }
+
+        public IActionResult GetOrder()
+        {
+            return View();
+        }
     }
 }
