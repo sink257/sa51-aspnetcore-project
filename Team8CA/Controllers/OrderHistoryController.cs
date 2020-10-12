@@ -6,13 +6,16 @@ using Microsoft.AspNetCore.Mvc;
 using Team8CA.DataAccess;
 using Team8CA.Models;
 
+
 namespace Team8CA.Controllers
 {
     public class OrderHistoryController : Controller
     {
 
+
         private readonly AppDbContext db;
         private readonly ShoppingCart shoppingcart;
+      
 
         public OrderHistoryController(AppDbContext db, ShoppingCart shoppingcart)
         {
@@ -22,10 +25,14 @@ namespace Team8CA.Controllers
 
         public IActionResult Index()
         {
+            string customerId = Request.Cookies["customerId"];
+            List<Order> orders = db.Order.Where(o=>o.CustomerId == customerId).ToList();
+            ViewData["order"] = orders;
+
             ViewData["firstname"] = Request.Cookies["firstname"];
             string sessionid = Request.Cookies["sessionId"];
             ViewData["sessionId"] = sessionid;
-            string customerId = Request.Cookies["customerId"];
+           
             ViewData["customerid"] = customerId;
             List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
             List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
@@ -37,11 +44,6 @@ namespace Team8CA.Controllers
             {
                 ViewData["cartcount"] = shoppingcartNull.Count;
             }
-            return View();
-        }
-
-        public IActionResult GetOrder()
-        {
             return View();
         }
     }

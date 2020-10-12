@@ -1,14 +1,13 @@
 ﻿
 @{
-   
     ViewData["Title"] = "OrderHistory";
+    List<Order> orders = (List<Order>)ViewData["order"];
 }
-
 <style>
     #customers {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
-        width: 80%;
+        width: 90%;
         margin-left: auto;
         margin-right: auto;
         table-layout: auto;
@@ -41,25 +40,23 @@
         <thead>
             <tr>
                 <th>OrderId</th>
-                <th>Quantity</th>
+               
                 <th>Cost</th>
                 <th>Ordered Date</th>
                 <th></th>
             </tr>
         </thead>
-        @*   @{ foreach ()
-             {
-         <tr>
-             <td>Id</td>
-             <td>Quantity</td>
-             <td>Value</td>
-             <td>CheckoutTime</td>
-             <td><a href=@("path to recentOrder")>More Details</a></td>
-         </tr>
-         }
-        } *@
-    </table>
+          @{ foreach (Order order in orders )
 
-@* If they haven't ordered any items, display you have not yet orderd (using if statement)*@
-    <p>You have not yet ordered.<p>
+                 {
+                     <tr>
+                         <td>@order.OrderId</td>
+                        
+                         <td>@order.OrderTotal</td>
+                         <td>@order.OrderDate</td>
+                         <td><a href=@("/OrderHistory/RecentOrder")>More Details</a></td>
+                     </tr>
+                 }
+             }
+    </table>
 </body>

@@ -1,14 +1,14 @@
 ﻿
-@{
-   
+@{ 
     ViewData["Title"] = "RecentOrder";
+    List<OrderDetails> orderdetails = (List<OrderDetails>)ViewData["orderdetail"];
 }
 
 <style>
     #customers {
         font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
-        width: 80%;
+        width: 90%;
         margin-left: auto;
         margin-right: auto;
         table-layout: auto;
@@ -41,31 +41,32 @@
         <th>Product</th>
         <th>Description</th>
         <th>Quantity</th>
-        <th>Price</th>
+        <th>Unit Price</th>
+        <th>Total Price</th>
         <th>Time</th>
         <th>Activication Code</th>
     </tr>
-    @*   @foreach (in)
+     @foreach (OrderDetails orders in orderdetails)
         {
-        <tr>
-            <td><img src="Image"></td>
-            <td>ProductName</td>
-            <td>Description</td>
-            <td>Quantity</td>
-            <td>UnitPrice</td>
-            <td>Date</td>
-            <td>
-                <select>
-                    @{
-                         foreach ()
-                         {
-                              <option>@code.ActivationCode</option>
-                         }
-                     }
-                </select>
-            </td>
-        </tr>
-        }   *@
-
+            <tr>
+                <td><img src="@orders.Product.ProductPic"></td>
+                <td>@orders.Product.ProductName</td>
+                <td>@orders.Product.ProductDescription</td>
+                <td></td>
+                <td>@orders.Product.ProductPrice</td>
+                <td>@orders.Price</td>
+                <td>@orders.Order.OrderDate</td>
+                <td>
+                    <select>
+                     @{
+                        foreach (var activationcode in Model.OrderDetails)
+                        {
+                            <option>@activationcode.ActivationCodes.ActivationCode</option>
+                        }
+                        }
+                    </select>
+                </td>
+            </tr>
+          } 
 </table>
 
