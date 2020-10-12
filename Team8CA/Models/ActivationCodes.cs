@@ -14,7 +14,6 @@ namespace Team8CA.Models
 
         public ActivationCodes()
         {
-
         }
 
         public ActivationCodes(int orderid, string activationCode, int productsid)

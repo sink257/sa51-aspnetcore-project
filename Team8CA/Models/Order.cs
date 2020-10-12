@@ -16,21 +16,7 @@ namespace Team8CA.Models
         public DateTime OrderDate { get; set; }
         public double OrderTotal { get; set; }
         public bool CheckOutComplete { get; set; }
-        public virtual List<OrderDetails> OrderDetails { get; set; }
-
-
-        //[Required]
-        //public string PhoneNumber { get; set; }
-        //[Required]
-        //public string StreetAddress { get; set; }
-        //[Required]
-        //public string City { get; set; }
-        //[Required]
-        //public string State { get; set; }
-        //[Required]
-        //public string PostalCode { get; set; }
-        //[Required]
-        //public string Name { get; set; }
+        public virtual ICollection<OrderDetails> OrderDetails { get; set; }
 
         public Order()
         {

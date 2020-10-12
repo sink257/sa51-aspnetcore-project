@@ -15,7 +15,7 @@ namespace Team8CA.Controllers
 
         private readonly AppDbContext db;
         private readonly ShoppingCart shoppingcart;
-      
+
 
         public OrderHistoryController(AppDbContext db, ShoppingCart shoppingcart)
         {
@@ -26,14 +26,14 @@ namespace Team8CA.Controllers
         public IActionResult Index()
         {
             string customerId = Request.Cookies["customerId"];
-            List<Order> orders = db.Order.Where(o=>o.CustomerId == customerId).ToList();
-           
+            List<Order> orders = db.Order.Where(o => o.CustomerId == customerId).ToList();
+
             ViewData["order"] = orders;
 
             ViewData["firstname"] = Request.Cookies["firstname"];
             string sessionid = Request.Cookies["sessionId"];
             ViewData["sessionId"] = sessionid;
-           
+
             ViewData["customerid"] = customerId;
             List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
             List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
@@ -49,9 +49,13 @@ namespace Team8CA.Controllers
         }
         public IActionResult RecentOrder(int orderId)
         {
-            List<OrderDetails> orderdetails = db.OrderDetails.Where(o => o.OrderId == orderId).ToList();
-            ViewData["orderdetail"] = orderdetails;
-            return View();
+            Order order = db.Order.First(x => x.OrderId == orderId);
+            order.OrderDetails = db.OrderDetails.Where(x => x.OrderId == orderId).ToList();
+            foreach (var orders in order.OrderDetails)
+            {
+                orders.ActivationCodes = db.ActivationCodes.Where(x => x.OrderId == orderId).ToList();
+            }
+            return View(order);
         }
     }
 }

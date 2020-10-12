@@ -9,8 +9,8 @@ namespace Team8CA.Models
     {
         public int OrderDetailsId { get; set; }
         public int OrderId { get; set; }
-        public virtual Order Order { get; set; }
         public int ProductId { get; set; }
+        public virtual Order Order { get; set; }
         public virtual Products Product { get; set; }
         public int Quantity { get; set; }
         public double Price { get; set; }
@@ -18,6 +18,7 @@ namespace Team8CA.Models
         public bool CheckOutComplete { get; set; }
         public OrderDetails()
         {
+            ActivationCodes = new List<ActivationCodes>();
         }
     }
 }
