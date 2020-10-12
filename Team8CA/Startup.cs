@@ -29,17 +29,19 @@ namespace Team8CA
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+
 
             services.AddDbContext<AppDbContext>
                 (opt => opt.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("DBConn")));
 
             //services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
 
+            services.AddControllersWithViews();
             services.AddScoped<Team8CA.Models.Customer>();
             services.AddScoped<Team8CA.Models.Products>();
             services.AddScoped<Team8CA.Models.Session>();
             services.AddScoped<Team8CA.Models.ShoppingCart>();
+            //services.AddScoped<IOrderRepository, OrderRepository>();
             //services.AddScoped<ShoppingCart>(x => ShoppingCart.GetCart(x));
 
             services.AddHttpContextAccessor();
@@ -58,9 +60,11 @@ namespace Team8CA
                 app.UseExceptionHandler("/Home/Error");
             }
 
+            app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
-            //app.UseSession(); //to set session before user moves from 1 page to another (establish session before routing request)
+            app.UseSession(); //to set session before user moves from 1 page to another (establish session before routing request)
 
             app.UseRouting();
 

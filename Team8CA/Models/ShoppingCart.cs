@@ -18,7 +18,8 @@ namespace Team8CA.Models
     {
         private readonly AppDbContext db;
 
-        [Key]
+
+
         public string ShoppingCartId { get; set; } //this is the cartID
 
         public virtual List<ShoppingCartItem> ShoppingCartItems { get; set; }
@@ -172,7 +173,7 @@ namespace Team8CA.Models
 
         public List<ShoppingCartItem> GetShoppingCartItems()
         {
-            return ShoppingCartItems ?? (ShoppingCartItems = db.ShoppingCartItem.Where(x => x.ShoppingCartId == ShoppingCartId).Include(y => y.Products).ToList());
+            return ShoppingCartItems = db.ShoppingCartItem.Where(x => x.ShoppingCartId == ShoppingCartId).ToList();
         }
 
         public double GetCartTotal()
@@ -182,15 +183,16 @@ namespace Team8CA.Models
             return total;
         }
 
-        public void ClearCart()
+        public void ClearCart(string customerid)
         {
-            var cartitems = db.ShoppingCartItem.Where(x => x.ShoppingCartId == ShoppingCartId);
+            var cartitems = db.ShoppingCartItem.Where(x => x.CustomerId == customerid);
+            var cart = db.ShoppingCart.Where(x => x.CustomerId == customerid);
             db.ShoppingCartItem.RemoveRange(cartitems);
+            db.ShoppingCart.RemoveRange(cart);
             db.SaveChanges();
         }
 
-
-        public void CheckoutCart (string customerid)
+        public void CheckoutCart(string customerid)
         {
             ShoppingCart shoppingcart = db.ShoppingCart.FirstOrDefault(x => x.CustomerId == customerid && !x.IsCheckOut);
             shoppingcart.IsCheckOut = true;
@@ -198,27 +200,39 @@ namespace Team8CA.Models
             db.ShoppingCart.Update(shoppingcart);
             db.SaveChanges();
 
-            Order orders = db.Order.FirstOrDefault(
-                x => x.CustomerId == customerid);
+            Order orders = db.Order.FirstOrDefault(x => x.CustomerId == customerid && x.OrderDate != shoppingcart.OrderTime);
+
             if (orders == null)
             {
-                orders.CreateOrder(orders);
-            }
-
-            List<ShoppingCartItem> cartitems = db.ShoppingCartItem.Where(x => x.ShoppingCartId == shoppingcart.ShoppingCartId).ToList();
-            foreach (var item in cartitems)
-            {
-                OrderDetails orderdetails = new OrderDetails()
+                Order neworder = new Order()
                 {
-                    ProductId = item.ProductsId,
-                    OrderId = orders.OrderId,
-                    Quantity = item.Quantity,
-                    Price = item.Products.ProductPrice
+                    CustomerId = customerid,
+                    OrderDate = DateTime.Now,
+                    OrderTotal = shoppingcart.GetCartTotal()
                 };
-                db.OrderDetails.Add(orderdetails);
-                db.SaveChanges();
+                db.Order.Add(neworder);
             }
+            db.SaveChanges();
+
+            Order orderid = db.Order.FirstOrDefault(x => x.CustomerId == customerid);
+            List<ShoppingCartItem> shoppingcartitems = db.ShoppingCartItem.Where(x => x.CustomerId == customerid).ToList();
+            foreach (ShoppingCartItem shoppingcartitem in shoppingcartitems)
+            {
+                OrderDetails neworderdetails = new OrderDetails
+                {
+                    Quantity = shoppingcartitem.Quantity,
+                    Price = shoppingcartitem.Products.ProductPrice,
+                    ProductId = shoppingcartitem.Products.ProductId,
+                    OrderId = orderid.OrderId
+                };
+                db.OrderDetails.Add(neworderdetails);
+            }
+            db.SaveChanges();
         }
+
+
+
+
     }
 }
 

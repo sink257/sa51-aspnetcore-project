@@ -1,14 +1,14 @@
 ﻿@model Order
-@using Microsoft.Extensions.Options
+@*@using Microsoft.Extensions.Options*@
 
-@inject IOptions<Team8CA.Services.StripeSettings> Stripe
+@*@inject IOptions<Team8CA.Services.StripeSettings> Stripe*@
 
-@{
+@*@{
     ViewData["Title"] = "ShoppingCart";
-    List<ShoppingCartItem> shoppingcartitems = (List<ShoppingCartItem>)ViewData["shoppingcartitems"];
-}
+    //List<ShoppingCartItem> shoppingcartitems = (List<ShoppingCartItem>)ViewData["shoppingcartitems"];
+}*@
 
-<form method="post">
+@*<form asp-action="Checkout" method="Post" role="form">*@
     <br />
     <div class="backgroundWhiteBorder">
         <div class="container">
@@ -36,7 +36,7 @@
                                         <label>Name</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="Name" type="text" class="form-control" />
+                                        @*<input asp-for="Name" type="text" class="form-control" />*@
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -44,7 +44,7 @@
                                         <label>Phone</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="PhoneNumber" type="text" class="form-control" />
+                                        @*<input asp-for="PhoneNumber" type="text" class="form-control" />*@
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -52,7 +52,7 @@
                                         <label>Street Address</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="StreetAddress"  type="text" class="form-control" />
+                                        @*<input asp-for="StreetAddress" type="text" class="form-control" />*@
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -60,7 +60,7 @@
                                         <label>City</label>
                                     </div>
                                     <div class="col-9">
-                                        <input asp-for="City" type="text" class="form-control" />
+                                        @*<input asp-for="City" type="text" class="form-control" />*@
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -68,7 +68,7 @@
                                         <label>State</label>
                                     </div>
                                     <div class="col-9">
-                                        <input  asp-for="State" type="text" class="form-control" />
+                                        @*<input asp-for="State" type="text" class="form-control" />*@
                                     </div>
                                 </div>
                                 <div class="row my-1">
@@ -76,7 +76,7 @@
                                         <label>Postal Code</label>
                                     </div>
                                     <div class="col-9">
-                                        <input  asp-for="PostalCode" type="text" class="form-control" />
+                                        @*<input asp-for="PostalCode" type="text" class="form-control" />*@
                                     </div>
                                 </div>
                             </div>
@@ -85,10 +85,10 @@
                                     <span class="text-info">Order Summary:</span>
                                 </h4>
                                 <ul class="list-group mb-3">
-                                    @{ double subtotal = 0;
-                                        double total = 0;}
-                                    @foreach (ShoppingCartItem cartitem in shoppingcartitems)
-                                        {
+                                    @*@{ double subtotal = 0;
+                                        double total = 0;}*@
+                                    @*@foreach (ShoppingCartItem cartitem in shoppingcartitems)
+                                    {
                                         <li class="list-group-item d-flex justify-content-between">
                                             <div>
                                                 <h6 class="my-0">@cartitem.Products.ProductName</h6>
@@ -99,11 +99,11 @@
                                                 total += subtotal;}
                                             <span class="text-muted">$ @subtotal</span>
                                         </li>
-                                                }
-                                    <li class="list-group-item d-flex justify-content-between bg-light">
+                                    }*@
+                                    @*<li class="list-group-item d-flex justify-content-between bg-light">
                                         <small class="text-info">Total ($)</small>
                                         <strong class="text-info">$@total</strong>
-                                    </li>
+                                    </li>*@
                                 </ul>
                             </div>
                         </div>
@@ -116,22 +116,22 @@
                         </div>
                         <div class="col-12 col-md-4">
 
-                            @{
+                            @*@{
                                 var OrderTotalForStripe = @total * 100;
-                            }
+                            }*@
                             @*<script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                    data-key="@Stripe.Value.PublishableKey"
-                                    data-amount="@OrderTotalForStripe"
-                                    data-name="Bulky Book"
-                                    data-label="Place Order"
-                                    data-description="Get Books, For Less"
-                                    data-locale="auto"
-                                    data-allow-remember-me="false"
-                                    data-image="https://stripe.com/img/documentation/checkout/marketplace.png">
-                            </script>
-                            <script>
-                                document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
-                            </script>*@
+                                        data-key="@Stripe.Value.PublishableKey"
+                                        data-amount="@OrderTotalForStripe"
+                                        data-name="Bulky Book"
+                                        data-label="Place Order"
+                                        data-description="Get Books, For Less"
+                                        data-locale="auto"
+                                        data-allow-remember-me="false"
+                                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png">
+                                </script>
+                                <script>
+                                    document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
+                                </script>*@
                             <input type="submit" value="Place Order" class="btn btn-success form-control"/>
                         </div>
                     </div>
@@ -139,4 +139,4 @@
             </div>
         </div>
     </div>
-</form>
+@*</form>*@
