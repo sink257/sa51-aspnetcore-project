@@ -18,14 +18,6 @@ namespace Team8CA.Models
         public bool CheckOutComplete { get; set; }
         public OrderDetails()
         {
-           
-        }
-        public OrderDetails(int orderId, int productId)
-        {
-            OrderId = orderId;
-            ProductId = productId;
-          //  Quantity = ;
-            ActivationCodes = new List<ActivationCodes>();
         }
     }
 }
