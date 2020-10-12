@@ -97,7 +97,8 @@
 
         .sidenav a:hover {
             color: #000000;
-            background-color: #acacac;
+            background-color: lightgrey;
+            font-weight:600;
         }
 
 .polaroid {
