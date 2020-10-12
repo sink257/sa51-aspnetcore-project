@@ -54,7 +54,6 @@ namespace Team8CA.Controllers
         }
         public IActionResult RecentOrder(int orderId)
         {
-           // List<OrderDetails> orderdetail = db.OrderDetails.Where(o => o.OrderId == orderId ).ToList();
             List<OrderDetails> orderdetails = db.OrderDetails.Where(o => o.OrderId == orderId ).ToList();
             ViewData["orderdetail"] = orderdetails;
             return View();
