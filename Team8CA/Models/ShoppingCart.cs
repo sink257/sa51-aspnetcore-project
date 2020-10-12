@@ -18,6 +18,8 @@ namespace Team8CA.Models
     {
         private readonly AppDbContext db;
 
+
+
         public string ShoppingCartId { get; set; } //this is the cartID
 
         public virtual List<ShoppingCartItem> ShoppingCartItems { get; set; }
@@ -48,9 +50,9 @@ namespace Team8CA.Models
             if (sessionID == null)
             {
                 ShoppingCartItem shoppingCartItem = db.ShoppingCartItem.FirstOrDefault(
-                    x => x.Products.ProductId == product.ProductId && x.ShoppingCartId == "0");
+                    x => x.Products.ProductId == product.ProductId && x.ShoppingCartId == "0" && x.ShoppingCart.IsCheckOut == false);
                 ShoppingCart shoppingcart = db.ShoppingCart.FirstOrDefault(
-                    x => x.CustomerId == customerId && x.ShoppingCartId == "0");
+                    x => x.CustomerId == customerId && x.ShoppingCartId == "0" && x.IsCheckOut == false);
                 if (shoppingcart == null)
                 {
                     ShoppingCart shoppingcarts = new ShoppingCart
@@ -85,7 +87,7 @@ namespace Team8CA.Models
             else
             {
                 ShoppingCartItem shoppingCartItem = db.ShoppingCartItem.FirstOrDefault(
-                    x => x.Products.ProductId == product.ProductId && x.ShoppingCartId == customerId);
+                    x => x.Products.ProductId == product.ProductId && x.ShoppingCartId == customerId && x.ShoppingCart.IsCheckOut == false);
                 ShoppingCart shoppingcart = db.ShoppingCart.FirstOrDefault(
                     x => x.CustomerId == customerId && x.IsCheckOut == false);
                 if (shoppingcart == null)
@@ -169,17 +171,68 @@ namespace Team8CA.Models
             db.SaveChanges();
         }
 
-        public ICollection<ShoppingCartItem> GetShoppingCartItems()
+        public List<ShoppingCartItem> GetShoppingCartItems()
         {
-            return ShoppingCartItems ?? (ShoppingCartItems = db.ShoppingCartItem.Where(x => x.ShoppingCartId == ShoppingCartId).Include(y => y.Products).ToList());
+            return ShoppingCartItems = db.ShoppingCartItem.Where(x => x.ShoppingCartId == ShoppingCartId).ToList();
         }
 
         public double GetCartTotal()
         {
-            var total = db.ShoppingCartItem.Where(x => x.ShoppingCartId == ShoppingCartId).Select(x => x.Products.ProductPrice * x.Quantity).Sum();
+            double total = db.ShoppingCartItem.Where(x => x.ShoppingCartId == ShoppingCartId).Select(x => x.Products.ProductPrice * x.Quantity).Sum();
 
             return total;
         }
+
+        public void ClearCart(string customerid)
+        {
+            var cartitems = db.ShoppingCartItem.Where(x => x.CustomerId == customerid);
+            var cart = db.ShoppingCart.Where(x => x.CustomerId == customerid);
+            db.ShoppingCartItem.RemoveRange(cartitems);
+            db.ShoppingCart.RemoveRange(cart);
+            db.SaveChanges();
+        }
+
+        public void CheckoutCart(string customerid)
+        {
+            ShoppingCart shoppingcart = db.ShoppingCart.FirstOrDefault(x => x.CustomerId == customerid && !x.IsCheckOut);
+            shoppingcart.IsCheckOut = true;
+            shoppingcart.OrderTime = DateTime.Now;
+            db.ShoppingCart.Update(shoppingcart);
+            db.SaveChanges();
+
+            Order orders = db.Order.FirstOrDefault(x => x.CustomerId == customerid && x.OrderDate != shoppingcart.OrderTime);
+
+            if (orders == null)
+            {
+                Order neworder = new Order()
+                {
+                    CustomerId = customerid,
+                    OrderDate = DateTime.Now,
+                    OrderTotal = shoppingcart.GetCartTotal()
+                };
+                db.Order.Add(neworder);
+            }
+            db.SaveChanges();
+
+            Order orderid = db.Order.FirstOrDefault(x => x.CustomerId == customerid);
+            List<ShoppingCartItem> shoppingcartitems = db.ShoppingCartItem.Where(x => x.CustomerId == customerid).ToList();
+            foreach (ShoppingCartItem shoppingcartitem in shoppingcartitems)
+            {
+                OrderDetails neworderdetails = new OrderDetails
+                {
+                    Quantity = shoppingcartitem.Quantity,
+                    Price = shoppingcartitem.Products.ProductPrice,
+                    ProductId = shoppingcartitem.Products.ProductId,
+                    OrderId = orderid.OrderId
+                };
+                db.OrderDetails.Add(neworderdetails);
+            }
+            db.SaveChanges();
+        }
+
+
+
+
     }
 }
 

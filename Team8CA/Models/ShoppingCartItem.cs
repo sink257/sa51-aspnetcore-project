@@ -14,19 +14,9 @@ namespace Team8CA.Models
 
         public string CustomerId { get; set; }
 
-        //public string Productname { get; set; } //Consider remove
-
-        //public string Productdescription { get; set; } //Consider remove
-
-        //public bool Productavailability { get; set; } //Consider remove
-
-        //public double Productprice { get; set; } //Consider remove
-
-        //public string ProductPic { get; set; } //Consider remove
-
         public int ProductsId { get; set; }
 
-        public virtual Products Products { get; set; }
+        public virtual Products Products { get; set;}
 
         public virtual ShoppingCart ShoppingCart { get; set; }
 

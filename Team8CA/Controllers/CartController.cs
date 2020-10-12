@@ -5,6 +5,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+//using Stripe;
 using Team8CA.DataAccess;
 using Team8CA.Models;
 
@@ -15,11 +16,13 @@ namespace Team8CA.Controllers
 
         private readonly AppDbContext db;
         private readonly ShoppingCart _shoppingcart;
+        private readonly IOrderRepository _orderRepository;
 
-        public CartController(AppDbContext appDbContext, ShoppingCart shoppingcart)
+        public CartController(AppDbContext appDbContext, ShoppingCart shoppingcart/*, IOrderRepository orderRepository*/)
         {
             db = appDbContext;
             _shoppingcart = shoppingcart;
+            //_orderRepository = orderRepository;
         }
 
         public IActionResult Index()
@@ -42,7 +45,6 @@ namespace Team8CA.Controllers
             {
                 ViewData["cartcount"] = shoppingcart.Count;
                 ViewData["shoppingcartitems"] = shoppingcart;
-
             }
             else
             {
@@ -50,32 +52,8 @@ namespace Team8CA.Controllers
                 ViewData["cartcount"] = shoppingcartNull.Count;
                 ViewData["shoppingcartitems"] = shoppingcartNull;
             }
-
             return View();
             }
-        }
-
-        public IActionResult Checkout()
-        {
-            ViewData["firstname"] = Request.Cookies["firstname"];
-            string sessionid = Request.Cookies["sessionId"];
-            ViewData["sessionId"] = sessionid;
-            string customerId = Request.Cookies["customerId"];
-            ViewData["customerid"] = customerId;
-            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
-            List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
-            if (sessionid != null)
-            {
-                ViewData["cartcount"] = shoppingcart.Count;
-                ViewData["shoppingcartitems"] = shoppingcart;
-
-            }
-            else
-            {
-                ViewData["cartcount"] = shoppingcartNull.Count;
-                ViewData["shoppingcartitems"] = shoppingcartNull;
-            }
-            return View();
         }
 
         public IActionResult AddToShoppingCart(int productid)
@@ -214,6 +192,54 @@ namespace Team8CA.Controllers
             return Redirect("http://localhost:61024/Cart");
         }
 
+        public IActionResult Checkout()
+        {
+            ViewData["firstname"] = Request.Cookies["firstname"];
+            string sessionid = Request.Cookies["sessionId"];
+            ViewData["sessionId"] = sessionid;
+            string customerId = Request.Cookies["customerId"];
+            ViewData["customerid"] = customerId;
+            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
+            List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
+            if (sessionid != null)
+            {
+                ViewData["cartcount"] = shoppingcart.Count;
+                ViewData["shoppingcartitems"] = shoppingcart;
+            }
+            else
+            {
+                ViewData["cartcount"] = shoppingcartNull.Count;
+                ViewData["shoppingcartitems"] = shoppingcartNull;
+            }
 
+            _shoppingcart.CheckoutCart(customerId);
+            _shoppingcart.ClearCart(customerId);
+
+            return RedirectToAction("CheckoutComplete");
+        }
+
+        public IActionResult CheckoutComplete()
+        {
+            ViewData["firstname"] = Request.Cookies["firstname"];
+            string sessionid = Request.Cookies["sessionId"];
+            ViewData["sessionId"] = sessionid;
+            string customerId = Request.Cookies["customerId"];
+            ViewData["customerid"] = customerId;
+            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
+            List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
+            if (sessionid != null)
+            {
+                ViewData["cartcount"] = shoppingcart.Count;
+                ViewData["shoppingcartitems"] = shoppingcart;
+            }
+            else
+            {
+                ViewData["cartcount"] = shoppingcartNull.Count;
+                ViewData["shoppingcartitems"] = shoppingcartNull;
+            }
+
+            ViewBag.CheckoutCompleteMessage = "Thank you for shopping with us. Please enjoy your products!";
+            return View();
+        }
     }
 }
