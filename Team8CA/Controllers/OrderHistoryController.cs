@@ -64,8 +64,8 @@ namespace Team8CA.Controllers
             ViewData["firstname"] = Request.Cookies["firstname"];
             string sessionid = Request.Cookies["sessionId"];
             ViewData["sessionId"] = sessionid;
-
             ViewData["customerid"] = customerId;
+            List<Review> cutsomerReviews = db.Reviews.Where(r => r.CustomerId == customerId).ToList();
             List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
             List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
             if (sessionid != null)
@@ -76,6 +76,9 @@ namespace Team8CA.Controllers
             {
                 ViewData["cartcount"] = shoppingcartNull.Count;
             }
+
+            List<Review> customerReviews = db.Reviews.Where(r => r.CustomerId == customerId).ToList();
+            ViewData["customerReviews"] = customerReviews;
 
             return View(order);
         }
