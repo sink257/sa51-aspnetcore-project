@@ -67,12 +67,12 @@
                         </div>
                     </div>
                 </td>
-                <td>$@orders.Quantity</td>
-                <td>$@orders.Price</td>
+                <td><center>@orders.Quantity</center></td>
+                <td><center>$@orders.Price</center></td>
                 @{ 
                     double ordertotal = orders.Price * orders.Quantity;
                 }
-                <td>@ordertotal</td>
+                <td><center>@ordertotal</center></td>
                 <td>
                     <select>
                      @{
