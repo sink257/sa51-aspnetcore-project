@@ -143,12 +143,12 @@ namespace Team8CA.Controllers
             ViewData["firstname"] = Request.Cookies["firstname"];
             ViewData["sessionId"] = Request.Cookies["sessionId"];
 
-            string sessionid = Request.Cookies["sessionId"];
+            sessionid = Request.Cookies["sessionId"];
             ViewData["sessionId"] = sessionid;
-            string customerId = Request.Cookies["customerId"];
+            customerId = Request.Cookies["customerId"];
             ViewData["customerid"] = customerId;
-            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
-            List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
+            shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
+            shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
 
             if (sessionid != null)
             {
