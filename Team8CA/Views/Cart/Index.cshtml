@@ -1,4 +1,8 @@
-﻿@{
+﻿@using Microsoft.Extensions.Options
+
+@inject IOptions<Team8CA.Services.StripeSettings> Stripe
+
+@{
     ViewData["Title"] = "ShoppingCart";
     List<ShoppingCartItem> shoppingcartitems = (List<ShoppingCartItem>)ViewData["shoppingcartitems"];
     int cartcount = (int)ViewData["cartcount"];
@@ -66,14 +70,14 @@
                                     <h6><strong>$@subtotal</strong></h6>
                                 </div>
                                 <div class="col-2 col-sm-4 col-lg-2 text-right">
-                                    <a asp-area="" asp-controller="Cart" asp-action="RemoveCartRow" asp-route-productid="@cartitem.ProductsId" alt="" class="btn btn-outline-danger" >
+                                    <a asp-area="" asp-controller="Cart" asp-action="RemoveCartRow" asp-route-productid="@cartitem.ProductsId" alt="" class="btn btn-outline-danger">
                                         <i class="fas fa-trash"></i>
                                     </a>
                                 </div>
                             </div>
                         </div>
                         <hr />
-                                        
+
                     }
                 </div>
                 <div class="card-footer">
@@ -93,8 +97,26 @@
                     <div class="card-footer row">
 
                         <div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6 ">
-
-                            <a asp-area="" asp-controller="Cart" asp-action="Checkout" class="btn btn-success form-control">Proceed to checkout</a>
+                            <form asp-action="Checkout" asp-controller="Cart" method="Post" role="form">
+                                @{
+                                    var OrderTotalForStripe = @total * 100;
+                                }
+                                <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                        data-key="@Stripe.Value.PublishableKey"
+                                        data-amount="@OrderTotalForStripe"
+                                        data-name="T8Softwares"
+                                        data-label="Place Order"
+                                        data-description="Hope you enjoy the purchase!"
+                                        data-locale="auto"
+                                        data-allow-remember-me="false"
+                                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png">
+                                </script>
+                                <script>
+                                    document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
+                                </script>
+                                <input type="submit" value="Place Order" class="btn btn-success form-control" />
+                                @*<a asp-area="" asp-controller="Cart" asp-action="Checkout" class="btn btn-success form-control" value="Place Order">Proceed to checkout</a>*@
+                            </form>
                         </div>
                     </div>
                 </div>
