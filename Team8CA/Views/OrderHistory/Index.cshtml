@@ -4,22 +4,21 @@
     List<Order> orders = (List<Order>)ViewData["order"];
 }
 <style>
+    table {
+        border: 1px solid lightgray;
+    }
+
     #customers {
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         width: 90%;
         margin-left: auto;
         margin-right: auto;
         table-layout: auto;
     }
-
         #customers td, #customers th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        #customers tr:nth-child(even) {
-            background-color: #f2f2f2;
+            padding: 12px;
+            padding-bottom: 12px;
+            text-align: center;
         }
 
         #customers tr:hover {
@@ -29,8 +28,7 @@
         #customers th {
             padding-top: 12px;
             padding-bottom: 12px;
-            text-align: center;
-            background-color: #4CAF50;
+            background-color: #343a40;
             color: white;
         }
 </style>
@@ -40,23 +38,21 @@
         <thead>
             <tr>
                 <th>OrderId</th>
-               
-                <th>Cost</th>
+                <th>Price</th>
                 <th>Ordered Date</th>
-                <th></th>
+                <th>Details</th>
             </tr>
         </thead>
-          @{ foreach (Order order in orders )
+        @{foreach (Order order in orders )
 
-                 {
-                     <tr>
-                         <td>@order.OrderId</td>
-                        
-                         <td>@order.OrderTotal</td>
-                         <td>@order.OrderDate</td>
-                         <td><a href=@("/OrderHistory/RecentOrder")>More Details</a></td>
-                     </tr>
-                 }
-             }
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>$@order.OrderTotal</td>
+                <td>@order.OrderDate</td>
+                <td><a href=@("/OrderHistory/RecentOrder")>More Details</a></td>
+            </tr>
+            }
+        }
     </table>
 </body>
