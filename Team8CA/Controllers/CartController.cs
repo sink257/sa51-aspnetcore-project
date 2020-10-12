@@ -16,7 +16,7 @@ namespace Team8CA.Controllers
 
         private readonly AppDbContext db;
         private readonly ShoppingCart _shoppingcart;
-        private readonly IOrderRepository _orderRepository;
+        //private readonly IOrderRepository _orderRepository;
 
         public CartController(AppDbContext appDbContext, ShoppingCart shoppingcart/*, IOrderRepository orderRepository*/)
         {
