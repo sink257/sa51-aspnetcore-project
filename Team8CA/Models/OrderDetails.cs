@@ -14,7 +14,7 @@ namespace Team8CA.Models
         public virtual Products Product { get; set; }
         public int Quantity { get; set; }
         public double Price { get; set; }
-        public virtual List<ActivationCodes> ActivationCodes { get; set; }
+
         public bool CheckOutComplete { get; set; }
         public OrderDetails()
         {

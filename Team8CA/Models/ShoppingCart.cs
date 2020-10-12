@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -224,10 +225,16 @@ namespace Team8CA.Models
                     Quantity = shoppingcartitem.Quantity,
                     Price = shoppingcartitem.Products.ProductPrice,
                     ProductId = shoppingcartitem.Products.ProductId,
-                    OrderId = orderid.OrderId
-                    
+                    OrderId = orderid.OrderId,
                 };
                 db.OrderDetails.Add(neworderdetails);
+
+                for (int i = 0; i < shoppingcartitem.Quantity; i++)
+                {
+                    string code = orderid.OrderId + shoppingcartitem.ProductsId + Guid.NewGuid().ToString();
+                    ActivationCodes codes = new ActivationCodes(orderid.OrderId, code, shoppingcartitem.ProductsId);
+                    db.ActivationCodes.Add(codes);
+                }
             }
             orderid.CheckOutComplete = true;
             db.ShoppingCart.Update(shoppingcart);
