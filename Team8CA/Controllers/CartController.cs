@@ -70,7 +70,7 @@ namespace Team8CA.Controllers
             //{
             //    return Redirect("http://localhost:61024/Login");
             //}
-            //else
+            //ebased on the
             //{
                 if (productselected != null)
                 {
