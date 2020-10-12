@@ -229,7 +229,7 @@ namespace Team8CA.Models
 
                 for (int i = 0; i < shoppingcartitem.Quantity; i++)
                 {
-                    string code = orderid.OrderId + shoppingcartitem.ProductsId + Guid.NewGuid().ToString();
+                    string code = orderid.OrderId + " " + shoppingcartitem.ProductsId + " " + Guid.NewGuid().ToString();
                     ActivationCodes codes = new ActivationCodes(orderid.OrderId, code, shoppingcartitem.ProductsId);
                     db.ActivationCodes.Add(codes);
                 }

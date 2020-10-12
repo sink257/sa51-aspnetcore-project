@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "OrderHistory";
     List<Order> orders = (List<Order>)ViewData["order"];
+    int ordercount = orders.Count;
 }
 <style>
     table {
@@ -15,6 +16,7 @@
         margin-right: auto;
         table-layout: auto;
     }
+
         #customers td, #customers th {
             padding: 12px;
             padding-bottom: 12px;
@@ -33,26 +35,39 @@
         }
 </style>
 
-<body>
-    <table id="customers">
-        <thead>
-            <tr>
-                <th>OrderId</th>
-                <th>Price</th>
-                <th>Ordered Date</th>
-                <th>Details</th>
-            </tr>
-        </thead>
-        @{foreach (Order order in orders )
+@if (ordercount > 0)
+{
+    <body>
+        <table id="customers">
+            <thead>
+                <tr>
+                    <th>OrderId</th>
+                    <th>Price</th>
+                    <th>Ordered Date</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            @{foreach (Order order in orders)
 
-        {
-            <tr>
-                <td>@order.OrderId</td>
-                <td>$@order.OrderTotal</td>
-                <td>@order.OrderDate</td>
-                <td><a href=@("/OrderHistory/RecentOrder")>More Details</a></td>
-            </tr>
+                {
+                        <tr>
+                            <td>@order.OrderId</td>
+                            <td>$@order.OrderTotal</td>
+                            <td>@order.OrderDate</td>
+                            <td>
+
+
+
+                                <a href=@("/OrderHistory/RecentOrder?OrderId="+@order.OrderId)>More Details</a>
+                            </td>
+                        </tr>
+                }
             }
-        }
-    </table>
-</body>
+        </table>
+    </body>
+}
+else
+{
+    <div class="text-center">There are no orders made.</div>
+    <div class="text-center"><a type="button" class="btn btn-primary view" asp-controller="Gallery" asp-action="Index">Continue Shopping</a></div>
+}

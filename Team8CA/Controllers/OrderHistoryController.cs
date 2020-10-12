@@ -28,12 +28,7 @@ namespace Team8CA.Controllers
             string customerId = Request.Cookies["customerId"];
             List<Order> orders = db.Order.Where(o=>o.CustomerId == customerId).ToList();
            
-            if(orders.Count == 0)
-            {
-                return RedirectToAction("EmptyCart");
-            }
-            else
-                ViewData["order"] = orders;
+            ViewData["order"] = orders;
 
             ViewData["firstname"] = Request.Cookies["firstname"];
             string sessionid = Request.Cookies["sessionId"];
@@ -54,12 +49,8 @@ namespace Team8CA.Controllers
         }
         public IActionResult RecentOrder(int orderId)
         {
-            List<OrderDetails> orderdetails = db.OrderDetails.Where(o => o.OrderId == orderId ).ToList();
+            List<OrderDetails> orderdetails = db.OrderDetails.Where(o => o.OrderId == orderId).ToList();
             ViewData["orderdetail"] = orderdetails;
-            return View();
-        }
-        public IActionResult EmptyCart()
-        {
             return View();
         }
     }

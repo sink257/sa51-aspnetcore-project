@@ -6,7 +6,6 @@
     ViewData["Title"] = "ShoppingCart";
     List<ShoppingCartItem> shoppingcartitems = (List<ShoppingCartItem>)ViewData["shoppingcartitems"];
     int cartcount = (int)ViewData["cartcount"];
-    
 }
 
 <style>
@@ -44,7 +43,7 @@
                             <div class="col-12 text-sm-center col-lg-5 text-lg-left">
                                 <h5><strong>@cartitem.Products.ProductName</strong></h5>
                                 <p><small>@cartitem.Products.ProductDescription</small></p>
-                                <p><small>(Availablility: @cartitem.Products.ProductAvailability)</small></p>
+                                @*<p><small>(Availablility: @cartitem.Products.ProductAvailability)</small></p>*@
                             </div>
                             <div class="col-12 text-sm-center col-lg-6 text-lg-right row">
                                 <div class="col-2 text-md-right" style="padding-top:5px;">
