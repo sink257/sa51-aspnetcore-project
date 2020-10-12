@@ -21,7 +21,7 @@ namespace Team8CA.Models
         public int ProductID { get; set; }
 
         public string CustomerName { get; set; }
-        public int CustomerId { get; set; }
+        public string CustomerId { get; set; }
 
         [Column("ReviewDate")]
         [DataType(DataType.Date)]

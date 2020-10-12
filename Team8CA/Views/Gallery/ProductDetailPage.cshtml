@@ -1,6 +1,7 @@
 ﻿@{
     Products product = (Products)ViewData["product"];
     bool boughtThis = (bool)ViewData["boughtThis"];
+    bool reviewedThis = (bool)ViewData["reviewedThis"];
     List<Review> reviews = (List<Review>)ViewData["reviews"];
     //string username = (string)ViewData["username"];
     double averageRating = (double)ViewData["averageRating"];
@@ -141,19 +142,26 @@
                             <p class="text-muted">You have not purchased this product yet.</p>
                         </div>
                     }
-                    else 
-                    { 
-                    <div class="row pt-5 container">
-                        <a class="btn btn-outline-success container" id="leave-review" asp-controller="CreateReview" asp-action="Index" asp-route-id="@product.ProductId">Leave a Review</a>
-                    </div>
+                    else if (reviewedThis == true)
+                    {
+                        <div class="user-review container">
+                            <hr>
+                            <p class="text-muted">You have reviewed this product.</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row pt-5 container">
+                            <a class="btn btn-outline-success container" id="leave-review" asp-controller="CreateReview" asp-action="Index" asp-route-id="@product.ProductId">Leave a Review</a>
+                        </div>
                     }
                 }
                 else
                 {
-                <div class="user-review container">
-                    <hr>
-                    <p class="text-muted"><a href="/Login">Login</a> to leave a review.</p>
-                </div>
+                    <div class="user-review container">
+                        <hr>
+                        <p class="text-muted"><a href="/Login">Login</a> to leave a review.</p>
+                    </div>
                 }
 
             </div>

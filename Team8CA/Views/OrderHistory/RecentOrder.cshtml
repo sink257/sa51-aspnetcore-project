@@ -1,6 +1,7 @@
 ﻿@model Order
 @{ 
     ViewData["Title"] = "RecentOrder";
+    List<Review> customerReviews = (List<Review>)ViewData["customerReviews"];
 }
 
 <style>
@@ -52,7 +53,14 @@
                         <img src="@orders.Product.ProductPic" style="min-width: 50px; max-width: 100px; display: inline-block">
                         <div class="pb-3 ml-3 d-inline-block font-weight-bold">@orders.Product.ProductName</div>
                         <div class="d-lg-table-row">@orders.Product.ProductDescription</div><br>
+                        @if (customerReviews.Any(r => r.ProductID == orders.ProductId))
+                        {
+                            <div><p class="text-muted">You have reviewed this product.</p></div>
+                        }
+                        else
+                        {
                         <a class="btn btn-outline-success float-right" id="leave-review" asp-controller="CreateReview" asp-action="Index" asp-route-id="@orders.Product.ProductId">Leave a Review</a>
+                        }
                     </div>
                 </td>
                 <td>@orders.Quantity</td>
