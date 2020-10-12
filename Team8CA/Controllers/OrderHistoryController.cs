@@ -27,7 +27,13 @@ namespace Team8CA.Controllers
         {
             string customerId = Request.Cookies["customerId"];
             List<Order> orders = db.Order.Where(o=>o.CustomerId == customerId).ToList();
-            ViewData["order"] = orders;
+           
+            if(orders.Count == 0)
+            {
+                return RedirectToAction("EmptyCart");
+            }
+            else
+                ViewData["order"] = orders;
 
             ViewData["firstname"] = Request.Cookies["firstname"];
             string sessionid = Request.Cookies["sessionId"];
@@ -48,46 +54,12 @@ namespace Team8CA.Controllers
         }
         public IActionResult RecentOrder(int orderId)
         {
-            string customerId = Request.Cookies["customerId"];
-            List<Order> orders = db.Order.Where(o => o.CustomerId == customerId).ToList();
-            ViewData["order"] = orders;
-
-            ViewData["firstname"] = Request.Cookies["firstname"];
-            string sessionid = Request.Cookies["sessionId"];
-            ViewData["sessionId"] = sessionid;
-
-            ViewData["customerid"] = customerId;
-            List<ShoppingCartItem> shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
-            List<ShoppingCartItem> shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
-            if (sessionid != null)
-            {
-                ViewData["cartcount"] = shoppingcart.Count;
-            }
-            else
-            {
-                ViewData["cartcount"] = shoppingcartNull.Count;
-            }
-            List<OrderDetails> orderdetail = db.OrderDetails.Where(o => o.OrderId == orderId).ToList();
-            ViewData["orderdetail"] = orderdetail;
-
-            customerId = Request.Cookies["customerId"];
-
-            ViewData["firstname"] = Request.Cookies["firstname"];
-            sessionid = Request.Cookies["sessionId"];
-            ViewData["sessionId"] = sessionid;
-
-            ViewData["customerid"] = customerId;
-            shoppingcart = db.ShoppingCartItem.Where(x => x.ShoppingCartId == customerId).ToList();
-            shoppingcartNull = db.ShoppingCartItem.Where(x => x.ShoppingCartId == "0").ToList();
-            if (sessionid != null)
-            {
-                ViewData["cartcount"] = shoppingcart.Count;
-            }
-            else
-            {
-                ViewData["cartcount"] = shoppingcartNull.Count;
-            }
-
+            List<OrderDetails> orderdetails = db.OrderDetails.Where(o => o.OrderId == orderId ).ToList();
+            ViewData["orderdetail"] = orderdetails;
+            return View();
+        }
+        public IActionResult EmptyCart()
+        {
             return View();
         }
     }
