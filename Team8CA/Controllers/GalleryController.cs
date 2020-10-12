@@ -159,11 +159,40 @@ namespace Team8CA.Controllers
             }
 
             bool boughtThis = false;
-            boughtThis = db.OrderDetails.Any(o => o.ProductId == id);
+            List<Order> customerOrders = db.Order.Where(o => o.CustomerId == customerId).ToList();
+            foreach (Order order in customerOrders) 
+            {
+                if (order.OrderDetails.Any(o => o.ProductId == id)) 
+                {
+                    boughtThis = true;
+                    break;
+                }
+            }
             ViewData["boughtThis"] = boughtThis;
+
+            bool reviewedThis = db.Reviews.Any(r => (r.CustomerId == customerId && r.ProductID == id));
+            ViewData["reviewedThis"] = reviewedThis;
 
             return View();
 
+        }
+
+        public IActionResult RemoveReview(int id)
+        {
+            string customerid = Request.Cookies["customerId"];
+            ViewData["customerid"] = customerid;
+            string sessionid = Request.Cookies["sessionId"];
+            if (sessionid == null)
+            {
+                customerid = "0";
+            }
+            var reviewselected = db.Reviews.FirstOrDefault(r => r.ProductID == id && r.CustomerId == customerid);
+            if (reviewselected != null)
+            {
+                db.Reviews.Remove(reviewselected);
+                db.SaveChanges();
+            }
+            return RedirectToAction("ProductDetailPage", "Gallery", new { id = id});
         }
 
     }

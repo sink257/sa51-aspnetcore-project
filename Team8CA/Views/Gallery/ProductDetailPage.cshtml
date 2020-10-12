@@ -1,6 +1,7 @@
 ﻿@{
     Products product = (Products)ViewData["product"];
     bool boughtThis = (bool)ViewData["boughtThis"];
+    bool reviewedThis = (bool)ViewData["reviewedThis"];
     List<Review> reviews = (List<Review>)ViewData["reviews"];
     //string username = (string)ViewData["username"];
     double averageRating = (double)ViewData["averageRating"];
@@ -100,26 +101,32 @@
                     @if (reviews.Count() > 0)
                     {
                         foreach (Review r in reviews)
-                        {<div class="user-review container">
-                                <hr>
-                                <h6 class="text-info">@r.CustomerName</h6>
-                                <p class="text-muted">@r.ReviewDate</p>
+                       {<div class="user-review container">
+                        <hr>
+                       @if (reviewedThis == true && r.CustomerId == (string)ViewData["customerid"])
+                        {
+                        <a class="d-inline-block float-right  btn btn-outline-danger" asp-controller="Gallery" asp-action="RemoveReview" asp-route-id="@product.ProductId" alt="">
+                            <i class="fas fa-times"></i>
+                        </a>
+                        }
+                        <h6 class="text-info">@r.CustomerName</h6>
+                        <p class="text-muted">@r.ReviewDate</p>
 
-                                <div>
-                                    @for (int i = 0; i < 5; i++)
-                                    {
-                                        <h5 class="d-inline-block" style="color:#ccc"><i class="fa fa-star"></i></h5>
-                                    }
-                                </div>
-                                <div style="position: absolute;transform:translateY(-100%)">
+                        <div>
+                            @for (int i = 0; i < 5; i++)
+                            {
+                                <h5 class="d-inline-block" style="color:#ccc"><i class="fa fa-star"></i></h5>
+                            }
+                        </div>
+                        <div style="position: absolute;transform:translateY(-100%)">
 
-                                    @for (int i = 0; i < r.StarRating; i++)
-                                    {
-                                        <h5 class="d-inline-block" style="color:#f8ce0b"><i class="fa fa-star"></i></h5>
-                                    }
-                                </div>
-                                <p class="pt-2">@r.ReviewDetails</p>
-                            </div>
+                            @for (int i = 0; i < r.StarRating; i++)
+                            {
+                                <h5 class="d-inline-block" style="color:#f8ce0b"><i class="fa fa-star"></i></h5>
+                            }
+                        </div>
+                        <p class="pt-2">@r.ReviewDetails</p>
+                    </div>
                         }
                     }
                     else
@@ -141,19 +148,26 @@
                             <p class="text-muted">You have not purchased this product yet.</p>
                         </div>
                     }
-                    else 
-                    { 
-                    <div class="row pt-5 container">
-                        <a class="btn btn-outline-success container" id="leave-review" asp-controller="CreateReview" asp-action="Index" asp-route-id="@product.ProductId">Leave a Review</a>
-                    </div>
+                    else if (reviewedThis == true)
+                    {
+                        <div class="user-review container">
+                            <hr>
+                            <p class="text-muted">You have reviewed this product.</p>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row pt-5 container">
+                            <a class="btn btn-outline-success container" id="leave-review" asp-controller="CreateReview" asp-action="Index" asp-route-id="@product.ProductId">Leave a Review</a>
+                        </div>
                     }
                 }
                 else
                 {
-                <div class="user-review container">
-                    <hr>
-                    <p class="text-muted"><a href="/Login">Login</a> to leave a review.</p>
-                </div>
+                    <div class="user-review container">
+                        <hr>
+                        <p class="text-muted"><a href="/Login">Login</a> to leave a review.</p>
+                    </div>
                 }
 
             </div>
