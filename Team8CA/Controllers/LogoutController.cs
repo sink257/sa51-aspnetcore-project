@@ -19,7 +19,7 @@ namespace Team8CA.Controllers
 
         public IActionResult Index()
         {
-
+            ViewData["cartcount"] = 0;
             string sessionId = HttpContext.Request.Cookies["sessionId"];
             db.Sessions.Remove(new Session()
             {
