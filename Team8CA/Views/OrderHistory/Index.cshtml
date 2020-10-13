@@ -5,16 +5,13 @@
     int ordercount = orders.Count;
 }
 <style>
-    table {
-        border: 1px solid lightgray;
-    }
-
     #customers {
         border-collapse: collapse;
         width: 90%;
         margin-left: auto;
         margin-right: auto;
         table-layout: auto;
+        border: 1px solid lightgray;
     }
 
         #customers td, #customers th {
@@ -37,7 +34,7 @@
 
 @if (ordercount > 0)
 {
-    <body>
+    <body>        
         <table id="customers">
             <thead>
                 <tr>
@@ -50,17 +47,17 @@
             @{foreach (Order order in orders)
 
                 {
-                        <tr>
-                            <td>@order.OrderId</td>
-                            <td>$@order.OrderTotal</td>
-                            <td>@order.OrderDate</td>
-                            <td>
-                                <a href=@("/OrderHistory/RecentOrder?OrderId="+@order.OrderId)>View Order Details</a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>@order.OrderId</td>
+                        <td>$@order.OrderTotal</td>
+                        <td>@order.OrderDate</td>
+                        <td>
+                            <a href=@("/OrderHistory/RecentOrder?OrderId="+@order.OrderId)>View Order Details</a>
+                        </td>
+                    </tr>
                 }
             }
-        </table>
+        </table>        
     </body>
 }
 else
