@@ -28,7 +28,7 @@ namespace Team8CA.Controllers
             ViewData["firstname"] = Request.Cookies["firstname"];
             if (sessionid == null)
             {
-                return Redirect("http://localhost:61024/Login");
+                return RedirectToAction("Index","CustomerLogin");
             }
             else
             {
@@ -68,7 +68,7 @@ namespace Team8CA.Controllers
             {
                 service.AddToCart(productselected, productid, 1, customerid, sessionid);
             }
-            return Redirect("http://localhost:61024/");
+            return RedirectToAction("Index", "Gallery");
         }
 
         public IActionResult AddSimilarToShoppingCart([FromServices] CartRelatedService service, int productid)
@@ -136,7 +136,7 @@ namespace Team8CA.Controllers
             {
                 service.AddToCart(productselected, productid, 1, customerid, sessionid);
             }
-            return Redirect("http://localhost:61024/Cart");
+            return RedirectToAction("Index", "Cart");
         }
 
         public IActionResult AddInAntivirus([FromServices] CartRelatedService service, int productid)
@@ -155,7 +155,7 @@ namespace Team8CA.Controllers
             {
                 service.AddToCart(productselected, productid, 1, customerid, sessionid);
             }
-            return Redirect("http://localhost:61024/gallery/antivirusandsecurity");
+            return RedirectToAction("AntivirusAndSecurity", "Gallery");
         }
 
         public IActionResult AddInBusiness([FromServices] CartRelatedService service, int productid)
@@ -174,7 +174,7 @@ namespace Team8CA.Controllers
             {
                 service.AddToCart(productselected, productid, 1, customerid, sessionid);
             }
-            return Redirect("http://localhost:61024/gallery/businessandoffice");
+            return RedirectToAction("BusinessAndOffice", "Gallery");
         }
 
         public IActionResult AddInDesign([FromServices] CartRelatedService service, int productid)
@@ -193,7 +193,7 @@ namespace Team8CA.Controllers
             {
                 service.AddToCart(productselected, productid, 1, customerid, sessionid);
             }
-            return Redirect("http://localhost:61024/gallery/designandillustration");
+            return RedirectToAction("DesignAndIllustration", "Gallery");
         }
 
         public IActionResult RemoveFromShoppingCart([FromServices] CartRelatedService service, int productid)
@@ -212,7 +212,7 @@ namespace Team8CA.Controllers
             {
                 service.RemoveFromCart(productselected, customerid, sessionid);
             }
-            return Redirect("http://localhost:61024/Cart");
+            return RedirectToAction("Index", "Cart");
         }
 
         public IActionResult RemoveCartRow([FromServices] CartRelatedService service, int productid)
@@ -231,7 +231,7 @@ namespace Team8CA.Controllers
             {
                 service.RemoveRow(productselected, customerid, sessionid);
             }
-            return Redirect("http://localhost:61024/Cart");
+            return RedirectToAction("Index", "Cart");
         }
 
         public IActionResult Checkout([FromServices] CartRelatedService service)
