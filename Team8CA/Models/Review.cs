@@ -22,7 +22,7 @@ namespace Team8CA.Models
 
         public string CustomerName { get; set; }
         public string CustomerId { get; set; }
-
+        public int OrderId { get; set; }
         [Column("ReviewDate")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd HH:mm}", ApplyFormatInEditMode = true)] 

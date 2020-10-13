@@ -16,6 +16,7 @@ namespace Team8CA.Models
         public double Price { get; set; }
         public virtual List<ActivationCodes> ActivationCodes { get; set; }
         public bool CheckOutComplete { get; set; }
+        public bool reviewed { get; set; }
         public OrderDetails()
         {
             ActivationCodes = new List<ActivationCodes>();
