@@ -103,7 +103,7 @@
                         foreach (Review r in reviews)
                        {<div class="user-review container">
                         <hr>
-                       @if (reviewedThis == true && r.CustomerId!=null && r.CustomerId == (string)ViewData["customerid"])
+                       @if ( (string)ViewData["sessionId"]!=null && r.CustomerId!=null && r.CustomerId == (string)ViewData["customerid"])
                         {
                         <a class="d-inline-block float-right  btn btn-outline-danger" asp-controller="Gallery" asp-action="RemoveReview" asp-route-id="@product.ProductId" alt="">
                             <i class="fas fa-times"></i>

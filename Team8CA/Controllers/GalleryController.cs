@@ -215,8 +215,8 @@ namespace Team8CA.Controllers
             }
             ViewData["boughtThis"] = boughtThis;
 
-            bool reviewedThis = db.Reviews.Any(r => (r.CustomerId == customerId && r.ProductID == id));
-            ViewData["reviewedThis"] = reviewedThis;
+            bool reviewedThis = db.Order.Any(o => o.CustomerId == customerId && o.OrderDetails.Any(o => o.reviewed != true && o.ProductId == id));
+            ViewData["reviewedThis"] = !reviewedThis;
 
             return View();
 
@@ -235,6 +235,7 @@ namespace Team8CA.Controllers
             if (reviewselected != null)
             {
                 db.Reviews.Remove(reviewselected);
+                db.OrderDetails.FirstOrDefault(o => o.OrderId == reviewselected.OrderId && o.ProductId == id).reviewed = false;
                 db.SaveChanges();
             }
             return RedirectToAction("ProductDetailPage", "Gallery", new {id = id});
