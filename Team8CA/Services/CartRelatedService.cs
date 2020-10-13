@@ -191,6 +191,7 @@ namespace Team8CA.Services
 
             Order orderid = db.Order.FirstOrDefault(x => x.CustomerId == customerid && x.CheckOutComplete == false);
             List<ShoppingCartItem> shoppingcartitems = db.ShoppingCartItem.Where(x => x.CustomerId == customerid).ToList();
+            double carttotal = 0;
             foreach (ShoppingCartItem shoppingcartitem in shoppingcartitems)
             {
                 OrderDetails neworderdetails = new OrderDetails
@@ -200,7 +201,10 @@ namespace Team8CA.Services
                     ProductId = shoppingcartitem.Products.ProductId,
                     OrderId = orderid.OrderId,
                 };
+                carttotal += shoppingcartitem.Quantity * shoppingcartitem.Products.ProductPrice;
                 db.OrderDetails.Add(neworderdetails);
+                Order ordertotalupdate = db.Order.FirstOrDefault(x => x.OrderId == orderid.OrderId);
+                ordertotalupdate.OrderTotal = carttotal;
 
                 for (int i = 0; i < shoppingcartitem.Quantity; i++)
                 {
