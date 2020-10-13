@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Stripe;
 using Team8CA.DataAccess;
 using Team8CA.Models;
 //using Team8CA.Services;
@@ -42,13 +43,27 @@ namespace Team8CA.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(int rating, string details, int productId)
+        public IActionResult Create(int rating, string details, int productId, int?orderId)
         {
             if (!ModelState.IsValid)
                 return View();
-            Review review = new Review(productId, Request.Cookies["firstname"], rating, details, DateTime.Now);
+            Models.Review review = new Models.Review(productId, Request.Cookies["firstname"], rating, details, DateTime.Now);
             string customerId = Request.Cookies["customerId"];
             review.CustomerId = customerId;
+            Products p = db.Products.FirstOrDefault(p => p.ProductId == productId);
+            if (orderId == null)
+            {
+                Models.Order OrderwithProduct = db.Order
+                    .FirstOrDefault(o => o.CustomerId == customerId && o.OrderDetails.Any(d => d.ProductId == p.ProductId && d.reviewed != true) == true);
+                review.OrderId = OrderwithProduct.OrderId;
+
+            }
+            else
+            {
+                review.OrderId = (int)orderId;
+            }
+
+            db.OrderDetails.FirstOrDefault(o => o.OrderId == review.OrderId && o.ProductId == productId).reviewed = true;
             db.Reviews.Add(review);
             db.SaveChanges();
 

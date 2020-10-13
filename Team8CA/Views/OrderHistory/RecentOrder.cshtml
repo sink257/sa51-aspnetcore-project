@@ -54,7 +54,7 @@
                         <div class="pb-2 ml-3 d-inline-block font-weight-bold">@orders.Product.ProductName</div>
                         <div class="pt-2 d-lg-table-row">@orders.Product.ProductDescription</div><br>
 
-                        @if (customerReviews.Any(r => r.ProductID == orders.ProductId))
+                        @if (customerReviews.Any(r => r.ProductID == orders.ProductId && r.OrderId == orders.OrderId))
                         {
                             <div><p class="text-muted">You have reviewed this product.</p></div>
                         }
