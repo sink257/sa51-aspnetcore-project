@@ -26,7 +26,8 @@ namespace Team8CA.Controllers
                 {
                     return await db.Products.Where(p =>
                         p.ProductName.ToLower().Contains(query.ToLower()) ||
-                        p.ProductDescription.ToLower().Contains(query.ToLower()))
+                        p.ProductDescription.ToLower().Contains(query.ToLower()) || 
+                        p.ProductCategory.ToLower().Contains(query.ToLower()))
                     .ToListAsync();
                 }
 
