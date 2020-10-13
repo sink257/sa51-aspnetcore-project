@@ -59,6 +59,11 @@ namespace Team8CA.Controllers
 
             string sessionid = Request.Cookies["sessionId"];
 
+            if (sessionid == null)
+            {
+                customerid = "0";
+            }
+
             if (productselected != null)
             {
                 service.AddToCart(productselected, productid, 1, customerid, sessionid);
@@ -75,6 +80,11 @@ namespace Team8CA.Controllers
 
             string sessionid = Request.Cookies["sessionId"];
 
+            if (sessionid == null)
+            {
+                customerid = "0";
+            }
+
             if (productselected != null)
             {
                 service.AddToCart(productselected, productid, 1, customerid, sessionid);
@@ -90,6 +100,11 @@ namespace Team8CA.Controllers
             string customerid = Request.Cookies["customerId"];
 
             string sessionid = Request.Cookies["sessionId"];
+
+            if (sessionid == null)
+            {
+                customerid = "0";
+            }
 
             if (productselected != null)
             {
