@@ -44,7 +44,14 @@
             <div class="row ">
                 <div class="col-4 p-3 text-center">
                     <img src=@product.ProductPic class="p-0 container img-thumbnail" />
-                    <h5 class="text-success p-3">In stock</h5>
+                    @if (product.ProductAvailability == true)
+                    {
+                        <h5 class="text-success p-3">In stock</h5>
+                    }
+                    else
+                    {
+                        <h5 class="text-muted p-3">Out of stock</h5>
+                    }
                 </div>
 
                 <div class="col-8 pt-4">
