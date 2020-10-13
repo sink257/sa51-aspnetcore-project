@@ -37,8 +37,6 @@ namespace Team8CA.Models
 
         public string LongProductDesc { get; set; }
 
-        public virtual Category Category { get; set; }
-
         public Products() { }
 
         public Products(string ProductName, string ProductPic, double ProductPrice, bool ProductAvailability, string ProductDescription, string ProductCategory, string LongProductDesc)
