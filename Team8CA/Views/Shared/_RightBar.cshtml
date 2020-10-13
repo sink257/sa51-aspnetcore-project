@@ -2,7 +2,7 @@
     @if (ViewData["sessionId"] == null)
     {
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-controller="Login" asp-action="Index">Login</a>
+            <a class="nav-link text-dark" asp-controller="CustomerLogin" asp-action="Index">Login</a>
         </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="" asp-controller="Cart" asp-action="Index">Shopping Cart <i class="fa fa-shopping-cart text-muted"></i> (@ViewData["cartcount"])</a>

@@ -27,8 +27,7 @@ namespace Team8CA.Controllers
             this.sessions = sessions;
             this.db = db;
         }
-
-        [Route("Login")]
+                
         public IActionResult Index()
         {
             ViewData["firstname"] = Request.Cookies["firstname"];

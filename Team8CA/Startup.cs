@@ -77,7 +77,7 @@ namespace Team8CA
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Gallery}/{action=Index}/{id?}");
+                    pattern: "{controller=CustomerLogin}/{action=Index}/{id?}");
             });
 
             db.Database.EnsureDeleted();
