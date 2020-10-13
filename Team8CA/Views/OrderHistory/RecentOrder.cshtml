@@ -5,8 +5,11 @@
 }
 
 <style>
+    table {
+        border: 1px solid lightgray;
+    }
+
     #customers {
-        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
         border-collapse: collapse;
         width: 90%;
         margin-left: auto;
@@ -15,24 +18,19 @@
     }
 
         #customers td, #customers th {
-            border: 1px solid #ddd;
-            padding: 8px;
-        }
-
-        #customers tr:nth-child(even) {
-            background-color: #f7f7f7;
+            padding: 10px;
         }
 
         #customers tr:hover {
             background-color: #ddd;
         }
 
-       
         #customers th {
             padding-top: 12px;
             padding-bottom: 12px;
             background-color: #343a40;
             color: white;
+            text-align: center;
         }
 </style>
 
@@ -52,7 +50,7 @@
                     <div>
                         <img src="@orders.Product.ProductPic" style="min-width: 50px; max-width: 100px; display: inline-block">
                         <div class="pb-2 ml-3 d-inline-block font-weight-bold">@orders.Product.ProductName</div>
-                        <div class="pt-2 d-lg-table-row">@orders.Product.ProductDescription</div><br>
+                        <div class="pt-2 d-lg-table-row"><small>@orders.Product.ProductDescription</small></div><br>
 
                         @if (customerReviews.Any(r => r.ProductID == orders.ProductId))
                         {
