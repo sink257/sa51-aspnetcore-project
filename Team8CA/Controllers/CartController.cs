@@ -59,6 +59,11 @@ namespace Team8CA.Controllers
 
             string sessionid = Request.Cookies["sessionId"];
 
+            if (sessionid == null)
+            {
+                customerid = "0";
+            }
+
             if (productselected != null)
             {
                 service.AddToCart(productselected, productid, 1, customerid, sessionid);
@@ -75,6 +80,11 @@ namespace Team8CA.Controllers
 
             string sessionid = Request.Cookies["sessionId"];
 
+            if (sessionid == null)
+            {
+                customerid = "0";
+            }
+
             if (productselected != null)
             {
                 service.AddToCart(productselected, productid, 1, customerid, sessionid);
@@ -90,6 +100,11 @@ namespace Team8CA.Controllers
             string customerid = Request.Cookies["customerId"];
 
             string sessionid = Request.Cookies["sessionId"];
+
+            if (sessionid == null)
+            {
+                customerid = "0";
+            }
 
             if (productselected != null)
             {
@@ -122,6 +137,63 @@ namespace Team8CA.Controllers
                 service.AddToCart(productselected, productid, 1, customerid, sessionid);
             }
             return Redirect("http://localhost:61024/Cart");
+        }
+
+        public IActionResult AddInAntivirus([FromServices] CartRelatedService service, int productid)
+        {
+            var productselected = db.Products.FirstOrDefault(x => x.ProductId == productid);
+
+            string customerid = Request.Cookies["customerId"];
+
+            string sessionid = Request.Cookies["sessionId"];
+            if (sessionid == null)
+            {
+                customerid = "0";
+            }
+
+            if (productselected != null)
+            {
+                service.AddToCart(productselected, productid, 1, customerid, sessionid);
+            }
+            return Redirect("http://localhost:61024/gallery/antivirusandsecurity");
+        }
+
+        public IActionResult AddInBusiness([FromServices] CartRelatedService service, int productid)
+        {
+            var productselected = db.Products.FirstOrDefault(x => x.ProductId == productid);
+
+            string customerid = Request.Cookies["customerId"];
+
+            string sessionid = Request.Cookies["sessionId"];
+            if (sessionid == null)
+            {
+                customerid = "0";
+            }
+
+            if (productselected != null)
+            {
+                service.AddToCart(productselected, productid, 1, customerid, sessionid);
+            }
+            return Redirect("http://localhost:61024/gallery/businessandoffice");
+        }
+
+        public IActionResult AddInDesign([FromServices] CartRelatedService service, int productid)
+        {
+            var productselected = db.Products.FirstOrDefault(x => x.ProductId == productid);
+
+            string customerid = Request.Cookies["customerId"];
+
+            string sessionid = Request.Cookies["sessionId"];
+            if (sessionid == null)
+            {
+                customerid = "0";
+            }
+
+            if (productselected != null)
+            {
+                service.AddToCart(productselected, productid, 1, customerid, sessionid);
+            }
+            return Redirect("http://localhost:61024/gallery/designandillustration");
         }
 
         public IActionResult RemoveFromShoppingCart([FromServices] CartRelatedService service, int productid)

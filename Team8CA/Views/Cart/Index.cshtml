@@ -43,7 +43,7 @@
                             <div class="col-12 text-sm-center col-lg-5 text-lg-left">
                                 <h5><strong>@cartitem.Products.ProductName</strong></h5>
                                 <p><small>@cartitem.Products.ProductDescription</small></p>
-                                @*<p><small>(Availablility: @cartitem.Products.ProductAvailability)</small></p>*@
+
                             </div>
                             <div class="col-12 text-sm-center col-lg-6 text-lg-right row">
                                 <div class="col-2 text-md-right" style="padding-top:5px;">
@@ -116,7 +116,6 @@
                                     document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
                                 </script>
                                 <input type="submit" value="Place Order" class="btn btn-success form-control" />
-                                @*<a asp-area="" asp-controller="Cart" asp-action="Checkout" class="btn btn-success form-control" value="Place Order">Proceed to checkout</a>*@
                             </form>
                         </div>
                     </div>

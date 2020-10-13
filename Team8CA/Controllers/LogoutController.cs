@@ -28,17 +28,6 @@ namespace Team8CA.Controllers
             );
 
             HttpContext.Response.Cookies.Delete("sessionId");
-            //Session session = new Session()
-            //{
-            //    SessionID = "00",
-            //    Username = "00",
-            //    FirstName = "00",
-            //    Timestamp = DateTimeOffset.Now.ToUnixTimeSeconds(),
-            //    CustomerID = "00",
-            //};
-            //db.Sessions.Add(session);
-            //db.SaveChanges();
-            //Response.Cookies.Append("sessionId", session.SessionID);
 
             return View ("Logout");
         }
