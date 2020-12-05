@@ -1,3 +1,2 @@
-# Team8CAProject
-
-A web platform for your eCommerce needs!
+# sa51-aspnetcore-project
+ECommerce Project using ASP.NET Core
